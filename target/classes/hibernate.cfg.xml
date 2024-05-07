@@ -1,0 +1,11 @@
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/cinema</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">password</property>
+        <mapping class="com.cinema.infra.db.postgres.entities.users.PgPerson"/>
+        <mapping class="com.cinema.infra.db.postgres.entities.users.PgClient"/>
+    </session-factory>
+</hibernate-configuration>
