@@ -10,7 +10,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 
 @Entity(name = "person")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class PgPerson {
   public PgPerson() {
   }
@@ -31,6 +31,39 @@ public abstract class PgPerson {
   @Column(nullable = false)
   private String lastName;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String CPF;
+
+  public UUID getID() {
+    return this.ID;
+  }
+
+  public void setID(UUID ID) {
+    this.ID = ID;
+  }
+
+  public String getFirstName() {
+    return this.firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return this.lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getCPF() {
+    return this.CPF;
+  }
+
+  public void setCPF(String CPF) {
+    this.CPF = CPF;
+  }
+
 }

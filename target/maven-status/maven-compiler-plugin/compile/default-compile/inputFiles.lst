@@ -1,6 +1,0 @@
-/home/daniel/Área de Trabalho/git/ufvjm/poo/cinema/src/main/java/com/cinema/domain/usecases/users/CreateClient.java
-/home/daniel/Área de Trabalho/git/ufvjm/poo/cinema/src/main/java/com/cinema/domain/entities/users/Client.java
-/home/daniel/Área de Trabalho/git/ufvjm/poo/cinema/src/main/java/com/cinema/domain/contracts/repositories/users/ICreateClient.java
-/home/daniel/Área de Trabalho/git/ufvjm/poo/cinema/src/main/java/com/cinema/infra/db/postgres/entities/users/Person.java
-/home/daniel/Área de Trabalho/git/ufvjm/poo/cinema/src/main/java/com/cinema/main/Main.java
-/home/daniel/Área de Trabalho/git/ufvjm/poo/cinema/src/main/java/com/cinema/domain/entities/users/Person.java
