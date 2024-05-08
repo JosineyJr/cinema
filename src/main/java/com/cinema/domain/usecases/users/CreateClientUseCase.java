@@ -7,7 +7,7 @@ import com.cinema.domain.contracts.repositories.users.ICreateClientRepository;
 import com.cinema.domain.contracts.repositories.users.IFindClientByCPFRepository;
 import com.cinema.domain.entities.users.Client;
 import com.cinema.domain.entities.users.Genre;
-import com.cinema.domain.entities.users.errors.ClientAlreadyExistsError;
+import com.cinema.domain.errors.ClientAlreadyExistsError;
 
 public class CreateClientUseCase {
   ICreateClientRepository createClientRepository;

@@ -2,7 +2,7 @@ package com.cinema.application.errors;
 
 public class CPFMinMaxSizeError extends Exception {
   public CPFMinMaxSizeError() {
-    super("CPF must have 11 characters");
+    super("CPF deve ter 11 dígitos.");
   }
 
   @Override

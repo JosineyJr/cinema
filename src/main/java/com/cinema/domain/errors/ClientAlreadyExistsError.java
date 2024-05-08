@@ -1,8 +1,8 @@
-package com.cinema.domain.entities.users.errors;
+package com.cinema.domain.errors;
 
 public class ClientAlreadyExistsError extends Exception {
   public ClientAlreadyExistsError() {
-    super("Client already exists");
+    super("Cliente já cadastrado.");
   }
 
   @Override

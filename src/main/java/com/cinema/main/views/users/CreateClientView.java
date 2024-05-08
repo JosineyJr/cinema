@@ -77,8 +77,8 @@ public class CreateClientView {
 
     if (response.getStatusCode() == 200 || response.getStatusCode() == 204) {
       Alert alert = new Alert(Alert.AlertType.INFORMATION);
-      alert.setTitle("Success");
-      alert.setHeaderText("Client created successfully!");
+      alert.setTitle("Sucesso");
+      alert.setHeaderText("Cliente criado com sucesso!");
       alert.showAndWait();
 
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/cinema/main/views/users/ClientMenu.fxml"));
@@ -94,7 +94,7 @@ public class CreateClientView {
       currentWindow.show();
     } else {
       Alert alert = new Alert(Alert.AlertType.ERROR);
-      alert.setTitle("Erro");
+      alert.setTitle("Error");
       alert.setHeaderText(response.getData().toString());
       alert.showAndWait();
     }

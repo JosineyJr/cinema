@@ -2,7 +2,7 @@ package com.cinema.application.errors;
 
 public class InvalidCPFError extends Exception {
   public InvalidCPFError() {
-    super("Invalid CPF");
+    super("CPF inválido.");
   }
 
   @Override

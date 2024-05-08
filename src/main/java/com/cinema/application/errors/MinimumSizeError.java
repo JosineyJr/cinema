@@ -2,7 +2,7 @@ package com.cinema.application.errors;
 
 public class MinimumSizeError extends Exception {
   public MinimumSizeError(String fieldName, int minimumSize) {
-    super(fieldName + " must have at least " + minimumSize + " characters");
+    super(fieldName + " deve ter no mínimo " + minimumSize + " caracteres.");
   }
 
   @Override

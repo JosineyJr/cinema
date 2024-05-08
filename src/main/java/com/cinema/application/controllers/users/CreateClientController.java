@@ -9,7 +9,7 @@ import com.cinema.application.helpers.ResponseFactory;
 import com.cinema.application.validation.Field;
 import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
-import com.cinema.domain.entities.users.errors.ClientAlreadyExistsError;
+import com.cinema.domain.errors.ClientAlreadyExistsError;
 import com.cinema.domain.usecases.users.CreateClientUseCase;
 
 public class CreateClientController extends Controller {
@@ -42,29 +42,30 @@ public class CreateClientController extends Controller {
   public ArrayList<IValidator> buildValidators(Object object) {
     CreateClientDTO createClientDTO = (CreateClientDTO) object;
 
-    String firstName = createClientDTO.getFirstName();
-    String lastName = createClientDTO.getLastName();
-    String CPF = createClientDTO.getCPF();
-    String password = createClientDTO.getPassword();
-    String passwordConfirmation = createClientDTO.getPasswordConfirmation();
+    Field firstName = new Field(createClientDTO.getFirstName(), "Nome");
+    Field lastName = new Field(createClientDTO.getLastName(), "Sobrenome");
+    Field CPF = new Field(createClientDTO.getCPF(), "CPF");
+    Field password = new Field(createClientDTO.getPassword(), "Senha");
+    Field passwordConfirmation = new Field(createClientDTO.getPasswordConfirmation(), "Confirmação de Senha");
 
-    ArrayList<Field> requiredFields = new ArrayList<Field>();
+    ArrayList<Field> requiredFields = new ArrayList<>();
 
-    requiredFields.add(new Field(firstName, "firstName"));
-    requiredFields.add(new Field(lastName, "lastName"));
-    requiredFields.add(new Field(CPF, "CPF"));
-    requiredFields.add(new Field(password, "password"));
-    requiredFields.add(new Field(passwordConfirmation, "passwordConfirmation"));
+    requiredFields.add(firstName);
+    requiredFields.add(lastName);
+    requiredFields.add(CPF);
+    requiredFields.add(password);
+    requiredFields.add(passwordConfirmation);
 
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
 
     validators.addAll(ValidationBuilder.of().required(requiredFields).build());
 
-    validators.addAll(ValidationBuilder.of().validateCPF(new Field(CPF, "CPF")).build());
+    validators.addAll(ValidationBuilder.of().validateCPF(CPF).build());
 
-    validators.addAll(ValidationBuilder.of().compareFields(new Field(password, "password"),new Field(passwordConfirmation, "passwordConfirmation")).build());
+    validators.addAll(ValidationBuilder.of()
+        .compareFields(password, passwordConfirmation).build());
 
-    validators.addAll(ValidationBuilder.of().minimumSize(new Field(password, "password"), 6).build());
+    validators.addAll(ValidationBuilder.of().minimumSize(password, 6).build());
 
     return validators;
   }
