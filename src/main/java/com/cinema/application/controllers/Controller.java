@@ -8,6 +8,7 @@ import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationComposite;
 
 public abstract class Controller {
+  @SuppressWarnings("rawtypes")
   public abstract Response perform(Object object);
 
   public abstract ArrayList<IValidator> buildValidators(Object object);
@@ -16,6 +17,7 @@ public abstract class Controller {
     return new ArrayList<IValidator>();
   }
 
+  @SuppressWarnings("rawtypes")
   public Response handle(Object object){
     Exception validateError = this.validate(object);
 
@@ -26,6 +28,7 @@ public abstract class Controller {
     try {
       return this.perform(object);
     } catch (Exception e) {
+      System.out.println(e);
       return ResponseFactory.serverError(e);
     }
   }

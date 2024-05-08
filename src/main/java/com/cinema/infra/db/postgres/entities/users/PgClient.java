@@ -17,8 +17,8 @@ public class PgClient extends PgPerson {
   public PgClient() {
   }
 
-  public PgClient(String firstName, String lastName, String CPF, Set<PgGenre> moviesPreferences) {
-    super(firstName, lastName, CPF);
+  public PgClient(String firstName, String lastName, String CPF, String password, Set<PgGenre> moviesPreferences) {
+    super(firstName, lastName, CPF, password);
     this.moviesPreferences = moviesPreferences;
   }
 

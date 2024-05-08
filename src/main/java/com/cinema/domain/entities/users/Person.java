@@ -7,24 +7,26 @@ public class Person {
   private String firstName;
   private String lastName;
   private String CPF;
+  private String password;
 
-  public Person(UUID ID, String firstName, String lastName, String CPF) {
+  public Person(UUID ID, String firstName, String lastName, String CPF, String password) {
     this.ID = ID;
     this.firstName = firstName;
     this.lastName = lastName;
     this.CPF = CPF;
+    this.password = password;
   }
 
-  public Person(String firstName, String lastName, String CPF) {
+  public Person(String firstName, String lastName, String CPF, String password) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.CPF = CPF;
-
-    // this.ID = UUID.randomUUID();
+    this.password = password;
   }
 
+
   public UUID getID() {
-    return ID;
+    return this.ID;
   }
 
   public void setID(UUID ID) {
@@ -32,7 +34,7 @@ public class Person {
   }
 
   public String getFirstName() {
-    return firstName;
+    return this.firstName;
   }
 
   public void setFirstName(String firstName) {
@@ -40,7 +42,7 @@ public class Person {
   }
 
   public String getLastName() {
-    return lastName;
+    return this.lastName;
   }
 
   public void setLastName(String lastName) {
@@ -48,6 +50,19 @@ public class Person {
   }
 
   public String getCPF() {
-    return CPF;
+    return this.CPF;
   }
+
+  public void setCPF(String CPF) {
+    this.CPF = CPF;
+  }
+
+  public String getPassword() {
+    return this.password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
 }

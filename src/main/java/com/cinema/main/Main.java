@@ -9,18 +9,30 @@ import com.cinema.domain.usecases.users.CreateClientUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.PgClientRepository;
 
-public class Main {
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+
+public class Main extends Application {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
         new PgConnection().connect();
 
-        ArrayList<String> genres = new ArrayList<String>();
-        genres.add("action");
-        genres.add("terror");
+        launch(args);
+    }
 
-        Response result = new CreateClientController(new CreateClientUseCase(new PgClientRepository(), new PgClientRepository()))
-                .handle(new CreateClientDTO("daniel", "lopes", "15018542675", genres));
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-        System.out.println(result.getStatusCode() + " " + result.getData());
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/cinema/main/views/users/CreateClient.fxml"));
+
+        Parent root = fxmlLoader.load();
+
+        primaryStage.setTitle("Cadastrar Cliente");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 }

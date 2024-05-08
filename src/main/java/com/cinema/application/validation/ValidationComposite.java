@@ -14,8 +14,6 @@ public class ValidationComposite implements IValidator {
     for (IValidator validator : validators) {
       Exception error = validator.validate();
 
-      System.out.println(error);
-
       if (error != null) {
         return error;
       }

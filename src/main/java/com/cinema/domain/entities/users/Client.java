@@ -6,13 +6,13 @@ import java.util.UUID;
 public class Client extends Person {
   private ArrayList<Genre> moviesPreferences;
 
-  public Client(UUID ID, String firstName, String lastName, String CPF, ArrayList<Genre> moviesPreferences) {
-    super(ID, firstName, lastName, CPF);
+  public Client(UUID ID, String firstName, String lastName, String CPF, String password, ArrayList<Genre> moviesPreferences) {
+    super(ID, firstName, lastName, CPF, password);
     this.moviesPreferences = moviesPreferences;
   }
 
-  public Client(String firstName, String lastName, String CPF, ArrayList<Genre> moviesPreferences) {
-    super(firstName, lastName, CPF);
+  public Client(String firstName, String lastName, String CPF, String password, ArrayList<Genre> moviesPreferences) {
+    super(firstName, lastName, CPF, password);
     this.moviesPreferences = moviesPreferences;
   }
 

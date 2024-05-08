@@ -11,7 +11,6 @@ import com.cinema.domain.entities.users.Client;
 import com.cinema.domain.entities.users.Genre;
 import com.cinema.infra.db.postgres.entities.users.PgClient;
 import com.cinema.infra.db.postgres.entities.users.PgGenre;
-import com.cinema.infra.db.postgres.entities.users.PgPerson;
 
 import jakarta.persistence.NoResultException;
 
@@ -35,7 +34,11 @@ public class PgClientRepository extends PgRepository implements IFindClientByCPF
       genres.add(new PgGenre(genre.getID(), genre.getName()));
     }
 
-    PgClient pgClient = new PgClient(client.getFirstName(), client.getLastName(), client.getCPF(), genres);
+    PgClient pgClient = new PgClient(client.getFirstName(), client.getLastName(), client.getCPF(), client.getPassword(),
+        genres);
+
+
+    System.out.println(pgClient.getPassword());
 
     this.transaction = session.beginTransaction();
     this.session.persist(pgClient);
@@ -58,6 +61,7 @@ public class PgClientRepository extends PgRepository implements IFindClientByCPF
       }
 
       return new Client(pgClient.getID(), pgClient.getFirstName(), pgClient.getLastName(), pgClient.getCPF(),
+          pgClient.getPassword(),
           new ArrayList<Genre>(genres));
     } catch (NoResultException e) {
       return null;

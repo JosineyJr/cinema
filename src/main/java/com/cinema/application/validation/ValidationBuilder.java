@@ -28,4 +28,10 @@ public class ValidationBuilder {
 
     return this;
   }
+
+  public ValidationBuilder compareFields(Field field, Field fieldToCompare) {
+    this.validators.add(new CompareFields(field, fieldToCompare));
+
+    return this;
+  }
 }
