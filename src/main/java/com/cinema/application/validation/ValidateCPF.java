@@ -1,5 +1,9 @@
 package com.cinema.application.validation;
 
+import com.cinema.application.errors.CPFAllDigitsSameError;
+import com.cinema.application.errors.CPFMinMaxSizeError;
+import com.cinema.application.errors.InvalidCPFError;
+
 public class ValidateCPF implements IValidator {
   private Field field;
 
@@ -17,12 +21,12 @@ public class ValidateCPF implements IValidator {
 
     // Check if the CPF has 11 digits
     if (cleanedCPF.length() != 11) {
-      return new Exception("CPF must have 11 digits");
+      return new CPFMinMaxSizeError();
     }
 
     // Check if all digits are the same
     if (cleanedCPF.matches("(\\d)\\1{10}")) {
-      return new Exception("CPF cannot have all digits the same");
+      return new CPFAllDigitsSameError();
     }
 
     // Calculate the first verification digit
@@ -48,7 +52,7 @@ public class ValidateCPF implements IValidator {
     // Check if the verification digits match the CPF
     if (Character.getNumericValue(cleanedCPF.charAt(9)) != firstDigit ||
         Character.getNumericValue(cleanedCPF.charAt(10)) != secondDigit) {
-      return new Exception("Invalid CPF");
+      return new InvalidCPFError();
     }
 
     // CPF is valid

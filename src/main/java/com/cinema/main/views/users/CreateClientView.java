@@ -1,6 +1,5 @@
 package com.cinema.main.views.users;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.cinema.application.dtos.CreateClientDTO;
@@ -9,9 +8,9 @@ import com.cinema.main.factories.users.CreateClientFactory;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -63,16 +62,25 @@ public class CreateClientView {
     });
 
     CreateClientDTO createClientDTO = new CreateClientDTO(
-    firstName.getText(),
-    lastName.getText(),
-    CPF.getText(),
-    password.getText(),
-    passwordConfirmation.getText(),
-    genres
-    );
+        firstName.getText(),
+        lastName.getText(),
+        CPF.getText(),
+        password.getText(),
+        passwordConfirmation.getText(),
+        genres);
 
     Response response = CreateClientFactory.makCreateClientController().handle(createClientDTO);
 
-    System.out.println(response.getStatusCode() + " " + response.getData());
+    if (response.getStatusCode() == 200 || response.getStatusCode() == 204) {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Success");
+      alert.setHeaderText("Client created successfully!");
+      alert.showAndWait();
+    } else {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Erro");
+      alert.setHeaderText(response.getData().toString());
+      alert.showAndWait();
+    }
   }
 }
