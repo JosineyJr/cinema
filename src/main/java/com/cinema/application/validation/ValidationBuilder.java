@@ -34,4 +34,10 @@ public class ValidationBuilder {
 
     return this;
   }
+
+  public ValidationBuilder minimumSize(Field field, int minimumSize) {
+    this.validators.add(new MinimumSizeValidator(field, minimumSize));
+
+    return this;
+  }
 }

@@ -64,6 +64,8 @@ public class CreateClientController extends Controller {
 
     validators.addAll(ValidationBuilder.of().compareFields(new Field(password, "password"),new Field(passwordConfirmation, "passwordConfirmation")).build());
 
+    validators.addAll(ValidationBuilder.of().minimumSize(new Field(password, "password"), 6).build());
+
     return validators;
   }
 }
