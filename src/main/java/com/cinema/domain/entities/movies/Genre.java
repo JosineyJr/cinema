@@ -1,4 +1,4 @@
-package com.cinema.domain.entities.users;
+package com.cinema.domain.entities.movies;
 
 import java.util.UUID;
 

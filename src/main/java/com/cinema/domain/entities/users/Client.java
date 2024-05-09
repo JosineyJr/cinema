@@ -3,6 +3,8 @@ package com.cinema.domain.entities.users;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.cinema.domain.entities.movies.Genre;
+
 public class Client extends Person {
   private ArrayList<Genre> moviesPreferences;
 

@@ -4,20 +4,21 @@ import java.util.ArrayList;
 
 import com.cinema.domain.contracts.providers.IHasher;
 import com.cinema.domain.contracts.repositories.users.ICreateClientRepository;
-import com.cinema.domain.contracts.repositories.users.IFindClientByCPFRepository;
+import com.cinema.domain.contracts.repositories.users.IFindPersonByCPFRepository;
+import com.cinema.domain.entities.movies.Genre;
 import com.cinema.domain.entities.users.Client;
-import com.cinema.domain.entities.users.Genre;
+import com.cinema.domain.entities.users.Person;
 import com.cinema.domain.errors.ClientAlreadyExistsError;
 
 public class CreateClientUseCase {
-  ICreateClientRepository createClientRepository;
-  IFindClientByCPFRepository findClientByCPFRepository;
-  IHasher hasher;
+  private ICreateClientRepository createClientRepository;
+  private IFindPersonByCPFRepository findPersonByCPFRepository;
+  private IHasher hasher;
 
   public CreateClientUseCase(ICreateClientRepository createClientRepository,
-      IFindClientByCPFRepository findClientByCPFRepository, IHasher hasher) {
+      IFindPersonByCPFRepository findClientByCPFRepository, IHasher hasher) {
     this.createClientRepository = createClientRepository;
-    this.findClientByCPFRepository = findClientByCPFRepository;
+    this.findPersonByCPFRepository = findClientByCPFRepository;
     this.hasher = hasher;
   }
 
@@ -28,7 +29,7 @@ public class CreateClientUseCase {
       String password,
       ArrayList<String> moviesPreferences) throws ClientAlreadyExistsError {
 
-    Client clientFound = findClientByCPFRepository.findClientByCPF(CPF);
+    Person clientFound = findPersonByCPFRepository.findPersonByCPF(CPF);
 
     if (clientFound != null) {
       throw new ClientAlreadyExistsError();

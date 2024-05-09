@@ -2,6 +2,8 @@ package com.cinema.infra.db.postgres.entities.users;
 
 import java.util.Set;
 
+import com.cinema.infra.db.postgres.entities.movies.PgGenre;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;

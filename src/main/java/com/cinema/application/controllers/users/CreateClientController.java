@@ -3,7 +3,7 @@ package com.cinema.application.controllers.users;
 import java.util.ArrayList;
 
 import com.cinema.application.controllers.Controller;
-import com.cinema.application.dtos.CreateClientDTO;
+import com.cinema.application.dtos.users.CreateClientDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.application.helpers.ResponseFactory;
 import com.cinema.application.validation.Field;
@@ -13,7 +13,7 @@ import com.cinema.domain.errors.ClientAlreadyExistsError;
 import com.cinema.domain.usecases.users.CreateClientUseCase;
 
 public class CreateClientController extends Controller {
-  public CreateClientUseCase createClientUseCase;
+  private CreateClientUseCase createClientUseCase;
 
   public CreateClientController(CreateClientUseCase createClientUseCase) {
     this.createClientUseCase = createClientUseCase;

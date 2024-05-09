@@ -1,9 +1,10 @@
-package com.cinema.infra.db.postgres.repositores;
+package com.cinema.infra.db.postgres.repositores.movies;
 
-import com.cinema.domain.contracts.repositories.users.ICreateGenreRepository;
-import com.cinema.domain.contracts.repositories.users.IFindGenreByNameRepository;
-import com.cinema.domain.entities.users.Genre;
-import com.cinema.infra.db.postgres.entities.users.PgGenre;
+import com.cinema.domain.contracts.repositories.movies.ICreateGenreRepository;
+import com.cinema.domain.contracts.repositories.movies.IFindGenreByNameRepository;
+import com.cinema.domain.entities.movies.Genre;
+import com.cinema.infra.db.postgres.entities.movies.PgGenre;
+import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 import jakarta.persistence.NoResultException;
 

@@ -1,4 +1,4 @@
-package com.cinema.infra.db.postgres.entities.users;
+package com.cinema.infra.db.postgres.entities.movies;
 
 import java.util.UUID;
 
@@ -27,7 +27,6 @@ public class PgGenre {
   public PgGenre(String name) {
     this.name = name;
   }
-
 
   public UUID getID() {
     return this.ID;

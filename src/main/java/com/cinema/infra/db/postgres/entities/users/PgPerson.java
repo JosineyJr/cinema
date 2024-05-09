@@ -12,23 +12,22 @@ import jakarta.persistence.InheritanceType;
 @Entity(name = "person")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class PgPerson {
-  
   @Id
   @GeneratedValue
   private UUID ID;
-  
+
   @Column(nullable = false)
   private String firstName;
-  
+
   @Column(nullable = false)
   private String lastName;
-  
+
   @Column(nullable = false, unique = true)
   private String CPF;
-  
+
   @Column(nullable = false)
   private String password;
-  
+
   public PgPerson() {
   }
 
@@ -38,6 +37,7 @@ public abstract class PgPerson {
     this.CPF = CPF;
     this.password = password;
   }
+
   public UUID getID() {
     return this.ID;
   }

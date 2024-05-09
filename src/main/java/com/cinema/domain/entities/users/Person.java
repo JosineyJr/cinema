@@ -2,7 +2,7 @@ package com.cinema.domain.entities.users;
 
 import java.util.UUID;
 
-public class Person {
+public abstract class Person {
   private UUID ID;
   private String firstName;
   private String lastName;
@@ -64,5 +64,4 @@ public class Person {
   public void setPassword(String password) {
     this.password = password;
   }
-
 }

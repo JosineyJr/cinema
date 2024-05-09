@@ -1,4 +1,4 @@
-package com.cinema.application.dtos;
+package com.cinema.application.dtos.users;
 
 import java.util.ArrayList;
 

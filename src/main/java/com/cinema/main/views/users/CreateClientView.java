@@ -2,23 +2,22 @@ package com.cinema.main.views.users;
 
 import java.util.ArrayList;
 
-import com.cinema.application.dtos.CreateClientDTO;
+import com.cinema.application.dtos.users.CreateClientDTO;
 import com.cinema.application.helpers.Response;
+import com.cinema.main.adapters.JavaFxAdapter;
 import com.cinema.main.factories.users.CreateClientFactory;
+import com.cinema.main.views.helpers.AlertError;
+import com.cinema.main.views.helpers.AlertSuccess;
+import com.cinema.main.views.helpers.ChangeWindow;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class CreateClientView {
   @FXML
@@ -73,30 +72,21 @@ public class CreateClientView {
         passwordConfirmation.getText(),
         genres);
 
-    Response response = CreateClientFactory.makCreateClientController().handle(createClientDTO);
+    @SuppressWarnings("rawtypes")
+    Response response = JavaFxAdapter.adaptResolver(CreateClientFactory.makeCreateClientController(), createClientDTO);
 
     if (response.getStatusCode() == 200 || response.getStatusCode() == 204) {
-      Alert alert = new Alert(Alert.AlertType.INFORMATION);
-      alert.setTitle("Sucesso");
-      alert.setHeaderText("Cliente criado com sucesso!");
-      alert.showAndWait();
+      new AlertSuccess("Cliente criado com sucesso!");
 
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/cinema/main/views/users/ClientMenu.fxml"));
+      new ChangeWindow("/com/cinema/main/views/users/clientMoviesMenu.fxml", event);
 
-      Parent clientMenu = fxmlLoader.load();
-
-      Stage currentWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-      Scene scene = new Scene(clientMenu);
-
-      currentWindow.setTitle("Menu do Cliente");
-      currentWindow.setScene(scene);
-      currentWindow.show();
     } else {
-      Alert alert = new Alert(Alert.AlertType.ERROR);
-      alert.setTitle("Error");
-      alert.setHeaderText(response.getData().toString());
-      alert.showAndWait();
+      new AlertError(response.getData().toString());
     }
+  }
+
+  @FXML
+  void backLogin(MouseEvent event) throws Exception {
+    new ChangeWindow("/com/cinema/main/views/auth/login.fxml", event);
   }
 }
