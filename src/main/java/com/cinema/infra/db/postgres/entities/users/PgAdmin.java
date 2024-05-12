@@ -3,7 +3,7 @@ package com.cinema.infra.db.postgres.entities.users;
 import jakarta.persistence.Entity;
 
 @Entity(name = "admin")
-public class PgAdmin extends PgPerson {
+public class PgAdmin extends PgEmployee {
   public PgAdmin() {
   }
 

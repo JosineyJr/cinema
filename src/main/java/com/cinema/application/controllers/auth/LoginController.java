@@ -24,7 +24,7 @@ public class LoginController extends Controller {
     try {
       LoginDTO loginDTO = (LoginDTO) object;
 
-      String role = this.loginUseCase.execute(loginDTO.getCPF(), loginDTO.getPassword());
+      String role = this.loginUseCase.execute(loginDTO.getCPF(), loginDTO.getPassword(), loginDTO.isEmployee());
 
       return ResponseFactory.ok(role);
     } catch (Exception e) {

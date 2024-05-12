@@ -11,6 +11,7 @@ import com.cinema.main.views.helpers.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -22,6 +23,9 @@ public class LoginView {
 
   @FXML
   private Label createClientLabel;
+
+  @FXML
+  private CheckBox isEmployee;
 
   @FXML
   private Button loginButton;
@@ -39,7 +43,7 @@ public class LoginView {
 
   @FXML
   void login(ActionEvent event) throws Exception {
-    LoginDTO loginDTO = new LoginDTO(CPF.getText(), password.getText());
+    LoginDTO loginDTO = new LoginDTO(CPF.getText(), password.getText(), isEmployee.isSelected());
 
     @SuppressWarnings("rawtypes")
     Response response = JavaFxAdapter.adaptResolver(LoginFactory.makeLogin(), loginDTO);
@@ -47,6 +51,8 @@ public class LoginView {
     if (response.getStatusCode() == 200) {
       Session.setCPF(loginDTO.getCPF());
       Session.setRole((String) response.getData());
+
+      System.out.println((String) response.getData());
 
       new ChangeWindow("/com/cinema/main/views/users/clientMoviesMenu.fxml", event);
     } else {

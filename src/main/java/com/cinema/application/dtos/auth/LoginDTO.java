@@ -4,10 +4,12 @@ public class LoginDTO {
   private String CPF;
   private String password;
   private String role;
+  private boolean isEmployee;
 
-  public LoginDTO(String CPF, String password) {
+  public LoginDTO(String CPF, String password, boolean isEmployee) {
     this.CPF = CPF;
     this.password = password;
+    this.isEmployee = isEmployee;
   }
 
   public String getCPF() {
@@ -32,5 +34,13 @@ public class LoginDTO {
 
   public void setRole(String role) {
     this.role = role;
+  }
+
+  public boolean isEmployee() {
+    return this.isEmployee;
+  }
+
+  public void setIsEmployee(boolean isEmployee) {
+    this.isEmployee = isEmployee;
   }
 }

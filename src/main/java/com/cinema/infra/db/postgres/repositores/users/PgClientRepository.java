@@ -2,8 +2,10 @@ package com.cinema.infra.db.postgres.repositores.users;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
 
 import com.cinema.domain.contracts.repositories.users.ICreateClientRepository;
+import com.cinema.domain.contracts.repositories.users.IFindClientByCPFRepository;
 import com.cinema.domain.entities.movies.Genre;
 import com.cinema.domain.entities.users.Client;
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
@@ -11,7 +13,9 @@ import com.cinema.infra.db.postgres.entities.users.PgClient;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 import com.cinema.infra.db.postgres.repositores.movies.PgGenreRepository;
 
-public class PgClientRepository extends PgRepository implements  ICreateClientRepository {
+import jakarta.persistence.NoResultException;
+
+public class PgClientRepository extends PgRepository implements ICreateClientRepository, IFindClientByCPFRepository {
 
   public PgClientRepository() {
     super();
@@ -37,5 +41,27 @@ public class PgClientRepository extends PgRepository implements  ICreateClientRe
     this.transaction = session.beginTransaction();
     this.session.persist(pgClient);
     this.transaction.commit();
+  }
+
+  @Override
+  public Client findClientByCPF(String cpf) {
+    try {
+      PgClient pgClient = this.session.createQuery("FROM client c WHERE c.CPF = :cpf", PgClient.class)
+          .setParameter("cpf", cpf)
+          .getSingleResult();
+
+      ArrayList<Genre> genres = new ArrayList<>();
+
+      for (PgGenre pgGenre : pgClient.getMoviesPreferences()) {
+        genres.add(new Genre(pgGenre.getID(), pgGenre.getName()));
+      }
+
+      return new Client(pgClient.getID(), pgClient.getFirstName(), pgClient.getLastName(), pgClient.getCPF(),
+          pgClient.getPassword(), genres);
+    } catch (NoResultException e) {
+      return null;
+    } catch (Exception e) {
+      throw e;
+    }
   }
 }
