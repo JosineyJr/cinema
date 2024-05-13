@@ -1,4 +1,4 @@
-package com.cinema.domain.errors;
+package com.cinema.domain.errors.auth;
 
 public class LoginError extends Exception {
   public LoginError() {

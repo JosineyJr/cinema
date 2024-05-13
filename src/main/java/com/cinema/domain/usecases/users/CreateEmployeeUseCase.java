@@ -6,7 +6,7 @@ import com.cinema.domain.contracts.repositories.users.ICreateEmployeeRepository;
 import com.cinema.domain.contracts.repositories.users.IFindEmployeeByCPFRepository;
 import com.cinema.domain.entities.users.Admin;
 import com.cinema.domain.entities.users.Employee;
-import com.cinema.domain.errors.EmployeeAlreadyExistsError;
+import com.cinema.domain.errors.users.EmployeeAlreadyExistsError;
 
 public class CreateEmployeeUseCase {
   IFindEmployeeByCPFRepository findEmployeeByCPFRepository;

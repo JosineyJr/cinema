@@ -9,7 +9,7 @@ import com.cinema.application.helpers.ResponseFactory;
 import com.cinema.application.validation.Field;
 import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
-import com.cinema.domain.errors.ClientAlreadyExistsError;
+import com.cinema.domain.errors.users.ClientAlreadyExistsError;
 import com.cinema.domain.usecases.users.CreateClientUseCase;
 
 public class CreateClientController extends Controller {

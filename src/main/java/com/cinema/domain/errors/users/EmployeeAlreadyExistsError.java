@@ -1,4 +1,4 @@
-package com.cinema.domain.errors;
+package com.cinema.domain.errors.users;
 
 public class EmployeeAlreadyExistsError extends Exception {
   public EmployeeAlreadyExistsError() {
