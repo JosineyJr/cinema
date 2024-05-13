@@ -46,7 +46,7 @@ public class LoginView {
     LoginDTO loginDTO = new LoginDTO(CPF.getText(), password.getText(), isEmployee.isSelected());
 
     @SuppressWarnings("rawtypes")
-    Response response = JavaFxAdapter.adaptResolver(LoginFactory.makeLogin(), loginDTO);
+    Response response = JavaFxAdapter.adaptResolver(LoginFactory.make(), loginDTO);
 
     if (response.getStatusCode() == 200) {
       Session.setCPF(loginDTO.getCPF());

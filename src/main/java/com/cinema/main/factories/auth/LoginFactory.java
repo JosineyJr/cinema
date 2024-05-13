@@ -8,9 +8,10 @@ import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.users.PgClientRepository;
 import com.cinema.infra.db.postgres.repositores.users.PgEmployeeRepository;
 import com.cinema.infra.providers.crypto.BCryptAdapter;
+import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class LoginFactory {
-  public static Controller makeLogin() {
+  public static Controller make() {
     BCryptAdapter bCryptAdapter = new BCryptAdapter(12);
     PgClientRepository pgClientRepository = new PgClientRepository();
     PgEmployeeRepository pgEmployeeRepository = new PgEmployeeRepository();
@@ -19,6 +20,8 @@ public class LoginFactory {
 
     LoginController loginController = new LoginController(loginUseCase);
 
-    return new DbTransactionController(loginController, PgConnection.getInstance());
+    PgConnection pgConnection = PgConnectionFactory.make();
+
+    return new DbTransactionController(loginController, pgConnection);
   }
 }

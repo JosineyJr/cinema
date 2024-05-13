@@ -73,7 +73,7 @@ public class CreateClientView {
         genres);
 
     @SuppressWarnings("rawtypes")
-    Response response = JavaFxAdapter.adaptResolver(CreateClientFactory.makeCreateClientController(), createClientDTO);
+    Response response = JavaFxAdapter.adaptResolver(CreateClientFactory.make(), createClientDTO);
 
     if (response.getStatusCode() == 200 || response.getStatusCode() == 204) {
       new AlertSuccess("Cliente criado com sucesso!");
