@@ -1,5 +1,6 @@
 package com.cinema.infra.db.postgres.repositores.users;
 
+import com.cinema.domain.contracts.repositories.users.ICreateEmployeeRepository;
 import com.cinema.domain.contracts.repositories.users.IFindEmployeeByCPFRepository;
 import com.cinema.domain.entities.users.Admin;
 import com.cinema.domain.entities.users.Employee;
@@ -9,7 +10,8 @@ import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 import jakarta.persistence.NoResultException;
 
-public class PgEmployeeRepository extends PgRepository implements IFindEmployeeByCPFRepository {
+public class PgEmployeeRepository extends PgRepository
+    implements IFindEmployeeByCPFRepository, ICreateEmployeeRepository {
 
   @Override
   public Employee findEmployeeByCPF(String cpf) {
@@ -31,5 +33,13 @@ public class PgEmployeeRepository extends PgRepository implements IFindEmployeeB
     } catch (Exception e) {
       throw e;
     }
+  }
+
+  @Override
+  public void createEmployee(Employee employee) {
+    this.transaction = session.beginTransaction();
+    this.session.persist(
+        new PgEmployee(employee.getFirstName(), employee.getLastName(), employee.getCPF(), employee.getPassword()));
+    this.transaction.commit();
   }
 }

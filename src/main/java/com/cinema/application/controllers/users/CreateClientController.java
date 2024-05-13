@@ -58,14 +58,8 @@ public class CreateClientController extends Controller {
 
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
 
-    validators.addAll(ValidationBuilder.of().required(requiredFields).build());
-
-    validators.addAll(ValidationBuilder.of().validateCPF(CPF).build());
-
-    validators.addAll(ValidationBuilder.of()
-        .compareFields(password, passwordConfirmation).build());
-
-    validators.addAll(ValidationBuilder.of().minimumSize(password, 6).build());
+    validators.addAll(ValidationBuilder.of().required(requiredFields).validateCPF(CPF)
+        .compareFields(password, passwordConfirmation).minimumSize(password, 6).build());
 
     return validators;
   }
