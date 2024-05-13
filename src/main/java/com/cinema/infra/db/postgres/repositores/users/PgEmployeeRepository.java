@@ -37,9 +37,7 @@ public class PgEmployeeRepository extends PgRepository
 
   @Override
   public void createEmployee(Employee employee) {
-    this.transaction = session.beginTransaction();
     this.session.persist(
         new PgEmployee(employee.getFirstName(), employee.getLastName(), employee.getCPF(), employee.getPassword()));
-    this.transaction.commit();
   }
 }

@@ -28,8 +28,6 @@ public class PgGenreRepository extends PgRepository implements ICreateGenreRepos
   public void createGenre(String name) {
     PgGenre pgGenre = new PgGenre(name);
 
-    this.transaction = session.beginTransaction();
     this.session.persist(pgGenre);
-    this.transaction.commit();
   }
 }

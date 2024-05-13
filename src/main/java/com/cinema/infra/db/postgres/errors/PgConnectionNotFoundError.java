@@ -1,4 +1,4 @@
-package com.cinema.infra.db.postgres.helpers;
+package com.cinema.infra.db.postgres.errors;
 
 public class PgConnectionNotFoundError extends Exception {
   public PgConnectionNotFoundError(){

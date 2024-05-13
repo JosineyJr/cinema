@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 
 public class Main extends Application {
     public static void main(String[] args) {
-        PgConnection.getInstance().connect();
+        PgConnection.getInstance();
 
         launch(args);
     }

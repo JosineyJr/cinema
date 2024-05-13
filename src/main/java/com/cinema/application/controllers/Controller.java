@@ -13,12 +13,8 @@ public abstract class Controller {
 
   public abstract ArrayList<IValidator> buildValidators(Object object);
 
-  public ArrayList<IValidator> buildValidators() {
-    return new ArrayList<IValidator>();
-  }
-
   @SuppressWarnings("rawtypes")
-  public Response handle(Object object){
+  public Response handle(Object object) {
     Exception validateError = this.validate(object);
 
     if (validateError != null) {
@@ -33,7 +29,7 @@ public abstract class Controller {
     }
   }
 
-  private Exception validate(Object object){
+  private Exception validate(Object object) {
     ArrayList<IValidator> validators = this.buildValidators(object);
 
     return new ValidationComposite(validators).validate();

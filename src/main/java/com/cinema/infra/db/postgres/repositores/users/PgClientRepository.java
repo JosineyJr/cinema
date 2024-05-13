@@ -38,9 +38,7 @@ public class PgClientRepository extends PgRepository implements ICreateClientRep
     PgClient pgClient = new PgClient(client.getFirstName(), client.getLastName(), client.getCPF(), client.getPassword(),
         genres);
 
-    this.transaction = session.beginTransaction();
     this.session.persist(pgClient);
-    this.transaction.commit();
   }
 
   @Override

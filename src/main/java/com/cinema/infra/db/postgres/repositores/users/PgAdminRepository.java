@@ -9,9 +9,7 @@ public class PgAdminRepository extends PgRepository implements ICreateAdminRepos
 
   @Override
   public void createAdmin(Admin admin) {
-    this.transaction = session.beginTransaction();
     this.session.persist(
         new PgAdmin(admin.getFirstName(), admin.getLastName(), admin.getCPF(), admin.getPassword()));
-    this.transaction.commit();
   }
 }
