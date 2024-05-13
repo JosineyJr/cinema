@@ -40,4 +40,10 @@ public class ValidationBuilder {
 
     return this;
   }
+
+  public ValidationBuilder validateUUID(Field field) {
+    this.validators.add(new ValidateUUID(field));
+
+    return this;
+  }
 }
