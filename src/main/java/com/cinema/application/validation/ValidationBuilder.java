@@ -22,7 +22,7 @@ public class ValidationBuilder {
 
     return this;
   }
-  
+
   public ValidationBuilder validateCPF(Field field) {
     this.validators.add(new ValidateCPF(field));
 
@@ -49,6 +49,12 @@ public class ValidationBuilder {
 
   public ValidationBuilder minValue(Field field, int minValue) {
     this.validators.add(new MinValueValidator(field, minValue));
+
+    return this;
+  }
+
+  public ValidationBuilder validateLocalDateTime(Field field) {
+    this.validators.add(new ValidateLocalDateTime(field));
 
     return this;
   }

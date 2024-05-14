@@ -19,11 +19,11 @@ public class PgMovie {
   private String title;
 
   @Column(nullable = false)
-  private String description;
+  private String synopsis;
 
   @Column(nullable = false)
   private String director;
-  
+
   @ManyToOne
   @JoinColumn(name = "genre_id", nullable = false)
   private PgGenre genre;
@@ -31,25 +31,84 @@ public class PgMovie {
   @Column(nullable = false)
   private int duration;
 
-  @Column(nullable = false)
+  @Column(name = "minimum_age", nullable = false)
   private int minimumAge;
 
-    public PgMovie(UUID ID, String title, String description, String director, PgGenre genre, int duration, int minimumAge) {
+  public PgMovie() {
+  }
+
+  public PgMovie(UUID ID, String title, String synopsis, String director, PgGenre genre, int duration, int minimumAge) {
     this.ID = ID;
     this.title = title;
-    this.description = description;
+    this.synopsis = synopsis;
     this.director = director;
     this.genre = genre;
     this.duration = duration;
     this.minimumAge = minimumAge;
   }
 
-  public PgMovie(String title, String description, String director, PgGenre genre, int duration, int minimumAge) {
+  public PgMovie(String title, String synopsis, String director, PgGenre genre, int duration, int minimumAge) {
     this.title = title;
-    this.description = description;
+    this.synopsis = synopsis;
     this.director = director;
     this.genre = genre;
     this.duration = duration;
+    this.minimumAge = minimumAge;
+  }
+
+  public UUID getID() {
+    return this.ID;
+  }
+
+  public void setID(UUID ID) {
+    this.ID = ID;
+  }
+
+  public String getTitle() {
+    return this.title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getSynopsis() {
+    return this.synopsis;
+  }
+
+  public void setSynopsis(String synopsis) {
+    this.synopsis = synopsis;
+  }
+
+  public String getDirector() {
+    return this.director;
+  }
+
+  public void setDirector(String director) {
+    this.director = director;
+  }
+
+  public PgGenre getGenre() {
+    return this.genre;
+  }
+
+  public void setGenre(PgGenre genre) {
+    this.genre = genre;
+  }
+
+  public int getDuration() {
+    return this.duration;
+  }
+
+  public void setDuration(int duration) {
+    this.duration = duration;
+  }
+
+  public int getMinimumAge() {
+    return this.minimumAge;
+  }
+
+  public void setMinimumAge(int minimumAge) {
     this.minimumAge = minimumAge;
   }
 }

@@ -5,25 +5,25 @@ import java.util.UUID;
 public class Movie {
   private UUID ID;
   private String title;
-  private String description;
+  private String synopsis;
   private String director;
   private Genre genre;
   private int duration;
   private int minimumAge;
 
-  public Movie(UUID ID, String title, String description, String director, Genre genre, int duration, int minimumAge) {
+  public Movie(UUID ID, String title, String synopsis, String director, Genre genre, int duration, int minimumAge) {
     this.ID = ID;
     this.title = title;
-    this.description = description;
+    this.synopsis = synopsis;
     this.director = director;
     this.genre = genre;
     this.duration = duration;
     this.minimumAge = minimumAge;
   }
 
-  public Movie(String title, String description, String director, Genre genre, int duration, int minimumAge) {
+  public Movie(String title, String synopsis, String director, Genre genre, int duration, int minimumAge) {
     this.title = title;
-    this.description = description;
+    this.synopsis = synopsis;
     this.director = director;
     this.genre = genre;
     this.duration = duration;
@@ -47,12 +47,12 @@ public class Movie {
     this.title = title;
   }
 
-  public String getDescription() {
-    return this.description;
+  public String getSynopsis() {
+    return this.synopsis;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setSynopsis(String synopsis) {
+    this.synopsis = synopsis;
   }
 
   public String getDirector() {

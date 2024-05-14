@@ -31,7 +31,7 @@ public class CreateMovieController extends Controller {
 
       this.createMovieUseCase.execute(
           createMovieDTO.getTitle(),
-          createMovieDTO.getDescription(),
+          createMovieDTO.getSynopsis(),
           createMovieDTO.getDirector(),
           genreUUID,
           createMovieDTO.getDuration(),
@@ -49,14 +49,14 @@ public class CreateMovieController extends Controller {
     CreateMovieDTO createMovieDTO = (CreateMovieDTO) object;
 
     Field title = new Field(createMovieDTO.getTitle(), "Título");
-    Field description = new Field(createMovieDTO.getDescription(), "Descrição");
+    Field synopsis = new Field(createMovieDTO.getSynopsis(), "Descrição");
     Field director = new Field(createMovieDTO.getDirector(), "Diretor");
     Field genreID = new Field(createMovieDTO.getGenreID(), "Gênero");
     Field duration = new Field(String.valueOf(createMovieDTO.getDuration()), "Duração");
     Field minimumAge = new Field(String.valueOf(createMovieDTO.getMinimumAge()), "Idade Mínima");
 
     ArrayList<Field> requiredFields = new ArrayList<>(
-        Arrays.asList(title, description, director, genreID, duration, minimumAge));
+        Arrays.asList(title, synopsis, director, genreID, duration, minimumAge));
 
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
 

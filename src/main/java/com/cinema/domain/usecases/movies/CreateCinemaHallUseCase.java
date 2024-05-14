@@ -15,14 +15,14 @@ public class CreateCinemaHallUseCase {
     this.findCinemaHallByNameRepository = findCinemaHallByNameRepository;
   }
 
-  public void execute(int numberOfChairs, String name) throws CinemaHallAlreadyExistsError {
+  public void execute(int capacity, String name) throws CinemaHallAlreadyExistsError {
     CinemaHall cinemaHallAlreadyExists = this.findCinemaHallByNameRepository.findCinemaHallByName(name);
 
     if (cinemaHallAlreadyExists != null) {
       throw new CinemaHallAlreadyExistsError();
     }
 
-    CinemaHall cinemaHall = new CinemaHall(numberOfChairs, name);
+    CinemaHall cinemaHall = new CinemaHall(capacity, name);
 
     this.createCinemaHallRepository.createCinemaHall(cinemaHall);
   }

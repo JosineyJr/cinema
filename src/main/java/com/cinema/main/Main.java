@@ -1,6 +1,7 @@
 package com.cinema.main;
 
 import com.cinema.infra.db.postgres.helpers.PgConnection;
+import com.cinema.infra.db.postgres.repositores.movies.PgMovieSessionRepository;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -11,6 +12,8 @@ import javafx.scene.Scene;
 public class Main extends Application {
     public static void main(String[] args) {
         PgConnection.getInstance();
+
+        new PgMovieSessionRepository();
 
         launch(args);
     }

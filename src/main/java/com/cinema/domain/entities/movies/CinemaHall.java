@@ -4,17 +4,17 @@ import java.util.UUID;
 
 public class CinemaHall {
   private UUID ID;
-  private int numberOfChairs;
+  private int capacity;
   private String name;
 
-  public CinemaHall(UUID ID, int numberOfChairs, String name) {
+  public CinemaHall(UUID ID, int capacity, String name) {
     this.ID = ID;
-    this.numberOfChairs = numberOfChairs;
+    this.capacity = capacity;
     this.name = name;
   }
 
-  public CinemaHall(int numberOfChairs, String name) {
-    this.numberOfChairs = numberOfChairs;
+  public CinemaHall(int capacity, String name) {
+    this.capacity = capacity;
     this.name = name;
   }
 
@@ -26,12 +26,12 @@ public class CinemaHall {
     this.ID = ID;
   }
 
-  public int getNumberOfChairs() {
-    return this.numberOfChairs;
+  public int getCapacity() {
+    return this.capacity;
   }
 
-  public void setNumberOfChairs(int numberOfChairs) {
-    this.numberOfChairs = numberOfChairs;
+  public void setCapacity(int capacity) {
+    this.capacity = capacity;
   }
 
   public String getName() {

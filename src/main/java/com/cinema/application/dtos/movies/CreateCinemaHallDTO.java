@@ -1,20 +1,20 @@
 package com.cinema.application.dtos.movies;
 
 public class CreateCinemaHallDTO {
-  private int numberOfChairs;
+  private int capacity;
   private String name;
 
-  public CreateCinemaHallDTO(int numberOfChairs, String name) {
-    this.numberOfChairs = numberOfChairs;
+  public CreateCinemaHallDTO(int capacity, String name) {
+    this.capacity = capacity;
     this.name = name;
   }
 
-  public int getNumberOfChairs() {
-    return this.numberOfChairs;
+  public int getCapacity() {
+    return this.capacity;
   }
 
-  public void setNumberOfChairs(int numberOfChairs) {
-    this.numberOfChairs = numberOfChairs;
+  public void setCapacity(int capacity) {
+    this.capacity = capacity;
   }
 
   public String getName() {

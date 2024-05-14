@@ -9,6 +9,7 @@ import com.cinema.application.helpers.ResponseFactory;
 import com.cinema.application.validation.Field;
 import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
+import com.cinema.domain.errors.users.EmployeeAlreadyExistsError;
 import com.cinema.domain.usecases.users.CreateEmployeeUseCase;
 
 public class CreateEmployeeController extends Controller {
@@ -28,7 +29,7 @@ public class CreateEmployeeController extends Controller {
           createEmployeeDTO.getCPF(), createEmployeeDTO.getPassword(), createEmployeeDTO.isAdmin());
 
       return ResponseFactory.noContent();
-    } catch (Exception e) {
+    } catch (EmployeeAlreadyExistsError e) {
       return ResponseFactory.badRequest(e);
     }
   }

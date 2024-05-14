@@ -2,15 +2,15 @@ package com.cinema.application.dtos.movies;
 
 public class CreateMovieDTO {
   private String title;
-  private String description;
+  private String synopsis;
   private String director;
   private String genreID;
   private int duration;
   private int minimumAge;
 
-  public CreateMovieDTO(String title, String description, String director, String genreID, int duration, int minimumAge) {
+  public CreateMovieDTO(String title, String synopsis, String director, String genreID, int duration, int minimumAge) {
     this.title = title;
-    this.description = description;
+    this.synopsis = synopsis;
     this.director = director;
     this.genreID = genreID;
     this.duration = duration;
@@ -26,12 +26,12 @@ public class CreateMovieDTO {
     this.title = title;
   }
 
-  public String getDescription() {
-    return this.description;
+  public String getSynopsis() {
+    return this.synopsis;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setSynopsis(String synopsis) {
+    this.synopsis = synopsis;
   }
 
   public String getDirector() {

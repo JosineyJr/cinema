@@ -26,7 +26,7 @@ public class CreateCinemaHallController extends Controller {
     try {
       CreateCinemaHallDTO createCinemaHallDTO = (CreateCinemaHallDTO) object;
 
-      this.createCinemaHallUseCase.execute(createCinemaHallDTO.getNumberOfChairs(),
+      this.createCinemaHallUseCase.execute(createCinemaHallDTO.getCapacity(),
       createCinemaHallDTO.getName());
 
       return ResponseFactory.noContent();
@@ -39,10 +39,10 @@ public class CreateCinemaHallController extends Controller {
   public ArrayList<IValidator> buildValidators(Object object) {
     CreateCinemaHallDTO createCinemaHallDTO = (CreateCinemaHallDTO) object;
 
-    Field numberOfChairs = new Field(String.valueOf(createCinemaHallDTO.getNumberOfChairs()), "Número de Cadeiras");
+    Field capacity = new Field(String.valueOf(createCinemaHallDTO.getCapacity()), "Número de Cadeiras");
     Field name = new Field(createCinemaHallDTO.getName(), "Nome");
 
-    ArrayList<Field> requiredFields = new ArrayList<>(Arrays.asList(numberOfChairs, name));
+    ArrayList<Field> requiredFields = new ArrayList<>(Arrays.asList(capacity, name));
 
     ArrayList<IValidator> validators = new ArrayList<>();
 

@@ -13,20 +13,23 @@ public class PgCinemaHall {
   @GeneratedValue
   private UUID ID;
 
-  @Column(nullable = false, name = "number_of_chairs")
-  private int numberOfChairs;
+  @Column(nullable = false)
+  private int capacity;
 
   @Column(nullable = false)
   private String name;
 
-  public PgCinemaHall(UUID ID, int numberOfChairs, String name) {
+  public PgCinemaHall() {
+  }
+
+  public PgCinemaHall(UUID ID, int capacity, String name) {
     this.ID = ID;
-    this.numberOfChairs = numberOfChairs;
+    this.capacity = capacity;
     this.name = name;
   }
 
-  public PgCinemaHall(int numberOfChairs, String name) {
-    this.numberOfChairs = numberOfChairs;
+  public PgCinemaHall(int capacity, String name) {
+    this.capacity = capacity;
     this.name = name;
   }
 
@@ -38,12 +41,12 @@ public class PgCinemaHall {
     this.ID = ID;
   }
 
-  public int getNumberOfChairs() {
-    return this.numberOfChairs;
+  public int getCapacity() {
+    return this.capacity;
   }
 
-  public void setNumberOfChairs(int numberOfChairs) {
-    this.numberOfChairs = numberOfChairs;
+  public void setCapacity(int capacity) {
+    this.capacity = capacity;
   }
 
   public String getName() {

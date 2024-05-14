@@ -10,7 +10,8 @@ public class CreateClientDTO {
   private String passwordConfirmation;
   private ArrayList<String> moviesPreferences;
 
-  public CreateClientDTO(String firstName, String lastName, String CPF, String password, String passwordConfirmation, ArrayList<String> moviesPreferences) {
+  public CreateClientDTO(String firstName, String lastName, String CPF, String password, String passwordConfirmation,
+      ArrayList<String> moviesPreferences) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.CPF = CPF;
@@ -18,7 +19,6 @@ public class CreateClientDTO {
     this.passwordConfirmation = passwordConfirmation;
     this.moviesPreferences = moviesPreferences;
   }
-
 
   public String getFirstName() {
     return this.firstName;
@@ -44,7 +44,6 @@ public class CreateClientDTO {
     this.CPF = CPF;
   }
 
-
   public String getPassword() {
     return this.password;
   }
@@ -61,7 +60,6 @@ public class CreateClientDTO {
     this.passwordConfirmation = passwordConfirmation;
   }
 
-
   public ArrayList<String> getMoviesPreferences() {
     return this.moviesPreferences;
   }
@@ -69,5 +67,5 @@ public class CreateClientDTO {
   public void setMoviesPreferences(ArrayList<String> moviesPreferences) {
     this.moviesPreferences = moviesPreferences;
   }
-  
+
 }

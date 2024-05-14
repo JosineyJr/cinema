@@ -17,7 +17,7 @@ public class CreateMovieUseCase {
     this.findGenreByIDRepository = findGenreByIDRepository;
   }
 
-  public void execute(String title, String description, String director, UUID genreID, int duration, int minimumAge)
+  public void execute(String title, String synopsis, String director, UUID genreID, int duration, int minimumAge)
       throws GenreNotFoundError {
     Genre genre = findGenreByIDRepository.findGenreByID(genreID);
 
@@ -25,7 +25,7 @@ public class CreateMovieUseCase {
       throw new GenreNotFoundError();
     }
 
-    Movie movie = new Movie(title, description, director, genre, duration, minimumAge);
+    Movie movie = new Movie(title, synopsis, director, genre, duration, minimumAge);
 
     createMovieRepository.createMovie(movie);
   }
