@@ -46,4 +46,10 @@ public class ValidationBuilder {
 
     return this;
   }
+
+  public ValidationBuilder minValue(Field field, int minValue) {
+    this.validators.add(new MinValueValidator(field, minValue));
+
+    return this;
+  }
 }

@@ -4,9 +4,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.reflections.Reflections;
 
 import com.cinema.application.contracts.DbTransaction;
 import com.cinema.infra.db.postgres.errors.PgConnectionNotFoundError;
+
+import jakarta.persistence.Entity;
 
 public class PgConnection implements DbTransaction {
   private static PgConnection instance;
@@ -22,12 +25,23 @@ public class PgConnection implements DbTransaction {
   }
 
   private PgConnection() {
-    this.sessionFactory = new Configuration().configure().buildSessionFactory();
+    this.sessionFactory = buildSessionFactory();
+  }
+
+  private SessionFactory buildSessionFactory() {
+    Configuration configuration = new Configuration().configure();
+    Reflections reflections = new Reflections("com.cinema.infra.db.postgres.entities");
+
+    for (Class<?> clazz : reflections.getTypesAnnotatedWith(Entity.class)) {
+      configuration.addAnnotatedClass(clazz);
+    }
+
+    return configuration.buildSessionFactory();
   }
 
   public void connect() {
     if (this.sessionFactory.isClosed()) {
-      this.sessionFactory = new Configuration().configure().buildSessionFactory();
+      this.sessionFactory = buildSessionFactory();
     }
     this.session = this.sessionFactory.openSession();
   }
