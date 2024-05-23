@@ -12,25 +12,22 @@ import com.cinema.application.validation.ValidationBuilder;
 import com.cinema.domain.errors.users.ClientAlreadyExistsError;
 import com.cinema.domain.usecases.users.CreateClientUseCase;
 
-public class CreateClientController extends Controller {
+public class CreateClientController extends Controller<CreateClientDTO> {
   private CreateClientUseCase createClientUseCase;
 
   public CreateClientController(CreateClientUseCase createClientUseCase) {
     this.createClientUseCase = createClientUseCase;
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  public Response perform(Object object) {
+  public Response<?> perform(CreateClientDTO object) {
     try {
-      CreateClientDTO createClientDTO = (CreateClientDTO) object;
-
       this.createClientUseCase.execute(
-          createClientDTO.getFirstName(),
-          createClientDTO.getLastName(),
-          createClientDTO.getCPF(),
-          createClientDTO.getPassword(),
-          createClientDTO.getMoviesPreferences());
+          object.getFirstName(),
+          object.getLastName(),
+          object.getCPF(),
+          object.getPassword(),
+          object.getMoviesPreferences());
 
       return ResponseFactory.noContent();
     } catch (ClientAlreadyExistsError e) {
@@ -39,14 +36,12 @@ public class CreateClientController extends Controller {
   }
 
   @Override
-  public ArrayList<IValidator> buildValidators(Object object) {
-    CreateClientDTO createClientDTO = (CreateClientDTO) object;
-
-    Field firstName = new Field(createClientDTO.getFirstName(), "Nome");
-    Field lastName = new Field(createClientDTO.getLastName(), "Sobrenome");
-    Field CPF = new Field(createClientDTO.getCPF(), "CPF");
-    Field password = new Field(createClientDTO.getPassword(), "Senha");
-    Field passwordConfirmation = new Field(createClientDTO.getPasswordConfirmation(), "Confirmação de Senha");
+  public ArrayList<IValidator> buildValidators(CreateClientDTO object) {
+    Field firstName = new Field(object.getFirstName(), "Nome");
+    Field lastName = new Field(object.getLastName(), "Sobrenome");
+    Field CPF = new Field(object.getCPF(), "CPF");
+    Field password = new Field(object.getPassword(), "Senha");
+    Field passwordConfirmation = new Field(object.getPasswordConfirmation(), "Confirmação de Senha");
 
     ArrayList<Field> requiredFields = new ArrayList<>();
 

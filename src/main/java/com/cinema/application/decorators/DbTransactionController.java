@@ -7,22 +7,21 @@ import com.cinema.application.controllers.Controller;
 import com.cinema.application.helpers.Response;
 import com.cinema.application.validation.IValidator;
 
-public class DbTransactionController extends Controller {
-  private Controller decoratee;
+public class DbTransactionController<T> extends Controller<T> {
+  private Controller<T> decoratee;
   private DbTransaction dbTransaction;
 
-  public DbTransactionController(Controller decoratee, DbTransaction dbTransaction) {
+  public DbTransactionController(Controller<T> decoratee, DbTransaction dbTransaction) {
     this.decoratee = decoratee;
     this.dbTransaction = dbTransaction;
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  public Response perform(Object object) {
+  public Response<?> perform(T object) {
     this.dbTransaction.openTransaction();
 
     try {
-      Response response = this.decoratee.handle(object);
+      Response<?> response = this.decoratee.handle(object);
 
       this.dbTransaction.commit();
 

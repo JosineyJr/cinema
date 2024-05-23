@@ -21,7 +21,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/cinema/main/views/auth/login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                getClass().getResource("/com/cinema/main/views/users/createClient.fxml"));
 
         Parent root = fxmlLoader.load();
 

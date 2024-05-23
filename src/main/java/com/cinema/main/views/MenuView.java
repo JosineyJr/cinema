@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 public class MenuView {
 
@@ -29,7 +30,7 @@ public class MenuView {
 
     @FXML
     void registerGenre(ActionEvent event) throws Exception {
-        new ChangeWindow("/com/cinema/main/views/movies/createGenre.fxml", event);
+        Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+        ChangeWindow.changeScene(stage, "/com/cinema/main/views/movies/createGenre.fxml");
     }
-
 }

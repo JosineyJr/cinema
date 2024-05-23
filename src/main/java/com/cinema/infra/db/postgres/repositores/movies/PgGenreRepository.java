@@ -1,10 +1,12 @@
 package com.cinema.infra.db.postgres.repositores.movies;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.cinema.domain.contracts.repositories.movies.ICreateGenreRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindGenreByIDRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindGenreByNameRepository;
+import com.cinema.domain.contracts.repositories.movies.IListGenresRepository;
 import com.cinema.domain.entities.movies.Genre;
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
@@ -12,7 +14,7 @@ import com.cinema.infra.db.postgres.repositores.PgRepository;
 import jakarta.persistence.NoResultException;
 
 public class PgGenreRepository extends PgRepository
-    implements ICreateGenreRepository, IFindGenreByNameRepository, IFindGenreByIDRepository {
+    implements ICreateGenreRepository, IFindGenreByNameRepository, IFindGenreByIDRepository, IListGenresRepository {
 
   @Override
   public Genre findGenreByName(String name) {
@@ -29,8 +31,8 @@ public class PgGenreRepository extends PgRepository
   }
 
   @Override
-  public void createGenre(String name) {
-    PgGenre pgGenre = new PgGenre(name);
+  public void createGenre(Genre genre) {
+    PgGenre pgGenre = new PgGenre(genre.getName());
 
     this.session.persist(pgGenre);
   }
@@ -46,5 +48,12 @@ public class PgGenreRepository extends PgRepository
     } catch (Exception e) {
       throw e;
     }
+  }
+
+  @Override
+  public List<Genre> listGenres() {
+    List<PgGenre> pgGenres = this.session.createQuery("from genre", PgGenre.class).getResultList();
+
+    return pgGenres.stream().map(pgGenre -> new Genre(pgGenre.getID(), pgGenre.getName())).toList();
   }
 }

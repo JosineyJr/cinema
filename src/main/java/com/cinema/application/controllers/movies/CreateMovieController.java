@@ -14,28 +14,26 @@ import com.cinema.application.validation.ValidationBuilder;
 import com.cinema.domain.errors.movies.GenreNotFoundError;
 import com.cinema.domain.usecases.movies.CreateMovieUseCase;
 
-public class CreateMovieController extends Controller {
+public class CreateMovieController extends Controller<CreateMovieDTO> {
   private CreateMovieUseCase createMovieUseCase;
 
   public CreateMovieController(CreateMovieUseCase createMovieUseCase) {
     this.createMovieUseCase = createMovieUseCase;
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  public Response perform(Object object) {
+  public Response<?> perform(CreateMovieDTO object) {
     try {
-      CreateMovieDTO createMovieDTO = (CreateMovieDTO) object;
 
-      UUID genreUUID = UUID.fromString(createMovieDTO.getGenreID());
+      UUID genreUUID = UUID.fromString(object.getGenreID());
 
       this.createMovieUseCase.execute(
-          createMovieDTO.getTitle(),
-          createMovieDTO.getSynopsis(),
-          createMovieDTO.getDirector(),
+          object.getTitle(),
+          object.getSynopsis(),
+          object.getDirector(),
           genreUUID,
-          createMovieDTO.getDuration(),
-          createMovieDTO.getMinimumAge());
+          object.getDuration(),
+          object.getMinimumAge());
 
       return ResponseFactory.noContent();
     } catch (GenreNotFoundError e) {
@@ -45,15 +43,14 @@ public class CreateMovieController extends Controller {
   }
 
   @Override
-  public ArrayList<IValidator> buildValidators(Object object) {
-    CreateMovieDTO createMovieDTO = (CreateMovieDTO) object;
+  public ArrayList<IValidator> buildValidators(CreateMovieDTO object) {
 
-    Field title = new Field(createMovieDTO.getTitle(), "Título");
-    Field synopsis = new Field(createMovieDTO.getSynopsis(), "Descrição");
-    Field director = new Field(createMovieDTO.getDirector(), "Diretor");
-    Field genreID = new Field(createMovieDTO.getGenreID(), "Gênero");
-    Field duration = new Field(String.valueOf(createMovieDTO.getDuration()), "Duração");
-    Field minimumAge = new Field(String.valueOf(createMovieDTO.getMinimumAge()), "Idade Mínima");
+    Field title = new Field(object.getTitle(), "Título");
+    Field synopsis = new Field(object.getSynopsis(), "Descrição");
+    Field director = new Field(object.getDirector(), "Diretor");
+    Field genreID = new Field(object.getGenreID(), "Gênero");
+    Field duration = new Field(String.valueOf(object.getDuration()), "Duração");
+    Field minimumAge = new Field(String.valueOf(object.getMinimumAge()), "Idade Mínima");
 
     ArrayList<Field> requiredFields = new ArrayList<>(
         Arrays.asList(title, synopsis, director, genreID, duration, minimumAge));

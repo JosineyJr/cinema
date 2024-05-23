@@ -13,21 +13,19 @@ import com.cinema.application.validation.ValidationBuilder;
 import com.cinema.domain.errors.movies.CinemaHallAlreadyExistsError;
 import com.cinema.domain.usecases.movies.CreateCinemaHallUseCase;
 
-public class CreateCinemaHallController extends Controller {
+public class CreateCinemaHallController extends Controller<CreateCinemaHallDTO> {
   private CreateCinemaHallUseCase createCinemaHallUseCase;
 
   public CreateCinemaHallController(CreateCinemaHallUseCase createCinemaHallUseCase) {
     this.createCinemaHallUseCase = createCinemaHallUseCase;
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  public Response perform(Object object) {
+  public Response<?> perform(CreateCinemaHallDTO object) {
     try {
-      CreateCinemaHallDTO createCinemaHallDTO = (CreateCinemaHallDTO) object;
 
-      this.createCinemaHallUseCase.execute(createCinemaHallDTO.getCapacity(),
-      createCinemaHallDTO.getName());
+      this.createCinemaHallUseCase.execute(object.getCapacity(),
+          object.getName());
 
       return ResponseFactory.noContent();
     } catch (CinemaHallAlreadyExistsError e) {
@@ -36,17 +34,16 @@ public class CreateCinemaHallController extends Controller {
   }
 
   @Override
-  public ArrayList<IValidator> buildValidators(Object object) {
-    CreateCinemaHallDTO createCinemaHallDTO = (CreateCinemaHallDTO) object;
+  public ArrayList<IValidator> buildValidators(CreateCinemaHallDTO object) {
 
-    Field capacity = new Field(String.valueOf(createCinemaHallDTO.getCapacity()), "Número de Cadeiras");
-    Field name = new Field(createCinemaHallDTO.getName(), "Nome");
+    Field capacity = new Field(String.valueOf(object.getCapacity()), "Número de Cadeiras");
+    Field name = new Field(object.getName(), "Nome");
 
     ArrayList<Field> requiredFields = new ArrayList<>(Arrays.asList(capacity, name));
 
     ArrayList<IValidator> validators = new ArrayList<>();
 
-    validators.addAll(ValidationBuilder.of().required(requiredFields).minValue(name, 1).build());
+    validators.addAll(ValidationBuilder.of().required(requiredFields).minValue(capacity, 1).build());
 
     return validators;
   }

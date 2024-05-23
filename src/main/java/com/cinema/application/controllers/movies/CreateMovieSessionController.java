@@ -17,23 +17,21 @@ import com.cinema.domain.errors.movies.MovieNotFoundError;
 import com.cinema.domain.errors.movies.MovieSessionAlreadyScreeningInCinemaHallError;
 import com.cinema.domain.usecases.movies.CreateMovieSessionUseCase;
 
-public class CreateMovieSessionController extends Controller {
+public class CreateMovieSessionController extends Controller<CreateMovieSessionDTO> {
   private CreateMovieSessionUseCase createMovieSessionUseCase;
 
   public CreateMovieSessionController(CreateMovieSessionUseCase createMovieSessionUseCase) {
     this.createMovieSessionUseCase = createMovieSessionUseCase;
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  public Response perform(Object object) {
+  public Response<?> perform(CreateMovieSessionDTO object) {
     try {
-      CreateMovieSessionDTO createMovieSessionDTO = (CreateMovieSessionDTO) object;
 
-      UUID movieID = UUID.fromString(createMovieSessionDTO.getMovieID());
-      UUID cinemaHallID = UUID.fromString(createMovieSessionDTO.getCinemaHallID());
+      UUID movieID = UUID.fromString(object.getMovieID());
+      UUID cinemaHallID = UUID.fromString(object.getCinemaHallID());
 
-      LocalDateTime startDate = LocalDateTime.parse(createMovieSessionDTO.getStartDate());
+      LocalDateTime startDate = LocalDateTime.parse(object.getStartDate());
 
       this.createMovieSessionUseCase.execute(movieID, cinemaHallID, startDate);
 
@@ -45,12 +43,11 @@ public class CreateMovieSessionController extends Controller {
   }
 
   @Override
-  public ArrayList<IValidator> buildValidators(Object object) {
-    CreateMovieSessionDTO createMovieSessionDTO = (CreateMovieSessionDTO) object;
+  public ArrayList<IValidator> buildValidators(CreateMovieSessionDTO object) {
 
-    Field movieID = new Field(createMovieSessionDTO.getMovieID(), "Filme");
-    Field cinemaHallID = new Field(createMovieSessionDTO.getCinemaHallID(), "Sala de Cinema");
-    Field startDate = new Field(createMovieSessionDTO.getStartDate(), "Hora de Início");
+    Field movieID = new Field(object.getMovieID(), "Filme");
+    Field cinemaHallID = new Field(object.getCinemaHallID(), "Sala de Cinema");
+    Field startDate = new Field(object.getStartDate(), "Hora de Início");
 
     ArrayList<Field> requiredFields = new ArrayList<>(
         Arrays.asList(movieID, cinemaHallID, startDate));

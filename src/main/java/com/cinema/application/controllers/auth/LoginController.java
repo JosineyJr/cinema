@@ -11,20 +11,18 @@ import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
 import com.cinema.domain.usecases.auth.LoginUseCase;
 
-public class LoginController extends Controller {
+public class LoginController extends Controller<LoginDTO> {
   private LoginUseCase loginUseCase;
 
   public LoginController(LoginUseCase loginUseCase) {
     this.loginUseCase = loginUseCase;
   }
 
-  @SuppressWarnings("rawtypes")
   @Override
-  public Response perform(Object object) {
+  public Response<?> perform(LoginDTO object) {
     try {
-      LoginDTO loginDTO = (LoginDTO) object;
 
-      String role = this.loginUseCase.execute(loginDTO.getCPF(), loginDTO.getPassword(), loginDTO.isEmployee());
+      String role = this.loginUseCase.execute(object.getCPF(), object.getPassword(), object.isEmployee());
 
       return ResponseFactory.ok(role);
     } catch (Exception e) {
@@ -33,11 +31,10 @@ public class LoginController extends Controller {
   }
 
   @Override
-  public ArrayList<IValidator> buildValidators(Object object) {
-    LoginDTO loginDTO = (LoginDTO) object;
+  public ArrayList<IValidator> buildValidators(LoginDTO object) {
 
-    Field CPF = new Field(loginDTO.getCPF(), "CPF");
-    Field password = new Field(loginDTO.getPassword(), "Senha");
+    Field CPF = new Field(object.getCPF(), "CPF");
+    Field password = new Field(object.getPassword(), "Senha");
 
     ArrayList<Field> requiredFields = new ArrayList<>();
 

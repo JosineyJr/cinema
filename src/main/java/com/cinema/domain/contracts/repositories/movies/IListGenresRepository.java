@@ -1,7 +1,9 @@
 package com.cinema.domain.contracts.repositories.movies;
 
+import java.util.List;
+
 import com.cinema.domain.entities.movies.Genre;
 
-public interface ICreateGenreRepository {
-  public void createGenre(Genre genre);
+public interface IListGenresRepository {
+  public List<Genre> listGenres();
 }

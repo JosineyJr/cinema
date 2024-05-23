@@ -1,10 +1,14 @@
 package com.cinema.main.views.users;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.cinema.application.dtos.movies.GenreDTO;
 import com.cinema.application.dtos.users.CreateClientDTO;
 import com.cinema.application.helpers.Response;
+import com.cinema.domain.entities.movies.Genre;
 import com.cinema.main.adapters.JavaFxAdapter;
+import com.cinema.main.factories.movies.ListGenresFactory;
 import com.cinema.main.factories.users.CreateClientFactory;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
@@ -18,6 +22,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class CreateClientView {
   @FXML
@@ -43,14 +48,21 @@ public class CreateClientView {
 
   @FXML
   void initialize() {
-    this.moviePreferences.setSpacing(5);
-    CheckBox chkAction = new CheckBox("Ação");
-    chkAction.setId("action");
+    Object response = JavaFxAdapter.adaptResolver(ListGenresFactory.make(), null);
 
-    CheckBox chkTerror = new CheckBox("Terror");
-    chkTerror.setId("terror");
+    if (response.getStatusCode() == 200) {
+      if (response.getData() instanceof List) {
+        List<GenreDTO> genres = (List) response.getData();
 
-    this.moviePreferences.getChildren().addAll(chkAction, chkTerror);
+        genres.forEach((genre) -> {
+          CheckBox chk = new CheckBox(genre.getName());
+          chk.setId(genre.getID());
+          this.moviePreferences.getChildren().add(chk);
+        });
+      } else {
+        new AlertError("Erro ao buscar os gêneros");
+      }
+    }
   }
 
   @FXML
@@ -72,13 +84,14 @@ public class CreateClientView {
         passwordConfirmation.getText(),
         genres);
 
-    @SuppressWarnings("rawtypes")
-    Response response = JavaFxAdapter.adaptResolver(CreateClientFactory.make(), createClientDTO);
+    Response<?> response = JavaFxAdapter.adaptResolver(CreateClientFactory.make(), createClientDTO);
 
     if (response.getStatusCode() == 200 || response.getStatusCode() == 204) {
       new AlertSuccess("Cliente criado com sucesso!");
 
-      new ChangeWindow("/com/cinema/main/views/users/clientMoviesMenu.fxml", event);
+      Stage stage = (Stage) createClientButton.getScene().getWindow();
+
+      ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/clientMoviesMenu.fxml");
 
     } else {
       new AlertError(response.getData().toString());
@@ -87,6 +100,8 @@ public class CreateClientView {
 
   @FXML
   void backLogin(MouseEvent event) throws Exception {
-    new ChangeWindow("/com/cinema/main/views/auth/login.fxml", event);
+    Stage stage = (Stage) createClientButton.getScene().getWindow();
+
+    ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/login.fxml");
   }
 }

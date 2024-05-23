@@ -15,6 +15,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class LoginView {
 
@@ -38,15 +39,17 @@ public class LoginView {
 
   @FXML
   void createClient(MouseEvent event) throws Exception {
-    new ChangeWindow("/com/cinema/main/views/users/createClient.fxml", event);
+    Stage stage = (Stage) loginButton.getScene().getWindow();
+
+    ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/createClient.fxml");
+
   }
 
   @FXML
   void login(ActionEvent event) throws Exception {
     LoginDTO loginDTO = new LoginDTO(CPF.getText(), password.getText(), isEmployee.isSelected());
 
-    @SuppressWarnings("rawtypes")
-    Response response = JavaFxAdapter.adaptResolver(LoginFactory.make(), loginDTO);
+    Response<?> response = JavaFxAdapter.adaptResolver(LoginFactory.make(), loginDTO);
 
     if (response.getStatusCode() == 200) {
       Session.setCPF(loginDTO.getCPF());
@@ -54,7 +57,9 @@ public class LoginView {
 
       System.out.println((String) response.getData());
 
-      new ChangeWindow("/com/cinema/main/views/users/clientMoviesMenu.fxml", event);
+      Stage stage = (Stage) loginButton.getScene().getWindow();
+
+      ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/clientMoviesMenu.fxml");
     } else {
       new AlertError(response.getData().toString());
     }
@@ -62,6 +67,8 @@ public class LoginView {
 
   @FXML
   void noRegistration(MouseEvent event) throws Exception {
-    new ChangeWindow("/com/cinema/main/views/users/clientMoviesMenu.fxml", event);
+    Stage stage = (Stage) loginButton.getScene().getWindow();
+
+    ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/clientMoviesMenu.fxml");
   }
 }

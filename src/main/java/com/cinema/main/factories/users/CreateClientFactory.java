@@ -3,6 +3,7 @@ package com.cinema.main.factories.users;
 import com.cinema.application.controllers.Controller;
 import com.cinema.application.controllers.users.CreateClientController;
 import com.cinema.application.decorators.DbTransactionController;
+import com.cinema.application.dtos.users.CreateClientDTO;
 import com.cinema.domain.usecases.users.CreateClientUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.users.PgClientRepository;
@@ -10,7 +11,7 @@ import com.cinema.infra.providers.crypto.BCryptAdapter;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateClientFactory {
-  public static Controller make() {
+  public static Controller<CreateClientDTO> make() {
     PgClientRepository pgClientRepository = new PgClientRepository();
     BCryptAdapter bCryptAdapter = new BCryptAdapter(12);
 
@@ -21,6 +22,6 @@ public class CreateClientFactory {
 
     PgConnection pgConnection = PgConnectionFactory.make();
 
-    return new DbTransactionController(createClientController, pgConnection);
+    return new DbTransactionController<>(createClientController, pgConnection);
   }
 }
