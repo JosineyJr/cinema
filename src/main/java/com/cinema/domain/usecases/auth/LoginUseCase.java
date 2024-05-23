@@ -3,8 +3,8 @@ package com.cinema.domain.usecases.auth;
 import com.cinema.domain.contracts.providers.IHasherComparer;
 import com.cinema.domain.contracts.repositories.users.IFindClientByCPFRepository;
 import com.cinema.domain.contracts.repositories.users.IFindEmployeeByCPFRepository;
+import com.cinema.domain.entities.users.Admin;
 import com.cinema.domain.entities.users.Client;
-import com.cinema.domain.entities.users.Employee;
 import com.cinema.domain.entities.users.Person;
 import com.cinema.domain.enums.auth.Role;
 import com.cinema.domain.errors.auth.LoginError;
@@ -33,12 +33,10 @@ public class LoginUseCase {
       return Role.CLIENT.toString();
     }
 
-    if (person instanceof Employee) {
-      return Role.EMPLOYEE.toString();
+    if (person instanceof Admin) {
+      return Role.ADMIN.toString();
     }
 
-    System.out.println("aqui = admin");
-
-    return Role.ADMIN.toString();
+    return Role.EMPLOYEE.toString();
   }
 }
