@@ -6,8 +6,6 @@ import java.util.List;
 import com.cinema.application.dtos.movies.GenreDTO;
 import com.cinema.application.dtos.users.CreateClientDTO;
 import com.cinema.application.helpers.Response;
-import com.cinema.domain.entities.movies.Genre;
-import com.cinema.main.adapters.JavaFxAdapter;
 import com.cinema.main.factories.movies.ListGenresFactory;
 import com.cinema.main.factories.users.CreateClientFactory;
 import com.cinema.main.views.helpers.AlertError;
@@ -48,19 +46,22 @@ public class CreateClientView {
 
   @FXML
   void initialize() {
-    Object response = JavaFxAdapter.adaptResolver(ListGenresFactory.make(), null);
+    Response<?> response = ListGenresFactory.make().handle(null);
 
-    if (response.getStatusCode() == 200) {
-      if (response.getData() instanceof List) {
-        List<GenreDTO> genres = (List) response.getData();
+    Object data = response.getData();
 
-        genres.forEach((genre) -> {
-          CheckBox chk = new CheckBox(genre.getName());
-          chk.setId(genre.getID());
-          this.moviePreferences.getChildren().add(chk);
-        });
-      } else {
-        new AlertError("Erro ao buscar os gêneros");
+    if (data instanceof List) {
+      this.moviePreferences.setSpacing(5);
+
+      for (Object genre : (List<?>) data) {
+        if (genre instanceof GenreDTO) {
+          GenreDTO genreDTO = (GenreDTO) genre;
+
+          CheckBox chk = new CheckBox(genreDTO.getName());
+          chk.setId(genreDTO.getID().toString());
+
+          moviePreferences.getChildren().addAll(chk);
+        }
       }
     }
   }
@@ -84,7 +85,7 @@ public class CreateClientView {
         passwordConfirmation.getText(),
         genres);
 
-    Response<?> response = JavaFxAdapter.adaptResolver(CreateClientFactory.make(), createClientDTO);
+    Response<?> response = CreateClientFactory.make().handle(createClientDTO);
 
     if (response.getStatusCode() == 200 || response.getStatusCode() == 204) {
       new AlertSuccess("Cliente criado com sucesso!");

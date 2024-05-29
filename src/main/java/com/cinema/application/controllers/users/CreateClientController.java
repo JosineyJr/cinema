@@ -1,6 +1,7 @@
 package com.cinema.application.controllers.users;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.cinema.application.controllers.Controller;
 import com.cinema.application.dtos.users.CreateClientDTO;
@@ -43,13 +44,12 @@ public class CreateClientController extends Controller<CreateClientDTO> {
     Field password = new Field(object.getPassword(), "Senha");
     Field passwordConfirmation = new Field(object.getPasswordConfirmation(), "Confirmação de Senha");
 
-    ArrayList<Field> requiredFields = new ArrayList<>();
-
-    requiredFields.add(firstName);
-    requiredFields.add(lastName);
-    requiredFields.add(CPF);
-    requiredFields.add(password);
-    requiredFields.add(passwordConfirmation);
+    ArrayList<Field> requiredFields = new ArrayList<>(Arrays.asList(
+        firstName,
+        lastName,
+        CPF,
+        password,
+        passwordConfirmation));
 
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
 

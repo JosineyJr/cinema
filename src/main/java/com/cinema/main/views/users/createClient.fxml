@@ -40,11 +40,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.users.CreateClientView">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.users.CreateClientView">
    <children>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="600.0" prefWidth="800.0"
-         VBox.vgrow="ALWAYS">
+      <fx:include source="../menu.fxml" />
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="600.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
          <children>
             <Label layoutX="314.0" layoutY="106.0" text="Nome">
                <font>
@@ -74,9 +73,7 @@
                   <Font name="Fira Code Regular" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="createClientButton" defaultButton="true" layoutX="358.0" layoutY="489.0"
-               mnemonicParsing="false" onAction="#createClient" prefHeight="32.0" prefWidth="106.0"
-               style="-fx-background-color: #7FFFD4; -fx-border-color: #000000;" text="Cadastrar">
+            <Button fx:id="createClientButton" defaultButton="true" layoutX="358.0" layoutY="489.0" mnemonicParsing="false" onAction="#createClient" prefHeight="32.0" prefWidth="106.0" style="-fx-background-color: #7FFFD4; -fx-border-color: #000000;" text="Cadastrar">
                <font>
                   <Font name="Fira Code Regular" size="14.0" />
                </font>
@@ -93,10 +90,8 @@
                   <Font name="Fira Code Regular" size="14.0" />
                </font>
             </Label>
-            <VBox fx:id="moviePreferences" layoutX="322.0" layoutY="346.0" prefHeight="143.0"
-               prefWidth="164.0" />
-            <Label layoutX="385.0" layoutY="533.0" onMouseClicked="#backLogin"
-               style="-fx-text-fill: #6495ED;" text="Voltar">
+            <VBox fx:id="moviePreferences" layoutX="322.0" layoutY="346.0" prefHeight="143.0" prefWidth="164.0" />
+            <Label layoutX="385.0" layoutY="533.0" onMouseClicked="#backLogin" style="-fx-text-fill: #6495ED;" text="Voltar">
                <font>
                   <Font name="Fira Code Regular" size="14.0" />
                </font>

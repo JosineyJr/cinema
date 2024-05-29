@@ -2,7 +2,6 @@ package com.cinema.main.views.auth;
 
 import com.cinema.application.dtos.auth.LoginDTO;
 import com.cinema.application.helpers.Response;
-import com.cinema.main.adapters.JavaFxAdapter;
 import com.cinema.main.factories.auth.LoginFactory;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.ChangeWindow;
@@ -49,7 +48,7 @@ public class LoginView {
   void login(ActionEvent event) throws Exception {
     LoginDTO loginDTO = new LoginDTO(CPF.getText(), password.getText(), isEmployee.isSelected());
 
-    Response<?> response = JavaFxAdapter.adaptResolver(LoginFactory.make(), loginDTO);
+    Response<?> response = LoginFactory.make().handle(loginDTO);
 
     if (response.getStatusCode() == 200) {
       Session.setCPF(loginDTO.getCPF());

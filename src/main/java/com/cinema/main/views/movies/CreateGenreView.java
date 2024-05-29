@@ -2,7 +2,6 @@ package com.cinema.main.views.movies;
 
 import com.cinema.application.dtos.movies.CreateGenreDTO;
 import com.cinema.application.helpers.Response;
-import com.cinema.main.adapters.JavaFxAdapter;
 import com.cinema.main.factories.movies.CreateGenreFactory;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
@@ -27,7 +26,7 @@ public class CreateGenreView {
 
         CreateGenreDTO createGenreDTO = new CreateGenreDTO(genreName);
 
-        Response response = JavaFxAdapter.adaptResolver(CreateGenreFactory.make(), createGenreDTO);
+        Response response = CreateGenreFactory.make().handle(createGenreDTO);
 
         if (response.getStatusCode() == 204) {
             new AlertSuccess("Gênero criado com sucesso!");
