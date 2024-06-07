@@ -1,6 +1,7 @@
 package com.cinema.application.controllers.movies;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
@@ -31,7 +32,9 @@ public class CreateMovieSessionController extends Controller<CreateMovieSessionD
       UUID movieID = UUID.fromString(object.getMovieID());
       UUID cinemaHallID = UUID.fromString(object.getCinemaHallID());
 
-      LocalDateTime startDate = LocalDateTime.parse(object.getStartDate());
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+      LocalTime startDate = LocalTime.parse(object.getStartTime(), formatter);
 
       this.createMovieSessionUseCase.execute(movieID, cinemaHallID, startDate);
 
@@ -47,7 +50,7 @@ public class CreateMovieSessionController extends Controller<CreateMovieSessionD
 
     Field movieID = new Field(object.getMovieID(), "Filme");
     Field cinemaHallID = new Field(object.getCinemaHallID(), "Sala de Cinema");
-    Field startDate = new Field(object.getStartDate(), "Hora de Início");
+    Field startDate = new Field(object.getStartTime(), "Hora de Início");
 
     ArrayList<Field> requiredFields = new ArrayList<>(
         Arrays.asList(movieID, cinemaHallID, startDate));

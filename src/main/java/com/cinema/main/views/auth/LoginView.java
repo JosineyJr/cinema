@@ -54,8 +54,6 @@ public class LoginView {
       Session.setCPF(loginDTO.getCPF());
       Session.setRole((String) response.getData());
 
-      System.out.println((String) response.getData());
-
       Stage stage = (Stage) loginButton.getScene().getWindow();
 
       ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/clientMoviesMenu.fxml");

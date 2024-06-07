@@ -4,7 +4,7 @@ import com.cinema.main.views.helpers.ChangeWindow;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
@@ -39,24 +39,30 @@ public class MenuView {
     private MenuItem registerMovieSessionMenuItem;
 
     @FXML
-    void registerCinemaHall(ActionEvent event) {
+    private Parent root;
 
+    @FXML
+    void registerCinemaHall(ActionEvent event) throws Exception {
+        Stage primaryStage = StageManager.getPrimaryStage();
+        ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createCinemaHall.fxml");
     }
 
     @FXML
     void registerGenre(ActionEvent event) throws Exception {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        ChangeWindow.changeScene(stage, "/com/cinema/main/views/movies/createGenre.fxml");
+        Stage primaryStage = StageManager.getPrimaryStage();
+        ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createGenre.fxml");
     }
 
     @FXML
-    void registerMovie(ActionEvent event) {
-
+    void registerMovie(ActionEvent event) throws Exception {
+        Stage primaryStage = StageManager.getPrimaryStage();
+        ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createMovie.fxml");
     }
 
     @FXML
-    void registerMovieSession(ActionEvent event) {
-
+    void registerMovieSession(ActionEvent event) throws Exception {
+        Stage primaryStage = StageManager.getPrimaryStage();
+        ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createMovieSession.fxml");
     }
 
 }

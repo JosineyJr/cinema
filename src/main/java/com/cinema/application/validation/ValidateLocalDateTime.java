@@ -1,6 +1,7 @@
 package com.cinema.application.validation;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import com.cinema.application.errors.ValidateLocalDateTimeError;
@@ -17,7 +18,11 @@ public class ValidateLocalDateTime implements IValidator {
     String dateTime = this.field.getValue();
 
     try {
-      LocalDateTime.parse(dateTime);
+
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+      LocalTime.parse(dateTime, formatter);
+
     } catch (DateTimeParseException e) {
       return new ValidateLocalDateTimeError(this.field.getName());
     }

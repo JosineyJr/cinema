@@ -12,7 +12,8 @@ public class CreateMovieUseCase {
   private ICreateMovieRepository createMovieRepository;
   private IFindGenreByIDRepository findGenreByIDRepository;
 
-  public CreateMovieUseCase(ICreateMovieRepository createMovieRepository, IFindGenreByIDRepository findGenreByIDRepository) {
+  public CreateMovieUseCase(ICreateMovieRepository createMovieRepository,
+      IFindGenreByIDRepository findGenreByIDRepository) {
     this.createMovieRepository = createMovieRepository;
     this.findGenreByIDRepository = findGenreByIDRepository;
   }

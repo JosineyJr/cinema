@@ -1,6 +1,6 @@
 package com.cinema.infra.db.postgres.repositores.movies;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 import com.cinema.domain.contracts.repositories.movies.ICreateMovieSessionRepository;
@@ -22,7 +22,7 @@ public class PgMovieSessionRepository extends PgRepository
 
   @Override
   public boolean findMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDuration(UUID cinemaHallID,
-      LocalDateTime sessionStartTime, int movieDuration) {
+      LocalTime sessionStartTime, int movieDuration) {
     String sql = "SELECT ms.* " +
         "FROM movie_session ms " +
         "JOIN movie_session ms2 ON ms.cinema_hall_id = ms2.cinema_hall_id " +
@@ -31,8 +31,7 @@ public class PgMovieSessionRepository extends PgRepository
         "AND ( " +
         "(ms2.start_time >= :startTime AND ms2.start_time < :endTime) OR " +
         "(:startTime >= ms2.start_time AND :startTime < (ms2.start_time + (m2.duration || ' minutes')::interval)) " +
-        ");";
-    ;
+        ")";
 
     long movieSessionCount = session.createNativeQuery(sql, PgMovieSession.class)
         .setParameter("cinemaHallId", cinemaHallID).setParameter("startTime", sessionStartTime)

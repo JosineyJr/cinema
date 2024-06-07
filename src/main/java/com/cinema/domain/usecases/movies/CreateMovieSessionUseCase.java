@@ -13,7 +13,7 @@ import com.cinema.domain.errors.movies.CinemaHallNotFoundError;
 import com.cinema.domain.errors.movies.MovieNotFoundError;
 import com.cinema.domain.errors.movies.MovieSessionAlreadyScreeningInCinemaHallError;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class CreateMovieSessionUseCase {
   private IFindMovieByIDRepository findMovieByIDRepository;
@@ -31,8 +31,9 @@ public class CreateMovieSessionUseCase {
     this.createMovieSessionRepository = createMovieSessionRepository;
   }
 
-  public void execute(UUID movieID, UUID cinemaHallID, LocalDateTime startTime)
+  public void execute(UUID movieID, UUID cinemaHallID, LocalTime startTime)
       throws MovieNotFoundError, CinemaHallNotFoundError, MovieSessionAlreadyScreeningInCinemaHallError {
+
     Movie movie = this.findMovieByIDRepository.findMovieByID(movieID);
 
     if (movie == null) {
@@ -45,11 +46,9 @@ public class CreateMovieSessionUseCase {
       throw new CinemaHallNotFoundError();
     }
 
-    int breakTimeBetweenSessions = MovieSession.BREAK_TIME_BETWEEN_SESSIONS;
-
     boolean movieSessionIsExists = this.findMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository
         .findMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDuration(cinemaHallID, startTime,
-            movie.getDuration() + breakTimeBetweenSessions);
+            movie.getDuration());
 
     if (movieSessionIsExists) {
       throw new MovieSessionAlreadyScreeningInCinemaHallError();
