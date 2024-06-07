@@ -1,7 +1,9 @@
 package com.cinema.domain.contracts.repositories.products;
 
+import java.util.UUID;
+
 import com.cinema.domain.entities.products.Product;
 
 public interface ICreateProductRepository {
-  public void create(Product product);
+  public UUID create(Product product);
 }
