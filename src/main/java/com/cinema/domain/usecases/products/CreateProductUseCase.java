@@ -18,7 +18,7 @@ public class CreateProductUseCase {
     this.findProductByNameRepository = findProductByNameRepository;
   }
 
-  public UUID execute(String name, double price, int quantity) throws ProductAlreadyExistsError{
+  public UUID execute(String name, double price) throws ProductAlreadyExistsError{
     if (this.findProductByNameRepository.findByName(name) != null) {
       throw new ProductAlreadyExistsError();
     }

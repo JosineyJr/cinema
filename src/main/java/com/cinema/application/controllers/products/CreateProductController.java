@@ -25,8 +25,7 @@ public class CreateProductController extends Controller<CreateProductDTO> {
     try {
       this.createProductUseCase.execute(
           object.getName(),
-          object.getPrice(),
-          object.getQuantity());
+          object.getPrice());
 
       return ResponseFactory.noContent();
     } catch (ProductAlreadyExistsError e) {
