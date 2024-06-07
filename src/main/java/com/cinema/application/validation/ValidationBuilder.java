@@ -53,6 +53,12 @@ public class ValidationBuilder {
     return this;
   }
 
+  public ValidationBuilder minDoubleValue(Field field, double minDoubleValue) {
+    this.validators.add(new MinDoubleValueValidator(field, minDoubleValue));
+
+    return this;
+  }
+
   public ValidationBuilder validateLocalDateTime(Field field) {
     this.validators.add(new ValidateLocalDateTime(field));
 
