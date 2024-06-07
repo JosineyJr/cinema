@@ -9,6 +9,11 @@ import jakarta.persistence.Id;
 
 @Entity(name = "product")
 public class PgProduct {
+  public PgProduct(String name, double price) {
+    this.name = name;
+    this.price = price;
+  }
+
   @Id
   @GeneratedValue
   private UUID ID;
@@ -18,4 +23,16 @@ public class PgProduct {
 
   @Column(nullable = false)
   private double price;
+
+  public UUID getID() {
+    return this.ID;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public double getPrice() {
+    return this.price;
+  }
 }
