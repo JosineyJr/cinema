@@ -14,6 +14,12 @@ public class PgProduct {
     this.price = price;
   }
 
+  public PgProduct(UUID ID, String name, double price) {
+    this.ID = ID;
+    this.name = name;
+    this.price = price;
+  }
+
   @Id
   @GeneratedValue
   private UUID ID;
