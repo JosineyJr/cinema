@@ -43,8 +43,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import com.cinema.main.views.helpers.CurrencyField?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.products.CreateProductView">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="600.0" prefWidth="800.0"
+  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.cinema.main.views.products.CreateProductView">
   <children>
     <fx:include source="../menu.fxml" />
     <Label layoutX="316.0" layoutY="98.0" text="Nome">
@@ -63,11 +66,13 @@
         <Font name="Fira Code Regular" size="14.0" />
       </font>
     </Label>
-    <TextField fx:id="Price" layoutX="316.0" layoutY="176.0" prefHeight="24.0" prefWidth="161.0" />
-    <Button fx:id="registerProductButton" defaultButton="true" layoutX="344.0" layoutY="217.0" mnemonicParsing="false" onAction="#registerProduct" prefHeight="32.0" prefWidth="106.0" style="-fx-background-color: #7FFFD4; -fx-border-color: #000000;" text="Cadastrar">
+    <CurrencyField fx:id="price" layoutX="316.0" layoutY="176.0" prefHeight="24.0" prefWidth="161.0" />
+    <Button fx:id="registerProductButton" defaultButton="true" layoutX="344.0" layoutY="217.0"
+      mnemonicParsing="false" onAction="#registerProduct" prefHeight="32.0" prefWidth="106.0"
+      style="-fx-background-color: #7FFFD4; -fx-border-color: #000000;" text="Cadastrar">
       <font>
-         <Font name="Fira Code Regular" size="14.0" />
+        <Font name="Fira Code Regular" size="14.0" />
       </font>
-   </Button>
+    </Button>
   </children>
 </AnchorPane>
