@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.movies.ListGenresView">
+   <children>
+      <fx:include source="../menu.fxml" />
+      <TableView fx:id="genreTable" layoutX="143.0" layoutY="144.0" prefHeight="388.0" prefWidth="514.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" minWidth="0.0" prefWidth="413.0" text="Nome" />
+            <TableColumn fx:id="actionColumn" maxWidth="285.0" prefWidth="100.0" text="Açao" />
+        </columns>
+      </TableView>
+      <Label layoutX="255.0" layoutY="69.0" text="Generos de filmes">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="createGenreLabel" layoutX="314.0" layoutY="554.0" onMouseClicked="#createGenre" style="-fx-text-fill: #6495ED;" text="Cadastrar novo genero" />
+   </children>
+</AnchorPane>

@@ -64,8 +64,8 @@ public class MovieDTO {
     this.director = director;
   }
 
-  public Genre getGenre() {
-    return this.genre;
+  public String getGenre() {
+    return this.genre.getName();
   }
 
   public void setGenre(Genre genre) {

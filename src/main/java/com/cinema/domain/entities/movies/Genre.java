@@ -6,7 +6,6 @@ public class Genre {
   private UUID ID;
   private String name;
 
-
   public Genre(UUID ID, String name) {
     this.ID = ID;
     this.name = name;

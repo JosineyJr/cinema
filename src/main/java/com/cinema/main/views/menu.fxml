@@ -4,37 +4,36 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="com.cinema.main.views.MenuView">
+<MenuBar prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.MenuView">
    <menus>
       <Menu fx:id="movies" mnemonicParsing="false" text="Filmes" />
       <Menu fx:id="products" mnemonicParsing="false" text="Produtos" />
       <Menu fx:id="cart" mnemonicParsing="false" text="Carrinho" />
       <Menu fx:id="profile" mnemonicParsing="false" text="Perfil" />
-      <Menu fx:id="management" mnemonicParsing="false" text="Gerenciamento">
+      <Menu mnemonicParsing="false" text="Gerenciamento">
          <items>
             <Menu mnemonicParsing="false" text="Genero dos filmes">
                <items>
-                  <MenuItem fx:id="registerGenreMenuItem" mnemonicParsing="false"
-                     onAction="#registerGenre" text="Cadastrar genero" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Salas de cinema">
-               <items>
-                  <MenuItem fx:id="registerCinemaHallMenuItem" mnemonicParsing="false"
-                     onAction="#registerCinemaHall" text="Cadastrar sala de cinema" />
+                  <MenuItem mnemonicParsing="false" onAction="#registerGenre" text="Cadastrar genero" />
+                  <MenuItem mnemonicParsing="false" onAction="#listGenres" text="Listar generos" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Filmes">
                <items>
-                  <MenuItem fx:id="registerMovieMenuItem" mnemonicParsing="false"
-                     onAction="#registerMovie" text="Cadastrar filme" />
+                  <MenuItem mnemonicParsing="false" onAction="#registerMovie" text="Cadastrar filme" />
+                  <MenuItem mnemonicParsing="false" onAction="#listMovies" text="Listar filmes" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Salas de cinema">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#registerCinemaHall" text="Cadastrar sala de cinema" />
+                  <MenuItem mnemonicParsing="false" onAction="#listCinemaHalls" text="Listar salas de cinema" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Sessoes">
                <items>
-                  <MenuItem fx:id="registerMovieSessionMenuItem" mnemonicParsing="false"
-                     onAction="#registerMovieSession" text="Cadastrar sessao" />
+                  <MenuItem mnemonicParsing="false" onAction="#registerMovieSession" text="Cadastrar sessao" />
+                  <MenuItem mnemonicParsing="false" onAction="#listMovieSession" text="Listar sessoes" />
                </items>
             </Menu>
          </items>

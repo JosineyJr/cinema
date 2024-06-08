@@ -1,10 +1,15 @@
 package com.cinema.infra.db.postgres.repositores.movies;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 import com.cinema.domain.contracts.repositories.movies.ICreateMovieSessionRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository;
+import com.cinema.domain.contracts.repositories.movies.IListMovieSessionsRepository;
+import com.cinema.domain.entities.movies.CinemaHall;
+import com.cinema.domain.entities.movies.Genre;
+import com.cinema.domain.entities.movies.Movie;
 import com.cinema.domain.entities.movies.MovieSession;
 import com.cinema.infra.db.postgres.entities.movies.PgCinemaHall;
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
@@ -14,7 +19,7 @@ import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 public class PgMovieSessionRepository extends PgRepository
     implements IFindMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository,
-    ICreateMovieSessionRepository {
+    ICreateMovieSessionRepository, IListMovieSessionsRepository {
 
   public PgMovieSessionRepository() {
     super();
@@ -60,5 +65,25 @@ public class PgMovieSessionRepository extends PgRepository
         movieSession.getStartTime());
 
     this.session.persist(pgMovieSession);
+  }
+
+  @Override
+  public List<MovieSession> listMovieSessions() {
+    List<PgMovieSession> pgMovieSessions = this.session.createQuery("from movie_session", PgMovieSession.class)
+        .getResultList();
+
+    return pgMovieSessions.stream().map(pgMovieSession -> {
+      Genre genre = new Genre(pgMovieSession.getMovie().getGenre().getID(),
+          pgMovieSession.getMovie().getGenre().getName());
+
+      Movie movie = new Movie(pgMovieSession.getMovie().getID(), pgMovieSession.getMovie().getTitle(),
+          pgMovieSession.getMovie().getSynopsis(), pgMovieSession.getMovie().getDirector(), genre,
+          pgMovieSession.getMovie().getDuration(), pgMovieSession.getMovie().getMinimumAge());
+
+      CinemaHall cinemaHall = new CinemaHall(pgMovieSession.getCinemaHall().getID(),
+          pgMovieSession.getCinemaHall().getCapacity(), pgMovieSession.getCinemaHall().getName());
+
+      return new MovieSession(movie, cinemaHall, pgMovieSession.getStartTime());
+    }).toList();
   }
 }
