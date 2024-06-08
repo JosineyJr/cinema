@@ -1,6 +1,6 @@
 package com.cinema.infra.db.postgres.repositores.movies;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,15 +27,15 @@ public class PgMovieSessionRepository extends PgRepository
 
   @Override
   public boolean findMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDuration(UUID cinemaHallID,
-      LocalTime sessionStartTime, int movieDuration) {
+      LocalDateTime sessionStartTime, int movieDuration) {
     String sql = "SELECT ms.* " +
         "FROM movie_session ms " +
         "JOIN movie_session ms2 ON ms.cinema_hall_id = ms2.cinema_hall_id " +
         "JOIN movie m2 ON ms2.movie_id = m2.ID " +
         "WHERE ms.cinema_hall_id = :cinemaHallId " +
         "AND ( " +
-        "(ms2.start_time >= :startTime AND ms2.start_time < :endTime) OR " +
-        "(:startTime >= ms2.start_time AND :startTime < (ms2.start_time + (m2.duration || ' minutes')::interval)) " +
+        "(ms2.start_date >= :startTime AND ms2.start_date < :endTime) OR " +
+        "(:startTime >= ms2.start_date AND :startTime < (ms2.start_date + (m2.duration || ' minutes')::interval)) " +
         ")";
 
     long movieSessionCount = session.createNativeQuery(sql, PgMovieSession.class)
@@ -50,7 +50,7 @@ public class PgMovieSessionRepository extends PgRepository
   }
 
   @Override
-  public void createMovieSession(MovieSession movieSession) {
+  public UUID createMovieSession(MovieSession movieSession) {
     PgGenre pgGenre = new PgGenre(movieSession.getMovie().getGenre().getID(),
         movieSession.getMovie().getGenre().getName());
 
@@ -62,9 +62,11 @@ public class PgMovieSessionRepository extends PgRepository
         movieSession.getCinemaHall().getCapacity(), movieSession.getCinemaHall().getName());
 
     PgMovieSession pgMovieSession = new PgMovieSession(pgMovie, pgCinemaHall,
-        movieSession.getStartTime());
+        movieSession.getStartDate());
 
     this.session.persist(pgMovieSession);
+
+    return pgMovieSession.getID();
   }
 
   @Override
@@ -83,7 +85,7 @@ public class PgMovieSessionRepository extends PgRepository
       CinemaHall cinemaHall = new CinemaHall(pgMovieSession.getCinemaHall().getID(),
           pgMovieSession.getCinemaHall().getCapacity(), pgMovieSession.getCinemaHall().getName());
 
-      return new MovieSession(movie, cinemaHall, pgMovieSession.getStartTime());
+      return new MovieSession(movie, cinemaHall, pgMovieSession.getStartDate());
     }).toList();
   }
 }

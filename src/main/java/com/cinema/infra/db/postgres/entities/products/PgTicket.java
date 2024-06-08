@@ -24,6 +24,42 @@ public class PgTicket {
   @JoinColumn(name = "movie_session_id", nullable = false)
   private PgMovieSession movieSession;
 
-  @Column(name = "is_half_price", nullable = false)
-  private boolean isHalfPrice;
+  public PgTicket() {
+  }
+
+  public PgTicket(UUID ID, double price, PgMovieSession movieSession) {
+    this.ID = ID;
+    this.price = price;
+    this.movieSession = movieSession;
+  }
+
+  public PgTicket(double price, PgMovieSession movieSession) {
+    this.price = price;
+    this.movieSession = movieSession;
+  }
+
+  public UUID getID() {
+    return this.ID;
+  }
+
+  public void setID(UUID ID) {
+    this.ID = ID;
+  }
+
+  public double getPrice() {
+    return this.price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+  public PgMovieSession getMovieSession() {
+    return this.movieSession;
+  }
+
+  public void setMovieSession(PgMovieSession movieSession) {
+    this.movieSession = movieSession;
+  }
+
 }

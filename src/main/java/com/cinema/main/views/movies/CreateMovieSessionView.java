@@ -1,6 +1,8 @@
 package com.cinema.main.views.movies;
 
 import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -23,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class CreateMovieSessionView {
@@ -37,7 +40,13 @@ public class CreateMovieSessionView {
     private ChoiceBox<Item> movie;
 
     @FXML
+    private DatePicker startDate;
+
+    @FXML
     private TextField startTime;
+
+    @FXML
+    private TextField ticketPrice;
 
     @FXML
     void initialize() {
@@ -89,10 +98,17 @@ public class CreateMovieSessionView {
     void createMovieSession(ActionEvent event) {
         String cinemaHallID = this.cinemaHall.getSelectionModel().getSelectedItem().getID().toString();
         String movieID = this.movie.getSelectionModel().getSelectedItem().getID().toString();
+        LocalDate startDate = this.startDate.getValue();
+        String startTime = this.startTime.getText();
+        double ticketPrice = Double.parseDouble(this.ticketPrice.getText());
+
+        String sessionDateTime = LocalDateTime.of(startDate,
+                LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"))).toString();
 
         Response<?> response = CreateMovieSessionFactory.make()
                 .handle(new CreateMovieSessionDTO(movieID, cinemaHallID,
-                        this.startTime.getText()));
+                        sessionDateTime,
+                        ticketPrice));
 
         if (response.getStatusCode() == 204) {
             new AlertSuccess("Sessão criada com sucesso");

@@ -1,9 +1,9 @@
 package com.cinema.domain.contracts.repositories.movies;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public interface IFindMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository {
   public boolean findMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDuration(UUID cinemaHallID,
-      LocalTime SessionStartTime, int movieDuration);
+      LocalDateTime SessionStartTime, int movieDuration);
 }

@@ -3,12 +3,15 @@ package com.cinema.application.dtos.movies;
 public class CreateMovieSessionDTO {
   private String movieID;
   private String cinemaHallID;
-  private String startTime;
+  private String startDate;
+  private double ticketPrice;
 
-  public CreateMovieSessionDTO(String movieID, String cinemaHallID, String startTime) {
+  public CreateMovieSessionDTO(String movieID, String cinemaHallID, String startDate,
+      double ticketPrice) {
     this.movieID = movieID;
     this.cinemaHallID = cinemaHallID;
-    this.startTime = startTime;
+    this.startDate = startDate;
+    this.ticketPrice = ticketPrice;
   }
 
   public String getMovieID() {
@@ -27,11 +30,19 @@ public class CreateMovieSessionDTO {
     this.cinemaHallID = cinemaHallID;
   }
 
-  public String getStartTime() {
-    return this.startTime;
+  public double getTicketPrice() {
+    return this.ticketPrice;
   }
 
-  public void setStartTime(String startTime) {
-    this.startTime = startTime;
+  public void setTicketPrice(double ticketPrice) {
+    this.ticketPrice = ticketPrice;
+  }
+
+  public String getStartDate() {
+    return this.startDate;
+  }
+
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
   }
 }

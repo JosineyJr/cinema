@@ -8,19 +8,16 @@ public class Ticket {
   private UUID ID;
   private double price;
   private MovieSession movieSession;
-  private boolean isHalfPrice;
 
-  public Ticket(UUID ID, double price, MovieSession movieSession, boolean isHalfPrice) {
+  public Ticket(UUID ID, double price, MovieSession movieSession) {
     this.ID = ID;
     this.price = price;
     this.movieSession = movieSession;
-    this.isHalfPrice = isHalfPrice;
   }
 
-  public Ticket(double price, MovieSession movieSession, boolean isHalfPrice) {
+  public Ticket(double price, MovieSession movieSession) {
     this.price = price;
     this.movieSession = movieSession;
-    this.isHalfPrice = isHalfPrice;
   }
 
   public UUID getID() {
@@ -46,13 +43,4 @@ public class Ticket {
   public void setMovieSession(MovieSession movieSession) {
     this.movieSession = movieSession;
   }
-
-  public boolean isHalfPrice() {
-    return this.isHalfPrice;
-  }
-
-  public void setIsHalfPrice(boolean isHalfPrice) {
-    this.isHalfPrice = isHalfPrice;
-  }
-
 }

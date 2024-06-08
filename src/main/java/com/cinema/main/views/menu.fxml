@@ -4,8 +4,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="com.cinema.main.views.MenuView">
+<MenuBar prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.MenuView">
   <menus>
     <Menu fx:id="movies" mnemonicParsing="false" text="Filmes" />
     <Menu fx:id="products" mnemonicParsing="false" text="Produtos" />
@@ -27,19 +26,22 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Salas de cinema">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#registerCinemaHall"
-              text="Cadastrar sala de cinema" />
-            <MenuItem mnemonicParsing="false" onAction="#listCinemaHalls"
-              text="Listar salas de cinema" />
+            <MenuItem mnemonicParsing="false" onAction="#registerCinemaHall" text="Cadastrar sala de cinema" />
+            <MenuItem mnemonicParsing="false" onAction="#listCinemaHalls" text="Listar salas de cinema" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Sessoes">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#registerMovieSession"
-              text="Cadastrar sessao" />
+            <MenuItem mnemonicParsing="false" onAction="#registerMovieSession" text="Cadastrar sessao" />
             <MenuItem mnemonicParsing="false" onAction="#listMovieSession" text="Listar sessoes" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Produtos">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#registerProduct" text="Cadastrar produto" />
+                  <MenuItem mnemonicParsing="false" onAction="#listProducts" text="Listar produtos" />
+               </items>
+            </Menu>
       </items>
     </Menu>
   </menus>

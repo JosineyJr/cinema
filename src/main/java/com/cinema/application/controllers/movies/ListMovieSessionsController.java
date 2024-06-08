@@ -27,7 +27,7 @@ public class ListMovieSessionsController extends Controller<Object> {
 
       for (MovieSession movieSession : movieSessions) {
         movieSessionsDTO.add(new MovieSessionDTO(movieSession.getID(), movieSession.getMovie().getTitle(),
-            movieSession.getCinemaHall().getName(), movieSession.getStartTime().toString()));
+            movieSession.getCinemaHall().getName(), movieSession.getStartDate().toString()));
       }
 
       return ResponseFactory.ok(movieSessionsDTO);

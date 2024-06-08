@@ -9,6 +9,7 @@ import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.movies.PgCinemaHallRepository;
 import com.cinema.infra.db.postgres.repositores.movies.PgMovieRepository;
 import com.cinema.infra.db.postgres.repositores.movies.PgMovieSessionRepository;
+import com.cinema.infra.db.postgres.repositores.products.PgTicketRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateMovieSessionFactory {
@@ -19,8 +20,10 @@ public class CreateMovieSessionFactory {
 
     PgMovieSessionRepository pgMovieSessionRepository = new PgMovieSessionRepository();
 
+    PgTicketRepository pgTicketRepository = new PgTicketRepository();
+
     CreateMovieSessionUseCase createMovieSessionUseCase = new CreateMovieSessionUseCase(pgMovieRepository,
-        pgCinemaHallRepository, pgMovieSessionRepository, pgMovieSessionRepository);
+        pgCinemaHallRepository, pgMovieSessionRepository, pgMovieSessionRepository, pgTicketRepository);
 
     CreateMovieSessionController createMovieSessionController = new CreateMovieSessionController(
         createMovieSessionUseCase);

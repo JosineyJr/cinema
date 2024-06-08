@@ -1,6 +1,6 @@
 package com.cinema.infra.db.postgres.entities.movies;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -24,23 +24,23 @@ public class PgMovieSession {
   @JoinColumn(name = "cinema_hall_id", nullable = false)
   private PgCinemaHall cinemaHall;
 
-  @Column(name = "start_time", nullable = false)
-  private LocalTime startTime;
+  @Column(name = "start_date", nullable = false)
+  private LocalDateTime startDate;
 
   public PgMovieSession() {
   }
 
-  public PgMovieSession(UUID ID, PgMovie movie, PgCinemaHall cinemaHall, LocalTime startTime) {
+  public PgMovieSession(UUID ID, PgMovie movie, PgCinemaHall cinemaHall, LocalDateTime startDate) {
     this.ID = ID;
     this.movie = movie;
     this.cinemaHall = cinemaHall;
-    this.startTime = startTime;
+    this.startDate = startDate;
   }
 
-  public PgMovieSession(PgMovie movie, PgCinemaHall cinemaHall, LocalTime startTime) {
+  public PgMovieSession(PgMovie movie, PgCinemaHall cinemaHall, LocalDateTime startDate) {
     this.movie = movie;
     this.cinemaHall = cinemaHall;
-    this.startTime = startTime;
+    this.startDate = startDate;
   }
 
   public UUID getID() {
@@ -67,11 +67,11 @@ public class PgMovieSession {
     this.cinemaHall = cinemaHall;
   }
 
-  public LocalTime getStartTime() {
-    return this.startTime;
+  public LocalDateTime getStartDate() {
+    return this.startDate;
   }
 
-  public void setStartTime(LocalTime startTime) {
-    this.startTime = startTime;
+  public void setStartDate(LocalDateTime startDate) {
+    this.startDate = startDate;
   }
 }

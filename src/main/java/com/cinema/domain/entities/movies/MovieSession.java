@@ -1,25 +1,25 @@
 package com.cinema.domain.entities.movies;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class MovieSession {
   private UUID ID;
   private Movie movie;
   private CinemaHall cinemaHall;
-  private LocalTime startTime;
+  private LocalDateTime startDate;
 
-  public MovieSession(UUID ID, Movie movie, CinemaHall cinemaHall, LocalTime startTime) {
+  public MovieSession(UUID ID, Movie movie, CinemaHall cinemaHall, LocalDateTime startDate) {
     this.ID = ID;
     this.movie = movie;
     this.cinemaHall = cinemaHall;
-    this.startTime = startTime;
+    this.startDate = startDate;
   }
 
-  public MovieSession(Movie movie, CinemaHall cinemaHall, LocalTime startTime) {
+  public MovieSession(Movie movie, CinemaHall cinemaHall, LocalDateTime startDate) {
     this.movie = movie;
     this.cinemaHall = cinemaHall;
-    this.startTime = startTime;
+    this.startDate = startDate;
   }
 
   public UUID getID() {
@@ -46,11 +46,12 @@ public class MovieSession {
     this.cinemaHall = cinemaHall;
   }
 
-  public LocalTime getStartTime() {
-    return this.startTime;
+  public LocalDateTime getStartDate() {
+    return this.startDate;
   }
 
-  public void setStartTime(LocalTime startTime) {
-    this.startTime = startTime;
+  public void setStartDate(LocalDateTime startDate) {
+    this.startDate = startDate;
   }
+
 }
