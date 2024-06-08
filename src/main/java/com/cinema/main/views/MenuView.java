@@ -65,4 +65,10 @@ public class MenuView {
         ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createMovieSession.fxml");
     }
 
+    @FXML
+    void registerProduct(ActionEvent event) throws Exception {
+        Stage primaryStage = StageManager.getPrimaryStage();
+        ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/products/createProductView.fxml");
+    }
+
 }
