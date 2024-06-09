@@ -85,14 +85,13 @@ public class ListCinemaHallView {
 
     alert.showAndWait().ifPresent(response -> {
       if (response == ButtonType.OK) {
-        cinemaHallTable.getItems().remove(cinemaHall);
-
         DeleteCinemaHallDTO deleteCinemaHallDTO = new DeleteCinemaHallDTO(cinemaHall.getID());
 
         Response<?> deleteResponse = DeleteCinemaHallFactory.make().handle(deleteCinemaHallDTO);
 
         if (deleteResponse.getStatusCode() == 204) {
           new AlertSuccess("Sala de cinema deletada com sucesso!");
+          cinemaHallTable.getItems().remove(cinemaHall);
         } else {
           new AlertError(deleteResponse.getData().toString());
         }

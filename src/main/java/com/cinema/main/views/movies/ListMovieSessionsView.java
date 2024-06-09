@@ -84,14 +84,13 @@ public class ListMovieSessionsView {
 
     alert.showAndWait().ifPresent(response -> {
       if (response == ButtonType.OK) {
-        movieSessionTable.getItems().remove(movieSession);
-
         DeleteMovieSessionDTO deleteMovieSessionDTO = new DeleteMovieSessionDTO(movieSession.getID());
 
         Response<?> deleteResponse = DeleteMovieSessionFactory.make().handle(deleteMovieSessionDTO);
 
         if (deleteResponse.getStatusCode() == 204) {
           new AlertSuccess("Sessão deletada com sucesso!");
+          movieSessionTable.getItems().remove(movieSession);
         } else {
           new AlertError(deleteResponse.getData().toString());
         }

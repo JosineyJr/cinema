@@ -122,13 +122,12 @@ public class ListProductsView {
 
     alert.showAndWait().ifPresent(response -> {
       if (response == ButtonType.OK) {
-        productsTable.getItems().remove(product);
-
         Response<?> responseDelete = DeleteProductFactory.make()
             .handle(new DeleteProductInfosDTO(product.getID(), product.getInventoryID()));
 
         if (responseDelete.getStatusCode() == 204) {
           new AlertSuccess("Produto deletado com sucesso!");
+          productsTable.getItems().remove(product);
         } else {
           new AlertError(responseDelete.getData().toString());
         }
@@ -136,7 +135,7 @@ public class ListProductsView {
     });
   }
 
-  private void editProduct(ProductInfosDTO product) throws Exception{
+  private void editProduct(ProductInfosDTO product) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
 
     ProductModel.getInstance().setProduct(product);
