@@ -26,6 +26,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/**
+ * The ListProductsView class represents a view for listing products in a cinema application.
+ * It displays a table with product information, such as name, price, and quantity.
+ * Users can perform actions like deleting and editing products.
+ */
 public class ListProductsView {
   @FXML
   private TableColumn<ProductInfosDTO, Void> action;
@@ -42,6 +47,12 @@ public class ListProductsView {
   @FXML
   private TableView<ProductInfosDTO> productsTable;
 
+  /**
+   * Initializes the ListProductsView.
+   * This method is automatically called after the FXML file has been loaded.
+   * It retrieves the product information and populates the products table.
+   * It also sets up the cell factory for the action column, which contains delete and edit buttons.
+   */
   @FXML
   void initialize() {
     Response<?> response = ListProductsInfosFactory.make().handle(null);
@@ -85,6 +96,12 @@ public class ListProductsView {
           });
         }
 
+        /**
+         * Updates the item in the list view.
+         *
+         * @param item  The item to be updated.
+         * @param empty A boolean indicating whether the item is empty or not.
+         */
         @Override
         protected void updateItem(Void item, boolean empty) {
           super.updateItem(item, empty);
@@ -103,6 +120,12 @@ public class ListProductsView {
     action.setStyle("-fx-alignment: CENTER;");
   }
 
+  /**
+   * Event handler for creating a new product.
+   *
+   * @param event The mouse event that triggered the method.
+   * @throws Exception If an error occurs while creating the product.
+   */
   @FXML
   void createProduct(MouseEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
@@ -110,10 +133,20 @@ public class ListProductsView {
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/products/createProduct.fxml");
   }
 
+  /**
+   * Deletes the specified product.
+   *
+   * @param product The product to be deleted.
+   */
   private void deleteProduct(ProductInfosDTO product) {
     showConfirmationDialog(product);
   }
 
+  /**
+   * Displays a confirmation dialog for deleting a product.
+   *
+   * @param product The product to be deleted.
+   */
   private void showConfirmationDialog(ProductInfosDTO product) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
@@ -135,6 +168,12 @@ public class ListProductsView {
     });
   }
 
+  /**
+   * Edits the specified product.
+   *
+   * @param product The product to be edited.
+   * @throws Exception If an error occurs while editing the product.
+   */
   private void editProduct(ProductInfosDTO product) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
 

@@ -16,73 +16,86 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class represents the view for listing ticket information.
+ * It displays a table of available sessions with cinema hall, movie, start date, and ticket price.
+ * It also provides a button to add a ticket to the shopping cart.
+ */
 public class ListTicketsInfosView {
 
-    @FXML
-    private TableColumn<TicketInfosDTO, Void> action;
+  @FXML
+  private TableColumn<TicketInfosDTO, Void> action;
 
-    @FXML
-    private TableView<TicketInfosDTO> availableSessions;
+  @FXML
+  private TableView<TicketInfosDTO> availableSessions;
 
-    @FXML
-    private TableColumn<TicketInfosDTO, String> cinemaHall;
+  @FXML
+  private TableColumn<TicketInfosDTO, String> cinemaHall;
 
-    @FXML
-    private TableColumn<TicketInfosDTO, String> movie;
+  @FXML
+  private TableColumn<TicketInfosDTO, String> movie;
 
-    @FXML
-    private TableColumn<TicketInfosDTO, String> startDate;
+  @FXML
+  private TableColumn<TicketInfosDTO, String> startDate;
 
-    @FXML
-    private TableColumn<TicketInfosDTO, String> ticketPrice;
+  @FXML
+  private TableColumn<TicketInfosDTO, String> ticketPrice;
 
-    @FXML
-    public void initialize() {
-        Response<?> response = ListTicketsFactory.make().handle(null);
+  /**
+   * Initializes the view by fetching the ticket information and setting up the table.
+   */
+  @FXML
+  public void initialize() {
+    Response<?> response = ListTicketsFactory.make().handle(null);
 
-        Object data = response.getData();
+    Object data = response.getData();
 
-        if (data instanceof List) {
-            ObservableList<TicketInfosDTO> tickets = FXCollections.observableArrayList();
+    if (data instanceof List) {
+      ObservableList<TicketInfosDTO> tickets = FXCollections.observableArrayList();
 
-            for (Object ticket : (List<?>) data) {
-                if (ticket instanceof TicketInfosDTO) {
-                    TicketInfosDTO ticketInfosDTO = (TicketInfosDTO) ticket;
+      for (Object ticket : (List<?>) data) {
+        if (ticket instanceof TicketInfosDTO) {
+          TicketInfosDTO ticketInfosDTO = (TicketInfosDTO) ticket;
 
-                    LocalDateTime movieSessionStartTime = LocalDateTime.parse(
-                            ticketInfosDTO.getMovieSession().getStartTime(),
-                            DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+          LocalDateTime movieSessionStartTime = LocalDateTime.parse(
+              ticketInfosDTO.getMovieSession().getStartTime(),
+              DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-                    LocalDateTime currentDateTime = LocalDateTime.now();
+          LocalDateTime currentDateTime = LocalDateTime.now();
 
-                    if (movieSessionStartTime.toLocalDate().isEqual(currentDateTime.toLocalDate())
-                            && movieSessionStartTime
-                                    .isAfter(currentDateTime)) {
-                        tickets.add(ticketInfosDTO);
-                    }
-                }
-            }
-
-            availableSessions.setItems(tickets);
+          if (movieSessionStartTime.toLocalDate().isEqual(currentDateTime.toLocalDate())
+              && movieSessionStartTime
+                  .isAfter(currentDateTime)) {
+            tickets.add(ticketInfosDTO);
+          }
         }
+      }
 
-        cinemaHall.setCellValueFactory(new PropertyValueFactory<>("cinemaHall"));
-        cinemaHall.setStyle("-fx-alignment: CENTER;");
-
-        startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        startDate.setStyle("-fx-alignment: CENTER;");
-
-        movie.setCellValueFactory(new PropertyValueFactory<>("movie"));
-        movie.setStyle("-fx-alignment: CENTER;");
-
-        ticketPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        ticketPrice.setStyle("-fx-alignment: CENTER;");
-
-        action.setCellFactory(column -> new ButtonTableCell<>("Add carrinho", this::addToCart));
+      availableSessions.setItems(tickets);
     }
 
-    private void addToCart(TicketInfosDTO ticket) {
-        System.out.println("Adicionando ao carrinho: " + ticket);
-    }
+    cinemaHall.setCellValueFactory(new PropertyValueFactory<>("cinemaHall"));
+    cinemaHall.setStyle("-fx-alignment: CENTER;");
+
+    startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+    startDate.setStyle("-fx-alignment: CENTER;");
+
+    movie.setCellValueFactory(new PropertyValueFactory<>("movie"));
+    movie.setStyle("-fx-alignment: CENTER;");
+
+    ticketPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+    ticketPrice.setStyle("-fx-alignment: CENTER;");
+
+    action.setCellFactory(column -> new ButtonTableCell<>("Add carrinho", this::addToCart));
+  }
+
+  /**
+   * Adds the selected ticket to the shopping cart.
+   * 
+   * @param ticket The ticket to be added to the shopping cart.
+   */
+  private void addToCart(TicketInfosDTO ticket) {
+    System.out.println("Adicionando ao carrinho: " + ticket);
+  }
 
 }
