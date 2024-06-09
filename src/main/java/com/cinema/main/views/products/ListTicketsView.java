@@ -16,6 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class represents the view for listing available tickets.
+ * It contains methods for initializing the view and adding tickets to the cart.
+ */
 public class ListTicketsView {
 
     @FXML
@@ -36,6 +40,14 @@ public class ListTicketsView {
     @FXML
     private TableColumn<TicketDTO, String> ticketPrice;
 
+    /**
+     * Initializes the ListTicketsView.
+     * This method is automatically called by JavaFX after the FXML file has been loaded.
+     * It retrieves a list of tickets and filters them based on the movie session start time.
+     * The filtered tickets are then displayed in the availableSessions ListView.
+     * The table columns are also configured with PropertyValueFactory and alignment styles.
+     * The action column is set with a custom ButtonTableCell that triggers the addToCart method.
+     */
     @FXML
     public void initialize() {
         Response<?> response = ListTicketsFactory.make().handle(null);
@@ -81,6 +93,11 @@ public class ListTicketsView {
         action.setCellFactory(column -> new ButtonTableCell<>("Add carrinho", this::addToCart));
     }
 
+    /**
+     * Adds a ticket to the shopping cart.
+     *
+     * @param ticket the ticket to be added to the cart
+     */
     private void addToCart(TicketDTO ticket) {
         System.out.println("Adicionando ao carrinho: " + ticket);
     }

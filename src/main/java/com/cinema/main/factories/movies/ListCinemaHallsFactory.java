@@ -9,6 +9,11 @@ import com.cinema.infra.db.postgres.repositores.movies.PgCinemaHallRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class ListCinemaHallsFactory {
+  /**
+   * Creates a Controller object for listing cinema halls.
+   * 
+   * @return The created Controller object.
+   */
   public static Controller<Object> make() {
     PgCinemaHallRepository cinemaHallRepository = new PgCinemaHallRepository();
 

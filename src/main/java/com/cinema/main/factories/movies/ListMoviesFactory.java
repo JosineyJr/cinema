@@ -9,6 +9,11 @@ import com.cinema.infra.db.postgres.repositores.movies.PgMovieRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class ListMoviesFactory {
+  /**
+   * Creates a Controller object for listing movies.
+   *
+   * @return The created Controller object.
+   */
   public static Controller<Object> make() {
     PgMovieRepository movieRepository = new PgMovieRepository();
 

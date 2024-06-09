@@ -2,11 +2,15 @@ package com.cinema.main.views.movies;
 
 import java.util.List;
 
+import com.cinema.application.dtos.movies.DeleteMovieDTO;
 import com.cinema.application.dtos.movies.GenreDTO;
 import com.cinema.application.dtos.movies.MovieDTO;
 import com.cinema.application.helpers.Response;
+import com.cinema.main.factories.movies.DeleteMovieFactory;
 import com.cinema.main.factories.movies.ListMoviesFactory;
 import com.cinema.main.views.StageManager;
+import com.cinema.main.views.helpers.AlertError;
+import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.ButtonTableCell;
 import com.cinema.main.views.helpers.ChangeWindow;
 
@@ -21,87 +25,125 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * The ListMoviesView class represents the view for listing movies in the cinema application.
+ * It displays a table of movies with various details such as title, director, duration, genre, and minimum age.
+ * The view also provides functionality to delete a movie and create a new movie.
+ */
 public class ListMoviesView {
 
-    @FXML
-    private TableColumn<MovieDTO, Void> action;
+  @FXML
+  private TableColumn<MovieDTO, Void> action;
 
-    @FXML
-    private TableColumn<MovieDTO, String> director;
+  @FXML
+  private TableColumn<MovieDTO, String> director;
 
-    @FXML
-    private TableColumn<MovieDTO, String> duration;
+  @FXML
+  private TableColumn<MovieDTO, String> duration;
 
-    @FXML
-    private TableColumn<MovieDTO, GenreDTO> genre;
+  @FXML
+  private TableColumn<MovieDTO, GenreDTO> genre;
 
-    @FXML
-    private TableColumn<MovieDTO, String> minimumAge;
+  @FXML
+  private TableColumn<MovieDTO, String> minimumAge;
 
-    @FXML
-    private TableView<MovieDTO> moviesTable;
+  @FXML
+  private TableView<MovieDTO> moviesTable;
 
-    @FXML
-    private TableColumn<MovieDTO, String> title;
+  @FXML
+  private TableColumn<MovieDTO, String> title;
 
-    @FXML
-    void initialize() {
-        Response<?> response = ListMoviesFactory.make().handle(null);
+  /**
+   * Initializes the ListMoviesView.
+   * This method is automatically called after the FXML file has been loaded.
+   * It retrieves a list of movies and populates the moviesTable with the data.
+   * It also sets up the cell value factories and styles for the table columns.
+   * Finally, it sets up the action cell factory for the "Excluir" button.
+   */
+  @FXML
+  void initialize() {
+    Response<?> response = ListMoviesFactory.make().handle(null);
 
-        Object data = response.getData();
+    Object data = response.getData();
 
-        if (data instanceof List) {
-            ObservableList<MovieDTO> movies = FXCollections.observableArrayList();
+    if (data instanceof List) {
+      ObservableList<MovieDTO> movies = FXCollections.observableArrayList();
 
-            for (Object movie : (List<?>) data) {
-                if (movie instanceof MovieDTO) {
-                    movies.add((MovieDTO) movie);
-                }
-            }
-
-            moviesTable.setItems(movies);
+      for (Object movie : (List<?>) data) {
+        if (movie instanceof MovieDTO) {
+          movies.add((MovieDTO) movie);
         }
+      }
 
-        title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        title.setStyle("-fx-alignment: CENTER;");
-
-        director.setCellValueFactory(new PropertyValueFactory<>("director"));
-        director.setStyle("-fx-alignment: CENTER;");
-
-        duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
-        duration.setStyle("-fx-alignment: CENTER;");
-
-        genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        genre.setStyle("-fx-alignment: CENTER;");
-
-        minimumAge.setCellValueFactory(new PropertyValueFactory<>("minimumAge"));
-        minimumAge.setStyle("-fx-alignment: CENTER;");
-
-        action.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deleteMovie));
+      moviesTable.setItems(movies);
     }
 
-    private void deleteMovie(MovieDTO movie) {
-        showConfirmationDialog(movie);
-    }
+    title.setCellValueFactory(new PropertyValueFactory<>("title"));
+    title.setStyle("-fx-alignment: CENTER;");
 
-    private void showConfirmationDialog(MovieDTO movie) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmação de Exclusão");
-        alert.setHeaderText(null);
-        alert.setContentText("Você realmente deseja excluir o filme '" + movie.getTitle() + "'?");
+    director.setCellValueFactory(new PropertyValueFactory<>("director"));
+    director.setStyle("-fx-alignment: CENTER;");
 
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                moviesTable.getItems().remove(movie);
-                // Aqui você pode adicionar a lógica para remover o item da fonte de dados real
-            }
-        });
-    }
+    duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+    duration.setStyle("-fx-alignment: CENTER;");
 
-    @FXML
-    void createMovie(MouseEvent event) throws Exception {
-        Stage primaryStage = StageManager.getPrimaryStage();
+    genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+    genre.setStyle("-fx-alignment: CENTER;");
 
-        ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createMovie.fxml");
-    }
+    minimumAge.setCellValueFactory(new PropertyValueFactory<>("minimumAge"));
+    minimumAge.setStyle("-fx-alignment: CENTER;");
+
+    action.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deleteMovie));
+  }
+
+  /**
+   * Deletes a movie from the system.
+   *
+   * @param movie The movie to be deleted.
+   */
+  private void deleteMovie(MovieDTO movie) {
+    showConfirmationDialog(movie);
+  }
+
+  /**
+   * Displays a confirmation dialog for deleting a movie.
+   * 
+   * @param movie The MovieDTO object representing the movie to be deleted.
+   */
+  private void showConfirmationDialog(MovieDTO movie) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirmação de Exclusão");
+    alert.setHeaderText(null);
+    alert.setContentText("Você realmente deseja excluir o filme '" + movie.getTitle() + "'?");
+
+    alert.showAndWait().ifPresent(response -> {
+      if (response == ButtonType.OK) {
+        DeleteMovieDTO deleteMovieDTO = new DeleteMovieDTO(movie.getID());
+
+        Response<?> deleteResponse = DeleteMovieFactory.make().handle(deleteMovieDTO);
+
+        if (deleteResponse.getStatusCode() == 204) {
+          new AlertSuccess("Filme com sucesso!");
+          moviesTable.getItems().remove(movie);
+        } else {
+          new AlertError(deleteResponse.getData().toString());
+        }
+      }
+    });
+  }
+
+  /**
+   * Event handler for creating a new movie.
+   * This method is called when the user clicks on a button to create a new movie.
+   * It opens a new window for creating a movie.
+   *
+   * @param event The mouse event that triggered the method.
+   * @throws Exception If an error occurs while creating the movie.
+   */
+  @FXML
+  void createMovie(MouseEvent event) throws Exception {
+    Stage primaryStage = StageManager.getPrimaryStage();
+
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createMovie.fxml");
+  }
 }

@@ -18,6 +18,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+/**
+ * This class represents the view for creating a movie.
+ * It contains fields and methods for handling user input and creating a movie.
+ */
 public class CreateMovieView {
 
     @FXML
@@ -41,6 +45,11 @@ public class CreateMovieView {
     @FXML
     private TextArea synopsis;
 
+    /**
+     * Initializes the CreateMovieView.
+     * This method is automatically called after the FXML file has been loaded.
+     * It retrieves a list of genres and populates the genre ComboBox with the retrieved data.
+     */
     @FXML
     void initialize() {
         Response<?> response = ListGenresFactory.make().handle(null);
@@ -58,6 +67,13 @@ public class CreateMovieView {
         }
     }
 
+    /**
+     * Handles the action event when the "Create Movie" button is clicked.
+     * Retrieves the selected genre ID from the genre combo box and creates a new movie using the provided information.
+     * Displays a success message if the movie is created successfully, or an error message if there is an issue.
+     *
+     * @param event The action event triggered by clicking the "Create Movie" button.
+     */
     @FXML
     void createMovie(ActionEvent event) {
         String genreID = this.genre.getSelectionModel().getSelectedItem().getID().toString();

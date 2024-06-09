@@ -13,6 +13,11 @@ import com.cinema.infra.db.postgres.repositores.products.PgTicketInfosRepository
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateMovieSessionFactory {
+  /**
+   * Creates a Controller for creating a movie session.
+   *
+   * @return The Controller instance for creating a movie session.
+   */
   public static Controller<CreateMovieSessionDTO> make() {
     PgMovieRepository pgMovieRepository = new PgMovieRepository();
 

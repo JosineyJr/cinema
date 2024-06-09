@@ -12,6 +12,11 @@ import com.cinema.infra.db.postgres.repositores.products.PgProductInfosRepositor
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class UpdateProductFactory {
+  /**
+   * Creates a Controller instance for editing product information.
+   *
+   * @return The created Controller instance.
+   */
   public static Controller<EditProductInfosDTO> make() {
     PgProductInfosRepository productRepository = new PgProductInfosRepository();
     PgInventoryRepository inventoryRepository = new PgInventoryRepository();

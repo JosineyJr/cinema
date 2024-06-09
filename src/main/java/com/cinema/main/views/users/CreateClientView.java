@@ -22,6 +22,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * This class represents the view for creating a client.
+ * It contains methods for initializing the view, handling the create client action,
+ * and navigating back to the login view.
+ */
 public class CreateClientView {
   @FXML
   private TextField CPF;
@@ -44,6 +49,11 @@ public class CreateClientView {
   @FXML
   private Button createClientButton;
 
+  /**
+   * Initializes the CreateClientView.
+   * This method is automatically called by JavaFX after the FXML file has been loaded.
+   * It retrieves a list of genres and populates the moviePreferences container with checkboxes for each genre.
+   */
   @FXML
   void initialize() {
     Response<?> response = ListGenresFactory.make().handle(null);
@@ -66,6 +76,14 @@ public class CreateClientView {
     }
   }
 
+  /**
+   * Handles the event when the create client button is clicked.
+   * Creates a new client with the provided information and saves it to the database.
+   * Displays a success message if the client is created successfully, otherwise displays an error message.
+   *
+   * @param event the action event triggered by clicking the create client button
+   * @throws Exception if an error occurs during the client creation process
+   */
   @FXML
   void createClient(ActionEvent event) throws Exception {
     ArrayList<String> genres = new ArrayList<>();
@@ -99,6 +117,12 @@ public class CreateClientView {
     }
   }
 
+  /**
+   * Handles the event when the user clicks on the back button to return to the login view.
+   *
+   * @param event The MouseEvent representing the click event.
+   * @throws Exception If an error occurs while changing the window scene.
+   */
   @FXML
   void backLogin(MouseEvent event) throws Exception {
     Stage stage = (Stage) createClientButton.getScene().getWindow();

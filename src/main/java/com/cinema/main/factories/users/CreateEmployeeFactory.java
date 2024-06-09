@@ -12,6 +12,11 @@ import com.cinema.infra.providers.crypto.BCryptAdapter;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateEmployeeFactory {
+  /**
+   * Creates a Controller instance for creating an employee.
+   * 
+   * @return The Controller instance for creating an employee.
+   */
   public static Controller<CreateEmployeeDTO> make() {
     PgEmployeeRepository pgEmployeeRepository = new PgEmployeeRepository();
     BCryptAdapter bCryptAdapter = new BCryptAdapter(12);

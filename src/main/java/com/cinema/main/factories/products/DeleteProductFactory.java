@@ -12,6 +12,11 @@ import com.cinema.infra.db.postgres.repositores.products.PgProductInfosRepositor
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class DeleteProductFactory {
+  /**
+   * Creates a Controller instance for deleting product information.
+   * 
+   * @return the created Controller instance.
+   */
   public static Controller<DeleteProductInfosDTO> make() {
     PgProductInfosRepository productRepository = new PgProductInfosRepository();
     PgInventoryRepository inventoryRepository = new PgInventoryRepository();

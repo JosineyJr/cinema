@@ -2,6 +2,10 @@ package com.cinema.application.validation;
 
 import java.util.ArrayList;
 
+/**
+ * The ValidationBuilder class is responsible for building a list of validators for field validation.
+ * It provides methods to add different types of validators to the list.
+ */
 public class ValidationBuilder {
   private ArrayList<IValidator> validators;
 

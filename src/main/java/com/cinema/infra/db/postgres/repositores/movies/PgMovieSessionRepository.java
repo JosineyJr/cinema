@@ -5,16 +5,26 @@ import java.util.List;
 import java.util.UUID;
 
 import com.cinema.domain.contracts.repositories.movies.ICreateMovieSessionRepository;
+import com.cinema.domain.contracts.repositories.movies.IDeleteMovieSessionRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository;
+import com.cinema.domain.contracts.repositories.movies.IFindMovieSessionByIdRepository;
 import com.cinema.domain.contracts.repositories.movies.IListMovieSessionsRepository;
 import com.cinema.domain.entities.movies.MovieSession;
 import com.cinema.infra.db.postgres.entities.movies.PgMovieSession;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
-public class PgMovieSessionRepository extends PgRepository
+/**
+ * The PgMovieSessionRepository class is responsible for handling database operations related to movie sessions.
+ * It extends the PgRepository class and implements several interfaces for different repository operations.
+ */
+public class PgMovieSessionRepository
+    extends PgRepository
     implements IFindMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository,
-    ICreateMovieSessionRepository, IListMovieSessionsRepository {
+    ICreateMovieSessionRepository,
+    IListMovieSessionsRepository,
+    IFindMovieSessionByIdRepository,
+    IDeleteMovieSessionRepository {
 
   public PgMovieSessionRepository() {
     super();
@@ -61,5 +71,17 @@ public class PgMovieSessionRepository extends PgRepository
     return pgMovieSessions.stream().map(pgMovieSession -> {
       return ConvertEntities.convertMovieSession(pgMovieSession);
     }).toList();
+  }
+
+  public void deleteMovieSession(UUID ID) {
+    PgMovieSession pgMovieSession = this.session.find(PgMovieSession.class, ID);
+
+    this.session.remove(pgMovieSession);
+  }
+
+  public MovieSession findMovieSessionById(UUID ID) {
+    PgMovieSession pgMovieSession = this.session.get(PgMovieSession.class, ID);
+
+    return ConvertEntities.convertMovieSession(pgMovieSession);
   }
 }

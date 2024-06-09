@@ -9,6 +9,11 @@ import com.cinema.infra.db.postgres.repositores.products.PgTicketInfosRepository
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class ListTicketsFactory {
+  /**
+   * Creates a Controller object for listing tickets.
+   *
+   * @return The created Controller object.
+   */
   public static Controller<Object> make() {
     PgTicketInfosRepository ticketRepository = new PgTicketInfosRepository();
 

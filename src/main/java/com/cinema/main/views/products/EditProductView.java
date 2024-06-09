@@ -17,6 +17,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
+/**
+ * This class represents the view for editing a product.
+ * It implements the Initializable interface to initialize the view.
+ */
 public class EditProductView implements Initializable {
   @FXML
   private TextField name;
@@ -29,6 +33,14 @@ public class EditProductView implements Initializable {
 
   private ProductInfosDTO product;
 
+  /**
+    * Initializes the EditProductView.
+    * This method is called after the FXML file has been loaded and the controller object has been created.
+    * It is used to perform any necessary initialization tasks.
+    *
+    * @param location   The location used to resolve relative paths for the root object, or null if the location is not known.
+    * @param resources  The resources used to localize the root object, or null if the root object was not localized.
+    */
   public void initialize(URL location, ResourceBundle resources) {
     if (price != null) {
       price.setCurrencyFormat(Locale.US);
@@ -47,6 +59,13 @@ public class EditProductView implements Initializable {
     quantity.setText(String.valueOf(product.getQuantity()));
   }
 
+  /**
+   * Handles the action event when the user clicks on the "Edit Product" button.
+   * Retrieves the updated product information from the input fields and sends it to the server for updating.
+   * Displays a success message if the product is successfully edited, or an error message if an error occurs.
+   *
+   * @param event The action event triggered by clicking the "Edit Product" button.
+   */
   @FXML
   void editProduct(ActionEvent event) {
     EditProductInfosDTO updateProductDTO = new EditProductInfosDTO(product.getID(), name.getText(), price.getAmount(),

@@ -16,6 +16,10 @@ import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.CurrencyField;
 
+/**
+ * This class represents the view for creating a product.
+ * It implements the Initializable interface to initialize the view.
+ */
 public class CreateProductView implements Initializable {
 
   @FXML
@@ -27,6 +31,12 @@ public class CreateProductView implements Initializable {
   @FXML
   private TextField quantity;
 
+  /**
+   * Initializes the CreateProductView.
+   * 
+   * @param location  The location used to resolve relative paths for the root object, or null if the location is not known.
+   * @param resources The resources used to localize the root object, or null if the root object was not localized.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     if (price != null) {
@@ -40,6 +50,11 @@ public class CreateProductView implements Initializable {
     });
   }
 
+  /**
+   * Registers a new product based on the input provided by the user.
+   * 
+   * @param event the action event triggered by the user
+   */
   @FXML
   void registerProduct(ActionEvent event) {
     CreateProductInfosDTO createProductDTO = new CreateProductInfosDTO(name.getText(), price.getAmount(),

@@ -11,6 +11,11 @@ import com.cinema.infra.db.postgres.repositores.movies.PgMovieRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateMovieFactory {
+  /**
+   * Creates and returns a Controller object for creating a movie.
+   *
+   * @return The Controller object for creating a movie.
+   */
   public static Controller<CreateMovieDTO> make() {
     PgMovieRepository pgMovieRepository = new PgMovieRepository();
     PgGenreRepository pgGenreRepository = new PgGenreRepository();

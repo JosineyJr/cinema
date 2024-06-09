@@ -10,6 +10,11 @@ import com.cinema.infra.db.postgres.repositores.movies.PgGenreRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateGenreFactory {
+  /**
+   * Creates a Controller instance for creating a genre.
+   *
+   * @return the Controller instance for creating a genre
+   */
   public static Controller<CreateGenreDTO> make() {
     PgGenreRepository genreRepository = new PgGenreRepository();
 
