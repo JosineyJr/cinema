@@ -36,7 +36,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/com/cinema/main/views/auth/login.fxml"));
+                getClass().getResource("/com/cinema/main/views/products/listTicketsInfos.fxml"));
 
         Parent root = fxmlLoader.load();
 

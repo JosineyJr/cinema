@@ -5,7 +5,7 @@ package com.cinema.main.views.helpers;
  * It stores the user's CPF (Cadastro de Pessoa Física) and role.
  */
 public class Session {
-  private static String CPF = "58cc7453-e8a6-41df-9e38-6cb6270590a4";
+  private static String CPF = "8c67b88f-8ee5-493f-b695-74b7ebc97f5c";
   private static String role = null;
 
   /**
