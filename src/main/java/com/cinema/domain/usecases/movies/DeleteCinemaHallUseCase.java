@@ -16,6 +16,12 @@ public class DeleteCinemaHallUseCase {
     this.findCinemaHallByIDRepository = findCinemaHallByIDRepository;
   }
 
+  /**
+   * Executes the use case to delete a cinema hall.
+   *
+   * @param cinemaHallId The ID of the cinema hall to be deleted.
+   * @throws CinemaHallNotFoundError If the cinema hall with the given ID is not found.
+   */
   public void execute(UUID cinemaHallId) throws CinemaHallNotFoundError{
     if (this.findCinemaHallByIDRepository.findCinemaHallByID(cinemaHallId) == null) {
       throw new CinemaHallNotFoundError();

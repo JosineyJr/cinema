@@ -17,6 +17,12 @@ public class DeleteCinemaHallController extends Controller<DeleteCinemaHallDTO> 
     this.deleteCinemaHallUseCase = deleteCinemaHallUseCase;
   }
 
+  /**
+   * Performs the deletion of a cinema hall.
+   *
+   * @param object The DeleteCinemaHallDTO object containing the ID of the cinema hall to be deleted.
+   * @return A Response object indicating the success or failure of the deletion operation.
+   */
   public Response<?> perform(DeleteCinemaHallDTO object) {
     try {
       this.deleteCinemaHallUseCase.execute(object.getID());
@@ -27,6 +33,12 @@ public class DeleteCinemaHallController extends Controller<DeleteCinemaHallDTO> 
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given DeleteCinemaHallDTO object.
+   *
+   * @param object The DeleteCinemaHallDTO object for which validators need to be built.
+   * @return An ArrayList of IValidator objects representing the validators for the given object.
+   */
   public ArrayList<IValidator> buildValidators(DeleteCinemaHallDTO object) {
     return new ArrayList<IValidator>();
   }
