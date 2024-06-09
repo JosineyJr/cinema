@@ -26,4 +26,16 @@ public class PgInventory {
   @OneToOne
   @JoinColumn(name = "product_id", nullable = false)
   private PgProduct product;
+
+  public UUID getID() {
+    return ID;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public PgProduct getProduct() {
+    return product;
+  }
 }
