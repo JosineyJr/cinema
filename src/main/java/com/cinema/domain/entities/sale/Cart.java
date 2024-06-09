@@ -75,4 +75,8 @@ public class Cart {
 
     return false;
   }
+
+  public void addProduct(Product product) {
+    this.products.add(product);
+  }
 }
