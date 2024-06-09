@@ -10,6 +10,11 @@ import com.cinema.infra.db.postgres.repositores.movies.PgCinemaHallRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateCinemaHallFactory {
+  /**
+   * Creates a Controller instance for creating a cinema hall.
+   *
+   * @return The Controller instance for creating a cinema hall.
+   */
   public static Controller<CreateCinemaHallDTO> make() {
     PgCinemaHallRepository pgCinemaHallRepository = new PgCinemaHallRepository();
 

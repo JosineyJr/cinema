@@ -10,6 +10,11 @@ import com.cinema.infra.db.postgres.repositores.products.PgInventoryRepository;
 import com.cinema.infra.db.postgres.repositores.products.PgProductInfosRepository;
 
 public class ListProductsInfosFactory {
+  /**
+   * Creates a Controller object for listing product information.
+   * 
+   * @return The created Controller object.
+   */
   public static Controller<Object> make() {
     PgProductInfosRepository productInfosRepository = new PgProductInfosRepository();
     PgInventoryRepository inventoryRepository = new PgInventoryRepository();

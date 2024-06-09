@@ -8,6 +8,11 @@ import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.movies.PgMovieSessionRepository;
 
 public class ListMovieSessionsFactory {
+  /**
+   * Creates a Controller object for listing movie sessions.
+   *
+   * @return The created Controller object.
+   */
   public static Controller<Object> make() {
     PgMovieSessionRepository movieSessionRepository = new PgMovieSessionRepository();
 

@@ -10,6 +10,11 @@ import com.cinema.infra.db.postgres.repositores.movies.PgMovieRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class DeleteMovieFactory {
+  /**
+   * Creates a Controller for deleting a movie.
+   *
+   * @return the Controller<DeleteMovieDTO> instance
+   */
   public static Controller<DeleteMovieDTO> make() {
     PgMovieRepository pgMovieRepository = new PgMovieRepository();
 

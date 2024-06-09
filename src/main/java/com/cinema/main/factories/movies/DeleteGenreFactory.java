@@ -10,6 +10,11 @@ import com.cinema.infra.db.postgres.repositores.movies.PgGenreRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class DeleteGenreFactory {
+  /**
+   * Creates a Controller instance for deleting a genre.
+   *
+   * @return the Controller instance for deleting a genre
+   */
   public static Controller<DeleteGenreDTO> make() {
     PgGenreRepository pgGenreRepository = new PgGenreRepository();
 

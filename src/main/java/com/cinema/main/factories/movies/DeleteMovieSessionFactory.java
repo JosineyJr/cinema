@@ -10,6 +10,11 @@ import com.cinema.infra.db.postgres.repositores.movies.PgMovieSessionRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class DeleteMovieSessionFactory {
+  /**
+   * Creates a Controller for deleting a movie session.
+   *
+   * @return the Controller<DeleteMovieSessionDTO> instance
+   */
   public static Controller<DeleteMovieSessionDTO> make() {
     PgMovieSessionRepository pgMovieSessionRepository = new PgMovieSessionRepository();
 

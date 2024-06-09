@@ -12,6 +12,11 @@ import com.cinema.infra.providers.crypto.BCryptAdapter;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class LoginFactory {
+  /**
+   * Creates and returns a Controller object for handling login functionality.
+   * 
+   * @return The Controller object for login functionality.
+   */
   public static Controller<LoginDTO> make() {
     BCryptAdapter bCryptAdapter = new BCryptAdapter(12);
     PgClientRepository pgClientRepository = new PgClientRepository();
