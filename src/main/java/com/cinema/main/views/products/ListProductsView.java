@@ -75,6 +75,7 @@ public class ListProductsView {
   }
 
   private void deleteProduct(ProductDTO product) {
+    showConfirmationDialog(product);
   }
 
   private void showConfirmationDialog(ProductDTO product) {
