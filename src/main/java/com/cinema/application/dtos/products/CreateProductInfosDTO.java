@@ -1,11 +1,11 @@
 package com.cinema.application.dtos.products;
 
-public class CreateProductDTO {
+public class CreateProductInfosDTO {
   private String name;
   private double price;
   private int quantity;
 
-  public CreateProductDTO(String name, double price, int quantity) {
+  public CreateProductInfosDTO(String name, double price, int quantity) {
     this.name = name;
     this.price = price;
     this.quantity = quantity;

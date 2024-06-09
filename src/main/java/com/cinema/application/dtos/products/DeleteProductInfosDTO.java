@@ -2,11 +2,11 @@ package com.cinema.application.dtos.products;
 
 import java.util.UUID;
 
-public class DeleteProductDTO {
+public class DeleteProductInfosDTO {
   private UUID productId;
   private UUID inventoryId;
 
-  public DeleteProductDTO(UUID productId, UUID inventoryId) {
+  public DeleteProductInfosDTO(UUID productId, UUID inventoryId) {
     this.productId = productId;
     this.inventoryId = inventoryId;
   }

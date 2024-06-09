@@ -1,23 +1,25 @@
 package com.cinema.main.factories.products;
 
 import com.cinema.application.controllers.Controller;
-import com.cinema.application.controllers.products.ListProductController;
+import com.cinema.application.controllers.products.ListProductInfosController;
 import com.cinema.application.decorators.DbTransactionController;
 import com.cinema.domain.usecases.products.ListInventoryUseCase;
-import com.cinema.domain.usecases.products.ListProductsUseCase;
+import com.cinema.domain.usecases.products.ListProductsInfosUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.products.PgInventoryRepository;
-import com.cinema.infra.db.postgres.repositores.products.PgProductRepository;
+import com.cinema.infra.db.postgres.repositores.products.PgProductInfosRepository;
 
-public class ListProductsFactory {
+public class ListProductsInfosFactory {
   public static Controller<Object> make() {
-    PgProductRepository productRepository = new PgProductRepository();
+    PgProductInfosRepository productInfosRepository = new PgProductInfosRepository();
     PgInventoryRepository inventoryRepository = new PgInventoryRepository();
 
-    ListProductsUseCase listProductsUseCase = new ListProductsUseCase(productRepository);
+    ListProductsInfosUseCase listProductsInfosUseCase = new ListProductsInfosUseCase(productInfosRepository);
     ListInventoryUseCase listInventoryUseCase = new ListInventoryUseCase(inventoryRepository);
 
-    ListProductController listProductController = new ListProductController(listProductsUseCase, listInventoryUseCase);
+    ListProductInfosController listProductController = new ListProductInfosController(
+        listProductsInfosUseCase,
+        listInventoryUseCase);
 
     PgConnection pgConnection = PgConnection.getInstance();
 

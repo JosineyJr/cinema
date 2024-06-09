@@ -6,16 +6,16 @@ import com.cinema.domain.entities.sale.Cart;
 
 public class Product {
   private UUID ID;
-  private ProductInfo productInfo;
+  private ProductInfos productInfo;
   private Cart cart;
 
-  public Product(UUID ID, ProductInfo productInfo, Cart cart) {
+  public Product(UUID ID, ProductInfos productInfo, Cart cart) {
     this.ID = ID;
     this.productInfo = productInfo;
     this.cart = cart;
   }
 
-  public Product(ProductInfo productInfo, Cart cart) {
+  public Product(ProductInfos productInfo, Cart cart) {
     this.productInfo = productInfo;
     this.cart = cart;
   }
@@ -28,11 +28,11 @@ public class Product {
     this.ID = ID;
   }
 
-  public ProductInfo getProductInfo() {
+  public ProductInfos getProductInfo() {
     return this.productInfo;
   }
 
-  public void setProductInfo(ProductInfo productInfo) {
+  public void setProductInfo(ProductInfos productInfo) {
     this.productInfo = productInfo;
   }
 

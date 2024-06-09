@@ -2,14 +2,14 @@ package com.cinema.application.dtos.products;
 
 import java.util.UUID;
 
-public class ProductDTO {
+public class ProductInfosDTO {
   private UUID ID;
   private String name;
   private double price;
   private int quantity;
   private UUID inventoryID;
 
-  public ProductDTO(UUID ID, String name, double price, int quantity, UUID inventoryID) {
+  public ProductInfosDTO(UUID ID, String name, double price, int quantity, UUID inventoryID) {
     this.ID = ID;
     this.name = name;
     this.price = price;
@@ -17,7 +17,7 @@ public class ProductDTO {
     this.inventoryID = inventoryID;
   }
 
-  public ProductDTO(String name, double price, int quantity, UUID inventoryID) {
+  public ProductInfosDTO(String name, double price, int quantity, UUID inventoryID) {
     this.name = name;
     this.price = price;
     this.quantity = quantity;

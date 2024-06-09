@@ -5,7 +5,7 @@ import com.cinema.domain.contracts.repositories.products.IDeleteInventoryReposit
 import com.cinema.domain.contracts.repositories.products.IFindInventoryByIdRepository;
 import com.cinema.domain.contracts.repositories.products.IListInventoryRepository;
 import com.cinema.domain.entities.products.Inventory;
-import com.cinema.domain.entities.products.ProductInfo;
+import com.cinema.domain.entities.products.ProductInfos;
 import com.cinema.infra.db.postgres.entities.products.PgInventory;
 import com.cinema.infra.db.postgres.entities.products.PgProductInfos;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
@@ -39,7 +39,7 @@ public class PgInventoryRepository
         .map(
             pgInventory -> new Inventory(
                 pgInventory.getID(),
-                new ProductInfo(
+                new ProductInfos(
                     pgInventory.getProductInfos().getID(),
                     pgInventory.getProductInfos().getName(),
                     pgInventory.getProductInfos().getPrice()),
@@ -63,7 +63,7 @@ public class PgInventoryRepository
 
     return new Inventory(
         pgInventory.getID(),
-        new ProductInfo(
+        new ProductInfos(
             pgInventory.getProductInfos().getID(),
             pgInventory.getProductInfos().getName(),
             pgInventory.getProductInfos().getPrice()),

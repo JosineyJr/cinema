@@ -3,14 +3,14 @@ package com.cinema.application.controllers.products;
 import java.util.ArrayList;
 
 import com.cinema.application.controllers.Controller;
-import com.cinema.application.dtos.products.DeleteProductDTO;
+import com.cinema.application.dtos.products.DeleteProductInfosDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.application.helpers.ResponseFactory;
 import com.cinema.application.validation.IValidator;
 import com.cinema.domain.usecases.products.DeleteInventoryUseCase;
 import com.cinema.domain.usecases.products.DeleteProductUseCase;
 
-public class DeleteProductController extends Controller<DeleteProductDTO> {
+public class DeleteProductController extends Controller<DeleteProductInfosDTO> {
   private DeleteProductUseCase deleteProductUseCase;
   private DeleteInventoryUseCase deleteInventoryUseCase;
 
@@ -20,7 +20,7 @@ public class DeleteProductController extends Controller<DeleteProductDTO> {
     this.deleteInventoryUseCase = deleteInventoryUseCase;
   }
 
-  public Response<?> perform(DeleteProductDTO object) {
+  public Response<?> perform(DeleteProductInfosDTO object) {
     try {
       deleteProductUseCase.deleteProduct(object.getProductId());
       deleteInventoryUseCase.deleteInventory(object.getInventoryId());
@@ -31,7 +31,7 @@ public class DeleteProductController extends Controller<DeleteProductDTO> {
     }
   }
 
-  public ArrayList<IValidator> buildValidators(DeleteProductDTO object) {
+  public ArrayList<IValidator> buildValidators(DeleteProductInfosDTO object) {
     return new ArrayList<IValidator>();
   }
 }

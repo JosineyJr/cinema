@@ -5,22 +5,22 @@ import java.util.UUID;
 
 import com.cinema.domain.entities.products.Ticket;
 import com.cinema.domain.entities.users.Person;
-import com.cinema.domain.entities.products.ProductInfo;
+import com.cinema.domain.entities.products.ProductInfos;
 
 public class Cart {
   private UUID ID;
   private List<Ticket> tickets;
-  private List<ProductInfo> products;
+  private List<ProductInfos> products;
   private Person person;
 
-  public Cart(UUID ID, List<Ticket> tickets, List<ProductInfo> products, Person person) {
+  public Cart(UUID ID, List<Ticket> tickets, List<ProductInfos> products, Person person) {
     this.ID = ID;
     this.tickets = tickets;
     this.products = products;
     this.person = person;
   }
 
-  public Cart(List<Ticket> tickets, List<ProductInfo> products, Person person) {
+  public Cart(List<Ticket> tickets, List<ProductInfos> products, Person person) {
     this.tickets = tickets;
     this.products = products;
     this.person = person;
@@ -42,11 +42,11 @@ public class Cart {
     this.tickets = tickets;
   }
 
-  public List<ProductInfo> getProducts() {
+  public List<ProductInfos> getProducts() {
     return this.products;
   }
 
-  public void setProducts(List<ProductInfo> products) {
+  public void setProducts(List<ProductInfos> products) {
     this.products = products;
   }
 

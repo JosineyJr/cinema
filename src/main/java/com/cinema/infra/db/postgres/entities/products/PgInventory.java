@@ -19,21 +19,21 @@ public class PgInventory {
   private int quantity;
 
   @OneToOne
-  @JoinColumn(name = "product_id", nullable = false)
-  private PgProductInfos product;
+  @JoinColumn(name = "product_infos_id", nullable = false)
+  private PgProductInfos product_infos;
 
   public PgInventory() {
   }
 
-  public PgInventory(int quantity, PgProductInfos product) {
+  public PgInventory(int quantity, PgProductInfos product_infos) {
     this.quantity = quantity;
-    this.product = product;
+    this.product_infos = product_infos;
   }
 
-  public PgInventory(UUID ID, int quantity, PgProductInfos product) {
+  public PgInventory(UUID ID, int quantity, PgProductInfos product_infos) {
     this.ID = ID;
     this.quantity = quantity;
-    this.product = product;
+    this.product_infos = product_infos;
   }
 
   public UUID getID() {
@@ -52,12 +52,12 @@ public class PgInventory {
     this.quantity = quantity;
   }
 
-  public PgProductInfos getProduct() {
-    return this.product;
+  public PgProductInfos getProductInfos() {
+    return this.product_infos;
   }
 
   public void setProduct(PgProductInfos product) {
-    this.product = product;
+    this.product_infos = product;
   }
 
 }

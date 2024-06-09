@@ -2,11 +2,11 @@ package com.cinema.main.views.products;
 
 import java.util.List;
 
-import com.cinema.application.dtos.products.DeleteProductDTO;
-import com.cinema.application.dtos.products.ProductDTO;
+import com.cinema.application.dtos.products.DeleteProductInfosDTO;
+import com.cinema.application.dtos.products.ProductInfosDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.products.DeleteProductFactory;
-import com.cinema.main.factories.products.ListProductsFactory;
+import com.cinema.main.factories.products.ListProductsInfosFactory;
 import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
@@ -26,45 +26,45 @@ import javafx.stage.Stage;
 
 public class ListProductsView {
   @FXML
-  private TableColumn<ProductDTO, Void> action;
+  private TableColumn<ProductInfosDTO, Void> action;
 
   @FXML
-  private TableColumn<ProductDTO, String> name;
+  private TableColumn<ProductInfosDTO, String> name;
 
   @FXML
-  private TableColumn<ProductDTO, Double> price;
+  private TableColumn<ProductInfosDTO, Double> price;
 
   @FXML
-  private TableColumn<ProductDTO, Integer> quantity;
+  private TableColumn<ProductInfosDTO, Integer> quantity;
 
   @FXML
-  private TableView<ProductDTO> productsTable;
+  private TableView<ProductInfosDTO> productsTable;
 
   @FXML
   void initialize() {
-    Response<?> response = ListProductsFactory.make().handle(null);
+    Response<?> response = ListProductsInfosFactory.make().handle(null);
 
     Object data = response.getData();
 
     if (data instanceof List) {
-      ObservableList<ProductDTO> products = FXCollections.observableArrayList();
+      ObservableList<ProductInfosDTO> products = FXCollections.observableArrayList();
 
       for (Object product : (List<?>) data) {
-        if (product instanceof ProductDTO) {
-          products.add((ProductDTO) product);
+        if (product instanceof ProductInfosDTO) {
+          products.add((ProductInfosDTO) product);
         }
       }
 
       productsTable.setItems(products);
     }
 
-    name.setCellValueFactory(new PropertyValueFactory<ProductDTO, String>("name"));
+    name.setCellValueFactory(new PropertyValueFactory<ProductInfosDTO, String>("name"));
     name.setStyle("-fx-alignment: CENTER;");
 
-    price.setCellValueFactory(new PropertyValueFactory<ProductDTO, Double>("price"));
+    price.setCellValueFactory(new PropertyValueFactory<ProductInfosDTO, Double>("price"));
     price.setStyle("-fx-alignment: CENTER;");
 
-    quantity.setCellValueFactory(new PropertyValueFactory<ProductDTO, Integer>("quantity"));
+    quantity.setCellValueFactory(new PropertyValueFactory<ProductInfosDTO, Integer>("quantity"));
     quantity.setStyle("-fx-alignment: CENTER;");
 
     action.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deleteProduct));
@@ -78,11 +78,11 @@ public class ListProductsView {
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/products/createProduct.fxml");
   }
 
-  private void deleteProduct(ProductDTO product) {
+  private void deleteProduct(ProductInfosDTO product) {
     showConfirmationDialog(product);
   }
 
-  private void showConfirmationDialog(ProductDTO product) {
+  private void showConfirmationDialog(ProductInfosDTO product) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
     alert.setTitle("Confirmação de Exclusão");
@@ -93,7 +93,7 @@ public class ListProductsView {
         productsTable.getItems().remove(product);
 
         Response<?> responseDelete = DeleteProductFactory.make()
-            .handle(new DeleteProductDTO(product.getID(), product.getInventoryID()));
+            .handle(new DeleteProductInfosDTO(product.getID(), product.getInventoryID()));
 
         if (responseDelete.getStatusCode() == 204) {
           new AlertSuccess("Produto deletado com sucesso!");

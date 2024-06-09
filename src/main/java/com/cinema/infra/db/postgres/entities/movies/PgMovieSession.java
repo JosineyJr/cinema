@@ -27,9 +27,6 @@ public class PgMovieSession {
   @Column(name = "start_date", nullable = false)
   private LocalDateTime startDate;
 
-  @Column(name = "sold_tickets", nullable = false)
-  private int soldTickets;
-
   public PgMovieSession() {
   }
 
@@ -76,13 +73,5 @@ public class PgMovieSession {
 
   public void setStartDate(LocalDateTime startDate) {
     this.startDate = startDate;
-  }
-
-  public int getSoldTickets() {
-    return this.soldTickets;
-  }
-
-  public void setSoldTickets(int soldTickets) {
-    this.soldTickets = soldTickets;
   }
 }

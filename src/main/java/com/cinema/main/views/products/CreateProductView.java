@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.cinema.application.dtos.products.CreateProductDTO;
+import com.cinema.application.dtos.products.CreateProductInfosDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.products.CreateProductFactory;
 import com.cinema.main.views.helpers.AlertError;
@@ -35,14 +35,14 @@ public class CreateProductView implements Initializable {
 
     quantity.textProperty().addListener((observable, oldValue, newValue) -> {
       if (!newValue.matches("\\d*")) {
-          quantity.setText("0");
+        quantity.setText("0");
       }
-  });
+    });
   }
 
   @FXML
   void registerProduct(ActionEvent event) {
-    CreateProductDTO createProductDTO = new CreateProductDTO(name.getText(), price.getAmount(),
+    CreateProductInfosDTO createProductDTO = new CreateProductInfosDTO(name.getText(), price.getAmount(),
         Integer.parseInt(quantity.getText()));
 
     Response<?> response = CreateProductFactory.make().handle(createProductDTO);

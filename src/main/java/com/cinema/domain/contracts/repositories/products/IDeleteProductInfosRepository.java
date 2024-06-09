@@ -2,6 +2,6 @@ package com.cinema.domain.contracts.repositories.products;
 
 import java.util.UUID;
 
-public interface IDeleteProductRepository {
+public interface IDeleteProductInfosRepository {
     public void deleteProduct(UUID id);
 }
