@@ -18,6 +18,13 @@ public class ListMovieSessionsController extends Controller<Object> {
     this.listMovieSessionsUseCase = listMovieSessionsUseCase;
   }
 
+  /**
+   * Performs the action of listing movie sessions.
+   *
+   * @param object The object parameter (not used in this implementation).
+   * @return A Response object containing a list of MovieSessionDTO objects.
+   * @throws Exception if an error occurs during the execution.
+   */
   @Override
   public Response<?> perform(Object object) {
     try {
@@ -36,6 +43,12 @@ public class ListMovieSessionsController extends Controller<Object> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given object.
+   *
+   * @param object The object for which validators need to be built.
+   * @return An ArrayList of IValidator objects representing the validators.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(Object object) {
     return new ArrayList<IValidator>();

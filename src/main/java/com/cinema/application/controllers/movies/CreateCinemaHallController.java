@@ -20,6 +20,12 @@ public class CreateCinemaHallController extends Controller<CreateCinemaHallDTO> 
     this.createCinemaHallUseCase = createCinemaHallUseCase;
   }
 
+  /**
+    * Performs the creation of a cinema hall based on the provided CreateCinemaHallDTO object.
+    *
+    * @param object The CreateCinemaHallDTO object containing the capacity and name of the cinema hall.
+    * @return A Response object indicating the success or failure of the operation.
+    */
   @Override
   public Response<?> perform(CreateCinemaHallDTO object) {
     try {
@@ -33,6 +39,12 @@ public class CreateCinemaHallController extends Controller<CreateCinemaHallDTO> 
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given CreateCinemaHallDTO object.
+   * 
+   * @param object The CreateCinemaHallDTO object to validate.
+   * @return An ArrayList of IValidator objects representing the validators for the given object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(CreateCinemaHallDTO object) {
 

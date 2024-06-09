@@ -25,6 +25,12 @@ public class CreateMovieSessionController extends Controller<CreateMovieSessionD
     this.createMovieSessionUseCase = createMovieSessionUseCase;
   }
 
+  /**
+    * Performs the creation of a movie session based on the provided CreateMovieSessionDTO object.
+    *
+    * @param object The CreateMovieSessionDTO object containing the necessary information for creating a movie session.
+    * @return A Response object indicating the success or failure of the operation.
+    */
   @Override
   public Response<?> perform(CreateMovieSessionDTO object) {
     try {
@@ -44,6 +50,12 @@ public class CreateMovieSessionController extends Controller<CreateMovieSessionD
     }
   }
 
+  /**
+   * Builds a list of validators for the CreateMovieSessionDTO object.
+   * 
+   * @param object The CreateMovieSessionDTO object to be validated.
+   * @return An ArrayList of IValidator objects representing the validators for the CreateMovieSessionDTO object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(CreateMovieSessionDTO object) {
 

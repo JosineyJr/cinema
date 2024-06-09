@@ -18,6 +18,13 @@ public class ListGenresController extends Controller<Object> {
     this.listGenresUseCase = listGenresUseCase;
   }
 
+  /**
+   * Performs the operation to list all genres.
+   *
+   * @param object The input object (not used in this implementation).
+   * @return A Response object containing a list of GenreDTO objects.
+   * @throws Exception if an error occurs during the operation.
+   */
   @Override
   public Response<List<GenreDTO>> perform(Object object) {
     try {
@@ -35,6 +42,12 @@ public class ListGenresController extends Controller<Object> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the specified object.
+   *
+   * @param object The object for which validators need to be built.
+   * @return An ArrayList of IValidator objects representing the validators for the specified object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(Object object) {
     return new ArrayList<IValidator>();

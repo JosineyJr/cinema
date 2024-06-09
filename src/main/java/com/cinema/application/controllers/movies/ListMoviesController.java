@@ -18,6 +18,13 @@ public class ListMoviesController extends Controller<Object> {
     this.listMoviesUseCase = listMoviesUseCase;
   }
 
+  /**
+   * Performs the necessary operations to retrieve a list of movies and convert them into a list of MovieDTO objects.
+   * 
+   * @param object The input object (not used in this implementation).
+   * @return A Response object containing a list of MovieDTO objects.
+   * @throws Exception if an error occurs during the execution.
+   */
   @Override
   public Response<?> perform(Object object) {
     try {
@@ -36,6 +43,12 @@ public class ListMoviesController extends Controller<Object> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given object.
+   *
+   * @param object The object for which validators need to be built.
+   * @return An ArrayList of IValidator objects representing the validators for the given object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(Object object) {
     return new ArrayList<IValidator>();
