@@ -9,13 +9,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+/**
+ * The main class of the cinema application.
+ * This class extends the Application class and is responsible for launching the application.
+ */
 public class Main extends Application {
+    /**
+      * The main method of the program.
+      *
+      * @param args the command line arguments
+      */
     public static void main(String[] args) {
         PgConnection.getInstance();
 
         launch(args);
     }
 
+    /**
+     * This method is called when the application is launched. It sets up the main stage
+     * and displays the user interface for the cinema system.
+     *
+     * @param primaryStage the primary stage of the application
+     * @throws Exception if an error occurs during the initialization of the stage
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
