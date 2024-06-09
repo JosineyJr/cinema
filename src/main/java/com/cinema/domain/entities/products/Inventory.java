@@ -4,17 +4,17 @@ import java.util.UUID;
 
 public class Inventory {
   private UUID ID;
-  private ProductInfos productInfo;
+  private ProductInfos productInfos;
   private int quantity;
 
-  public Inventory(UUID ID, ProductInfos productInfo, int quantity) {
+  public Inventory(UUID ID, ProductInfos productInfos, int quantity) {
     this.ID = ID;
-    this.productInfo = productInfo;
+    this.productInfos = productInfos;
     this.quantity = quantity;
   }
 
-  public Inventory(ProductInfos productInfo, int quantity) {
-    this.productInfo = productInfo;
+  public Inventory(ProductInfos productInfos, int quantity) {
+    this.productInfos = productInfos;
     this.quantity = quantity;
   }
 
@@ -27,11 +27,11 @@ public class Inventory {
   }
 
   public ProductInfos getProductInfos() {
-    return this.productInfo;
+    return this.productInfos;
   }
 
   public void setProductInfos(ProductInfos product) {
-    this.productInfo = product;
+    this.productInfos = product;
   }
 
   public int getQuantity() {

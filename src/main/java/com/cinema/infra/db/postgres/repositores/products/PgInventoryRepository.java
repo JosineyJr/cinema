@@ -3,12 +3,14 @@ package com.cinema.infra.db.postgres.repositores.products;
 import com.cinema.domain.contracts.repositories.products.ICreateInventoryRepository;
 import com.cinema.domain.contracts.repositories.products.IDeleteInventoryRepository;
 import com.cinema.domain.contracts.repositories.products.IFindInventoryByIdRepository;
+import com.cinema.domain.contracts.repositories.products.IFindInventoryByProductInfosIDRepository;
 import com.cinema.domain.contracts.repositories.products.IListInventoryRepository;
 import com.cinema.domain.contracts.repositories.products.IUpdateInventoryRepository;
 import com.cinema.domain.entities.products.Inventory;
 import com.cinema.domain.entities.products.ProductInfos;
 import com.cinema.infra.db.postgres.entities.products.PgInventory;
 import com.cinema.infra.db.postgres.entities.products.PgProductInfos;
+import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 import java.util.List;
 import java.util.UUID;
@@ -19,9 +21,9 @@ public class PgInventoryRepository
     implements
     ICreateInventoryRepository,
     IListInventoryRepository,
-    IDeleteInventoryRepository, 
-    IFindInventoryByIdRepository, 
-    IUpdateInventoryRepository {
+    IDeleteInventoryRepository,
+    IFindInventoryByIdRepository,
+    IUpdateInventoryRepository, IFindInventoryByProductInfosIDRepository {
 
   public void create(Inventory inventory) {
     PgProductInfos pgProduct = this.session.get(PgProductInfos.class, inventory.getProductInfos().getID());
@@ -72,5 +74,15 @@ public class PgInventoryRepository
     pgInventory.setQuantity(inventory.getQuantity());
 
     this.session.persist(pgInventory);
+  }
+
+  @Override
+  public Inventory findInventoryByProductInfosID(UUID productInfosID) {
+    PgInventory inventory = this.session
+        .createQuery("FROM inventory WHERE productInfos.id = :productInfosID", PgInventory.class)
+        .setParameter("productInfosID", productInfosID)
+        .getSingleResult();
+
+    return ConvertEntities.convertInventory(inventory);
   }
 }
