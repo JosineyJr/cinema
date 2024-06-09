@@ -12,25 +12,24 @@
   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.movies.ListMoviesView">
   <children>
     <fx:include source="../menu.fxml" />
-    <Label layoutX="342.0" layoutY="40.0" text="Filmes">
+    <Label layoutX="342.0" layoutY="40.0" text="Produtos">
       <font>
         <Font size="36.0" />
       </font>
     </Label>
-    <TableView fx:id="moviesTable" layoutX="7.0" layoutY="91.0" prefHeight="420.0" prefWidth="787.0">
+    <TableView fx:id="productsTable" layoutX="7.0" layoutY="91.0" prefHeight="420.0"
+      prefWidth="787.0">
       <columns>
-        <TableColumn fx:id="title" prefWidth="88.0" text="Titulo" />
-        <TableColumn fx:id="genre" minWidth="0.0" prefWidth="72.0" text="Genero" />
-        <TableColumn fx:id="director" prefWidth="65.0" text="Diretor" />
-        <TableColumn fx:id="duration" prefWidth="75.0" text="Duracao" />
-        <TableColumn fx:id="minimumAge" prefWidth="139.0" text="Idade Minima" />
+        <TableColumn fx:id="name" prefWidth="88.0" text="Nome" />
+        <TableColumn fx:id="price" minWidth="0.0" prefWidth="72.0" text="Preço" />
+        <TableColumn fx:id="quantity" prefWidth="65.0" text="Quantidade" />
         <TableColumn fx:id="action" prefWidth="139.0" text="Açao" />
       </columns>
       <columnResizePolicy>
         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
       </columnResizePolicy>
     </TableView>
-    <Label layoutX="350.0" layoutY="553.0" onMouseClicked="#createMovie"
-      style="-fx-text-fill: #6495ED;" text="Cadastrar filme" />
+    <Label layoutX="350.0" layoutY="553.0" onMouseClicked="#createProduct"
+      style="-fx-text-fill: #6495ED;" text="Cadastrar produto" />
   </children>
 </AnchorPane>

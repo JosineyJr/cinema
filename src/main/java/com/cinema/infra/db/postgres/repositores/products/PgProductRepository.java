@@ -1,9 +1,12 @@
 package com.cinema.infra.db.postgres.repositores.products;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.cinema.domain.contracts.repositories.products.ICreateProductRepository;
 import com.cinema.domain.contracts.repositories.products.IFindProductByNameRepository;
+import com.cinema.domain.contracts.repositories.products.IListProductsRepository;
 import com.cinema.domain.entities.products.Product;
 import com.cinema.infra.db.postgres.entities.products.PgProduct;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
@@ -11,7 +14,7 @@ import com.cinema.infra.db.postgres.repositores.PgRepository;
 import jakarta.persistence.NoResultException;
 
 public class PgProductRepository extends PgRepository
-    implements ICreateProductRepository, IFindProductByNameRepository {
+    implements ICreateProductRepository, IFindProductByNameRepository, IListProductsRepository {
   public UUID create(Product product) {
     PgProduct pgProduct = new PgProduct(product.getName(), product.getPrice());
     this.session.persist(pgProduct);
@@ -31,5 +34,13 @@ public class PgProductRepository extends PgRepository
     } catch (Exception e) {
       throw e;
     }
+  }
+
+  public List<Product> listProducts() {
+    return this.session.createQuery("FROM product p", PgProduct.class)
+        .getResultList()
+        .stream()
+        .map(pgProduct -> new Product(pgProduct.getID(), pgProduct.getName(), pgProduct.getPrice()))
+        .collect(Collectors.toList());
   }
 }
