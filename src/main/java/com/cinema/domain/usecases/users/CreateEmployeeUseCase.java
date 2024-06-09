@@ -22,6 +22,16 @@ public class CreateEmployeeUseCase {
     this.createAdminRepository = createAdminRepository;
   }
 
+  /**
+   * Executes the use case to create a new employee.
+   *
+   * @param firstName the first name of the employee
+   * @param lastName the last name of the employee
+   * @param CPF the CPF (Brazilian identification number) of the employee
+   * @param password the password of the employee
+   * @param isAdmin a boolean indicating whether the employee is an admin or not
+   * @throws EmployeeAlreadyExistsError if an employee with the same CPF already exists
+   */
   public void execute(
       String firstName,
       String lastName,
