@@ -2,10 +2,14 @@ package com.cinema.main.views.products;
 
 import java.util.List;
 
+import com.cinema.application.dtos.products.DeleteProductDTO;
 import com.cinema.application.dtos.products.ProductDTO;
 import com.cinema.application.helpers.Response;
+import com.cinema.main.factories.products.DeleteProductFactory;
 import com.cinema.main.factories.products.ListProductsFactory;
 import com.cinema.main.views.StageManager;
+import com.cinema.main.views.helpers.AlertError;
+import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.ButtonTableCell;
 import com.cinema.main.views.helpers.ChangeWindow;
 
@@ -87,6 +91,15 @@ public class ListProductsView {
     alert.showAndWait().ifPresent(response -> {
       if (response == ButtonType.OK) {
         productsTable.getItems().remove(product);
+
+        Response<?> responseDelete = DeleteProductFactory.make()
+            .handle(new DeleteProductDTO(product.getID(), product.getInventoryID()));
+
+        if (responseDelete.getStatusCode() == 204) {
+          new AlertSuccess("Produto deletado com sucesso!");
+        } else {
+          new AlertError(responseDelete.getData().toString());
+        }
       }
     });
   }

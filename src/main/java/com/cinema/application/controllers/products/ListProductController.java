@@ -33,7 +33,7 @@ public class ListProductController extends Controller<Object> {
         Inventory inventory = inventories.stream().filter(i -> i.getProduct().getID() == product.getID()).findFirst()
             .orElse(null);
 
-        productsDTO.add(new ProductDTO(product.getID(), product.getName(), product.getPrice(), inventory.getQuantity()));
+        productsDTO.add(new ProductDTO(product.getID(), product.getName(), product.getPrice(), inventory.getQuantity(), inventory.getID()));
       }
 
       return ResponseFactory.ok(productsDTO);

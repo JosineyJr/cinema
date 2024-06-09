@@ -19,6 +19,12 @@ public class PgInventory {
     this.product = product;
   }
 
+  public PgInventory(UUID ID, int quantity, PgProduct product) {
+    this.ID = ID;
+    this.quantity = quantity;
+    this.product = product;
+  }
+
   @Id
   @GeneratedValue
   private UUID ID;
