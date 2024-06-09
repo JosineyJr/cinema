@@ -16,7 +16,13 @@ public class DeleteInventoryUseCase {
     this.findInventoryByIdRepository = findInventoryByIdRepository;
   }
 
-  public void deleteInventory(UUID id) throws InventoryNotFoundError {
+  /**
+   * Executes the use case to delete an inventory item by its ID.
+   *
+   * @param id The ID of the inventory item to be deleted.
+   * @throws InventoryNotFoundError If the inventory item with the specified ID is not found.
+   */
+  public void execute(UUID id) throws InventoryNotFoundError {
     Inventory inventory = findInventoryByIdRepository.findById(id);
 
     if (inventory == null) {

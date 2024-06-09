@@ -20,6 +20,12 @@ public class CreateClientController extends Controller<CreateClientDTO> {
     this.createClientUseCase = createClientUseCase;
   }
 
+  /**
+    * Performs the creation of a new client based on the provided CreateClientDTO object.
+    *
+    * @param object The CreateClientDTO object containing the client's information.
+    * @return A Response object indicating the success or failure of the operation.
+    */
   @Override
   public Response<?> perform(CreateClientDTO object) {
     try {
@@ -36,6 +42,12 @@ public class CreateClientController extends Controller<CreateClientDTO> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given CreateClientDTO object.
+   * 
+   * @param object The CreateClientDTO object to validate.
+   * @return An ArrayList of IValidator objects representing the validators for the given object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(CreateClientDTO object) {
     Field firstName = new Field(object.getFirstName(), "Nome");

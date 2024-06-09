@@ -12,6 +12,11 @@ public class ListCinemaHallsUseCase {
     this.cinemaHallRepository = cinemaHallRepository;
   }
 
+  /**
+   * Executes the use case to list all cinema halls.
+   *
+   * @return a list of CinemaHall objects representing all the cinema halls.
+   */
   public List<CinemaHall> execute() {
     return cinemaHallRepository.listCinemaHalls();
   }

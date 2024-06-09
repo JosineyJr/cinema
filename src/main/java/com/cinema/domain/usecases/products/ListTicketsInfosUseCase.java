@@ -12,6 +12,11 @@ public class ListTicketsInfosUseCase {
     this.listTicketsInfosRepository = listTicketsInfosRepository;
   }
 
+  /**
+   * Executes the use case to list ticket information.
+   *
+   * @return a list of TicketInfos objects.
+   */
   public List<TicketInfos> execute() {
     return this.listTicketsInfosRepository.listTickets();
   }

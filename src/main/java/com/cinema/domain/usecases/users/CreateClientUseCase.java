@@ -21,6 +21,16 @@ public class CreateClientUseCase {
     this.hasher = hasher;
   }
 
+  /**
+   * Executes the use case to create a new client.
+   *
+   * @param firstName          The first name of the client.
+   * @param lastName           The last name of the client.
+   * @param CPF                The CPF (Brazilian identification number) of the client.
+   * @param password           The password of the client.
+   * @param moviesPreferences  The list of movie preferences of the client.
+   * @throws ClientAlreadyExistsError  If a client with the given CPF already exists.
+   */
   public void execute(
       String firstName,
       String lastName,

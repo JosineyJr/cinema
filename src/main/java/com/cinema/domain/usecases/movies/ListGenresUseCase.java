@@ -12,6 +12,11 @@ public class ListGenresUseCase {
     this.genresRepository = genresRepository;
   }
 
+  /**
+   * Executes the use case to list all genres.
+   *
+   * @return a list of Genre objects representing the available genres.
+   */
   public List<Genre> execute() {
     return genresRepository.listGenres();
   }

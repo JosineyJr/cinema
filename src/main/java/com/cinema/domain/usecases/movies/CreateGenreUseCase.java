@@ -15,6 +15,12 @@ public class CreateGenreUseCase {
     this.createGenreRepository = createGenreRepository;
   }
 
+  /**
+   * Executes the use case to create a new genre with the given name.
+   *
+   * @param name the name of the genre to be created
+   * @throws GenreAlreadyExistsError if a genre with the same name already exists
+   */
   public void execute(String name) throws GenreAlreadyExistsError {
     Genre genreIsExists = this.findGenreByNameRepository.findGenreByName(name);
 

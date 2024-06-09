@@ -19,6 +19,13 @@ public class ListTicketsInfosController extends Controller<Object> {
     this.listTicketsInfosUseCase = listTicketsInfosUseCase;
   }
 
+  /**
+    * Performs the necessary operations to retrieve a list of ticket information.
+    *
+    * @param object The input object (not used in this implementation).
+    * @return A Response object containing the list of TicketInfosDTO.
+    * @throws Exception if an error occurs during the execution.
+    */
   @Override
   public Response<?> perform(Object object) {
     try {
@@ -40,6 +47,12 @@ public class ListTicketsInfosController extends Controller<Object> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given object.
+   *
+   * @param object The object for which validators need to be built.
+   * @return An ArrayList of IValidator objects.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(Object object) {
     return new ArrayList<IValidator>();

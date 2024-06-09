@@ -12,6 +12,11 @@ public class ListProductsInfosUseCase {
     this.listProductsInfosRepository = listProductsInfosRepository;
   }
 
+  /**
+   * Executes the use case to list product information.
+   *
+   * @return a list of ProductInfos containing the information of the products
+   */
   public List<ProductInfos> execute() {
     return this.listProductsInfosRepository.listProductsInfos();
   }

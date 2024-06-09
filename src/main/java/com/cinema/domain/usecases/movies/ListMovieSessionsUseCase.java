@@ -12,6 +12,11 @@ public class ListMovieSessionsUseCase {
     this.movieSessionsRepository = movieSessionsRepository;
   }
 
+  /**
+   * Executes the use case to list all movie sessions.
+   *
+   * @return a list of MovieSession objects representing the movie sessions.
+   */
   public List<MovieSession> execute() {
     return movieSessionsRepository.listMovieSessions();
   }

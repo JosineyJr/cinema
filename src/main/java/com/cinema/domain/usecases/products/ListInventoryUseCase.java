@@ -12,6 +12,11 @@ public class ListInventoryUseCase {
     this.listInventoryRepository = listInventoryRepository;
   }
 
+  /**
+   * Executes the use case to list the inventory.
+   *
+   * @return a list of Inventory objects.
+   */
   public List<Inventory> execute() {
     return this.listInventoryRepository.listInventory();
   }

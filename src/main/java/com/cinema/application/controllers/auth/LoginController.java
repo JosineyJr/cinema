@@ -18,6 +18,12 @@ public class LoginController extends Controller<LoginDTO> {
     this.loginUseCase = loginUseCase;
   }
 
+  /**
+    * Performs the login operation using the provided LoginDTO object.
+    *
+    * @param object The LoginDTO object containing the user's credentials.
+    * @return A Response object containing the result of the login operation.
+    */
   @Override
   public Response<?> perform(LoginDTO object) {
     try {
@@ -30,6 +36,12 @@ public class LoginController extends Controller<LoginDTO> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given LoginDTO object.
+   *
+   * @param object The LoginDTO object to validate.
+   * @return An ArrayList of IValidator objects representing the validators for the LoginDTO object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(LoginDTO object) {
 

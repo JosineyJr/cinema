@@ -5,7 +5,7 @@ import com.cinema.application.controllers.products.DeleteProductController;
 import com.cinema.application.decorators.DbTransactionController;
 import com.cinema.application.dtos.products.DeleteProductInfosDTO;
 import com.cinema.domain.usecases.products.DeleteInventoryUseCase;
-import com.cinema.domain.usecases.products.DeleteProductUseCase;
+import com.cinema.domain.usecases.products.DeleteProductInfosUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.products.PgInventoryRepository;
 import com.cinema.infra.db.postgres.repositores.products.PgProductInfosRepository;
@@ -16,7 +16,7 @@ public class DeleteProductFactory {
     PgProductInfosRepository productRepository = new PgProductInfosRepository();
     PgInventoryRepository inventoryRepository = new PgInventoryRepository();
 
-    DeleteProductUseCase deleteProductUseCase = new DeleteProductUseCase(productRepository, productRepository);
+    DeleteProductInfosUseCase deleteProductUseCase = new DeleteProductInfosUseCase(productRepository, productRepository);
     DeleteInventoryUseCase deleteInventoryUseCase = new DeleteInventoryUseCase(inventoryRepository,
         inventoryRepository);
 

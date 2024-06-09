@@ -21,6 +21,12 @@ public class CreateMovieController extends Controller<CreateMovieDTO> {
     this.createMovieUseCase = createMovieUseCase;
   }
 
+  /**
+    * Performs the creation of a movie based on the provided CreateMovieDTO object.
+    *
+    * @param object The CreateMovieDTO object containing the movie details.
+    * @return A Response object indicating the success or failure of the movie creation.
+    */
   @Override
   public Response<?> perform(CreateMovieDTO object) {
     try {
@@ -42,6 +48,12 @@ public class CreateMovieController extends Controller<CreateMovieDTO> {
 
   }
 
+  /**
+   * Builds and returns a list of validators for the given CreateMovieDTO object.
+   *
+   * @param object The CreateMovieDTO object to validate.
+   * @return An ArrayList of IValidator objects representing the validators for the given object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(CreateMovieDTO object) {
 

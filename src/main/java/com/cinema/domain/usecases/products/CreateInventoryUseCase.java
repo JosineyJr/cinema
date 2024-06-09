@@ -11,6 +11,12 @@ public class CreateInventoryUseCase {
     this.createInventoryRepository = createInventoryRepository;
   }
 
+  /**
+   * Executes the use case to create an inventory for a product with the given quantity.
+   *
+   * @param product  the product information
+   * @param quantity the quantity of the product in the inventory
+   */
   public void execute(ProductInfos product, int quantity) {
     Inventory inventory = new Inventory(product, quantity);
 

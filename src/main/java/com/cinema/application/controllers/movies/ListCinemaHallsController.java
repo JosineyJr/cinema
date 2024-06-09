@@ -18,6 +18,13 @@ public class ListCinemaHallsController extends Controller<Object> {
     this.listCinemaHallsUseCase = listCinemaHallsUseCase;
   }
 
+  /**
+   * Executes the logic to retrieve a list of cinema halls and convert them into a list of CinemaHallDTO objects.
+   * 
+   * @param object The input object (not used in this implementation).
+   * @return A Response object containing a list of CinemaHallDTO objects.
+   * @throws Exception if an error occurs during the execution.
+   */
   @Override
   public Response<?> perform(Object object) {
     try {
@@ -35,6 +42,12 @@ public class ListCinemaHallsController extends Controller<Object> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given object.
+   *
+   * @param object The object for which validators need to be built.
+   * @return An ArrayList of IValidator objects representing the validators for the given object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(Object object) {
     return new ArrayList<IValidator>();
