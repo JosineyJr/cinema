@@ -35,6 +35,17 @@ public class CreateMovieSessionUseCase {
     this.createTicketInfosRepository = createTicketInfosRepository;
   }
 
+  /**
+   * Executes the use case to create a movie session.
+   *
+   * @param movieID       The ID of the movie.
+   * @param cinemaHallID  The ID of the cinema hall.
+   * @param startTime     The start time of the movie session.
+   * @param ticketPrice   The price of the movie ticket.
+   * @throws MovieNotFoundError                      If the movie with the given ID is not found.
+   * @throws CinemaHallNotFoundError                 If the cinema hall with the given ID is not found.
+   * @throws MovieSessionAlreadyScreeningInCinemaHallError  If there is already a movie session screening in the cinema hall at the given start time.
+   */
   public void execute(UUID movieID, UUID cinemaHallID, LocalDateTime startTime, double ticketPrice)
       throws MovieNotFoundError, CinemaHallNotFoundError, MovieSessionAlreadyScreeningInCinemaHallError {
 

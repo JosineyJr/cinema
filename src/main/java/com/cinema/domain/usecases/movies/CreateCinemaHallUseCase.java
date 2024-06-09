@@ -15,6 +15,13 @@ public class CreateCinemaHallUseCase {
     this.findCinemaHallByNameRepository = findCinemaHallByNameRepository;
   }
 
+  /**
+   * Executes the use case to create a new cinema hall with the given capacity and name.
+   *
+   * @param capacity The capacity of the cinema hall.
+   * @param name The name of the cinema hall.
+   * @throws CinemaHallAlreadyExistsError If a cinema hall with the same name already exists.
+   */
   public void execute(int capacity, String name) throws CinemaHallAlreadyExistsError {
     CinemaHall cinemaHallAlreadyExists = this.findCinemaHallByNameRepository.findCinemaHallByName(name);
 

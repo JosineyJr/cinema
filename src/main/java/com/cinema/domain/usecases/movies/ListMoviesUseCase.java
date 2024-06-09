@@ -12,6 +12,11 @@ public class ListMoviesUseCase {
     this.moviesRepository = moviesRepository;
   }
 
+  /**
+   * Executes the use case to list all movies.
+   *
+   * @return a list of movies.
+   */
   public List<Movie> execute() {
     return moviesRepository.listMovies();
   }

@@ -18,6 +18,17 @@ public class CreateMovieUseCase {
     this.findGenreByIDRepository = findGenreByIDRepository;
   }
 
+  /**
+   * Executes the use case to create a new movie.
+   *
+   * @param title       the title of the movie
+   * @param synopsis    the synopsis of the movie
+   * @param director    the director of the movie
+   * @param genreID     the ID of the genre for the movie
+   * @param duration    the duration of the movie in minutes
+   * @param minimumAge  the minimum age requirement for the movie
+   * @throws GenreNotFoundError if the genre with the specified ID is not found
+   */
   public void execute(String title, String synopsis, String director, UUID genreID, int duration, int minimumAge)
       throws GenreNotFoundError {
     Genre genre = findGenreByIDRepository.findGenreByID(genreID);
