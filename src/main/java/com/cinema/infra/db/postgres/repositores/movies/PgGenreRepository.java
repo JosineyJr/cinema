@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.cinema.domain.contracts.repositories.movies.ICreateGenreRepository;
+import com.cinema.domain.contracts.repositories.movies.IDeleteGenreRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindGenreByIDRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindGenreByNameRepository;
 import com.cinema.domain.contracts.repositories.movies.IListGenresRepository;
@@ -14,8 +15,13 @@ import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 import jakarta.persistence.NoResultException;
 
-public class PgGenreRepository extends PgRepository
-    implements ICreateGenreRepository, IFindGenreByNameRepository, IFindGenreByIDRepository, IListGenresRepository {
+public class PgGenreRepository
+    extends PgRepository
+    implements ICreateGenreRepository,
+    IFindGenreByNameRepository,
+    IFindGenreByIDRepository,
+    IListGenresRepository,
+    IDeleteGenreRepository {
 
   @Override
   public Genre findGenreByName(String name) {
@@ -56,5 +62,11 @@ public class PgGenreRepository extends PgRepository
     List<PgGenre> pgGenres = this.session.createQuery("from genre", PgGenre.class).getResultList();
 
     return pgGenres.stream().map(pgGenre -> ConvertEntities.convertGenre(pgGenre)).toList();
+  }
+
+  public void deleteGenre(UUID ID) {
+    PgGenre pgGenre = this.session.get(PgGenre.class, ID);
+
+    this.session.remove(pgGenre);
   }
 }
