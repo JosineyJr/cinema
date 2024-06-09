@@ -11,27 +11,38 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * This class represents the view for creating a genre.
+ */
 public class CreateGenreView {
 
-    @FXML
-    private TextField genreNameField;
+  @FXML
+  private TextField genreNameField;
 
-    @FXML
-    private Button registerButton;
+  @FXML
+  private Button registerButton;
 
-    @SuppressWarnings("rawtypes")
-    @FXML
-    void register(ActionEvent event) {
-        String genreName = genreNameField.getText();
+  /**
+   * Event handler for the register button.
+   * Retrieves the genre name from the text field, creates a CreateGenreDTO object,
+   * and calls the handle method of CreateGenreFactory to create the genre.
+   * Displays a success or error alert based on the response status code.
+   *
+   * @param event The action event triggered by the register button.
+   */
+  @SuppressWarnings("rawtypes")
+  @FXML
+  void register(ActionEvent event) {
+    String genreName = genreNameField.getText();
 
-        CreateGenreDTO createGenreDTO = new CreateGenreDTO(genreName);
+    CreateGenreDTO createGenreDTO = new CreateGenreDTO(genreName);
 
-        Response response = CreateGenreFactory.make().handle(createGenreDTO);
+    Response response = CreateGenreFactory.make().handle(createGenreDTO);
 
-        if (response.getStatusCode() == 204) {
-            new AlertSuccess("Gênero criado com sucesso!");
-        } else {
-            new AlertError(response.getData().toString());
-        }
+    if (response.getStatusCode() == 204) {
+      new AlertSuccess("Gênero criado com sucesso!");
+    } else {
+      new AlertError(response.getData().toString());
     }
+  }
 }

@@ -25,6 +25,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * This class represents the view for listing genres in a cinema application.
+ * It displays a table of genres with the option to delete a genre.
+ */
 public class ListGenresView {
 
   @FXML
@@ -39,6 +43,12 @@ public class ListGenresView {
   @FXML
   private Label createGenreLabel;
 
+  /**
+   * Initializes the ListGenresView.
+   * This method is automatically called after the FXML file has been loaded.
+   * It retrieves the list of genres from the server and populates the genreTable with the data.
+   * It also sets up the cell factory for the actionColumn to display a delete button for each genre.
+   */
   @FXML
   void initialize() {
     Response<?> response = ListGenresFactory.make().handle(null);
@@ -57,17 +67,26 @@ public class ListGenresView {
       genreTable.setItems(genres);
     }
 
-    // Configurando a fábrica de células para a coluna 'name'
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     nameColumn.setStyle("-fx-alignment: CENTER;");
 
     actionColumn.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deleteGenre));
   }
 
+  /**
+   * Deletes the specified genre.
+   *
+   * @param genre the genre to be deleted
+   */
   private void deleteGenre(GenreDTO genre) {
     showConfirmationDialog(genre);
   }
 
+  /**
+   * Displays a confirmation dialog for deleting a genre.
+   *
+   * @param genre The GenreDTO object representing the genre to be deleted.
+   */
   private void showConfirmationDialog(GenreDTO genre) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Confirmação de Exclusão");
@@ -90,6 +109,14 @@ public class ListGenresView {
     });
   }
 
+  /**
+   * Event handler for creating a new genre.
+   * This method is called when the user clicks on a button to create a new genre.
+   * It opens a new window to create a genre using the createGenre.fxml file.
+   *
+   * @param event The mouse event that triggered the method.
+   * @throws Exception If an error occurs while creating the genre.
+   */
   @FXML
   void createGenre(MouseEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();

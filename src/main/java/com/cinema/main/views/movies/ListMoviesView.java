@@ -25,6 +25,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * The ListMoviesView class represents the view for listing movies in the cinema application.
+ * It displays a table of movies with various details such as title, director, duration, genre, and minimum age.
+ * The view also provides functionality to delete a movie and create a new movie.
+ */
 public class ListMoviesView {
 
   @FXML
@@ -48,6 +53,13 @@ public class ListMoviesView {
   @FXML
   private TableColumn<MovieDTO, String> title;
 
+  /**
+   * Initializes the ListMoviesView.
+   * This method is automatically called after the FXML file has been loaded.
+   * It retrieves a list of movies and populates the moviesTable with the data.
+   * It also sets up the cell value factories and styles for the table columns.
+   * Finally, it sets up the action cell factory for the "Excluir" button.
+   */
   @FXML
   void initialize() {
     Response<?> response = ListMoviesFactory.make().handle(null);
@@ -84,10 +96,20 @@ public class ListMoviesView {
     action.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deleteMovie));
   }
 
+  /**
+   * Deletes a movie from the system.
+   *
+   * @param movie The movie to be deleted.
+   */
   private void deleteMovie(MovieDTO movie) {
     showConfirmationDialog(movie);
   }
 
+  /**
+   * Displays a confirmation dialog for deleting a movie.
+   * 
+   * @param movie The MovieDTO object representing the movie to be deleted.
+   */
   private void showConfirmationDialog(MovieDTO movie) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Confirmação de Exclusão");
@@ -110,6 +132,14 @@ public class ListMoviesView {
     });
   }
 
+  /**
+   * Event handler for creating a new movie.
+   * This method is called when the user clicks on a button to create a new movie.
+   * It opens a new window for creating a movie.
+   *
+   * @param event The mouse event that triggered the method.
+   * @throws Exception If an error occurs while creating the movie.
+   */
   @FXML
   void createMovie(MouseEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();

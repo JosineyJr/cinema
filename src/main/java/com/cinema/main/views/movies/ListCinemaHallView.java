@@ -24,6 +24,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * This class represents the view for listing cinema halls.
+ * It displays a table with cinema hall information and provides functionality to create and delete cinema halls.
+ */
 public class ListCinemaHallView {
 
   @FXML
@@ -38,6 +42,12 @@ public class ListCinemaHallView {
   @FXML
   private TableColumn<CinemaHallDTO, String> name;
 
+  /**
+   * Initializes the ListCinemaHallView.
+   * This method is automatically called by JavaFX after the FXML file has been loaded.
+   * It retrieves a list of cinema halls and populates the cinemaHallTable with the data.
+   * It also sets up the cell value factories and cell factories for the table columns.
+   */
   @FXML
   void initialize() {
     Response<?> response = ListCinemaHallsFactory.make().handle(null);
@@ -66,6 +76,14 @@ public class ListCinemaHallView {
 
   }
 
+  /**
+   * Event handler for the createCinemaHall button.
+   * This method is called when the button is clicked and is responsible for creating a new cinema hall.
+   * It opens a new window to create a cinema hall using the createCinemaHall.fxml file.
+   *
+   * @param event The mouse event that triggered the method.
+   * @throws Exception If an error occurs while creating the cinema hall.
+   */
   @FXML
   void createCinemaHall(MouseEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
@@ -73,10 +91,20 @@ public class ListCinemaHallView {
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createCinemaHall.fxml");
   }
 
+  /**
+   * Deletes a cinema hall.
+   *
+   * @param cinemaHall the cinema hall to be deleted
+   */
   private void deleteCinemaHall(CinemaHallDTO cinemaHall) {
     showConfirmationDialog(cinemaHall);
   }
 
+  /**
+   * Displays a confirmation dialog for deleting a cinema hall.
+   *
+   * @param cinemaHall The CinemaHallDTO object representing the cinema hall to be deleted.
+   */
   private void showConfirmationDialog(CinemaHallDTO cinemaHall) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Confirmação de Exclusão");

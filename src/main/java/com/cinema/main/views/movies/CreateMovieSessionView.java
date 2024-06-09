@@ -28,6 +28,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+/**
+ * This class represents the view for creating a movie session.
+ * It contains the necessary fields and methods to handle the creation of a movie session.
+ */
 public class CreateMovieSessionView {
 
     @FXML
@@ -48,6 +52,12 @@ public class CreateMovieSessionView {
     @FXML
     private TextField ticketPrice;
 
+    /**
+     * Initializes the CreateMovieSessionView.
+     * This method is automatically called after the FXML file has been loaded.
+     * It populates the movie and cinema hall dropdown menus with data retrieved from the server.
+     * It also sets up a listener for the startTime text field to enforce a specific time format.
+     */
     @FXML
     void initialize() {
         Response<?> moviesResponse = ListMoviesFactory.make().handle(null);
@@ -94,6 +104,11 @@ public class CreateMovieSessionView {
         });
     }
 
+    /**
+     * Creates a new movie session based on the selected cinema hall, movie, start date, start time, and ticket price.
+     * 
+     * @param event the action event triggered by the user
+     */
     @FXML
     void createMovieSession(ActionEvent event) {
         String cinemaHallID = this.cinemaHall.getSelectionModel().getSelectedItem().getID().toString();
@@ -117,6 +132,12 @@ public class CreateMovieSessionView {
         }
     }
 
+    /**
+     * Checks if the given time is valid.
+     *
+     * @param time the time to be validated
+     * @return true if the time is valid or empty, false otherwise
+     */
     private boolean isValidTime(String time) {
         if (time.isEmpty()) {
             return true; // Permite limpar o campo

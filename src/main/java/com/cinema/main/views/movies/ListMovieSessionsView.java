@@ -24,6 +24,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * The ListMovieSessionsView class represents a view for listing movie sessions.
+ * It displays a table of movie sessions with columns for movie, cinema hall, and start time.
+ * Users can delete a movie session by clicking on the "Excluir" button in the action column.
+ * Users can also create a new movie session by clicking on a button.
+ */
 public class ListMovieSessionsView {
 
   @FXML
@@ -41,6 +47,12 @@ public class ListMovieSessionsView {
   @FXML
   private TableColumn<MovieSessionDTO, String> startTime;
 
+  /**
+   * Initializes the ListMovieSessionsView.
+   * This method is automatically called after the FXML file has been loaded.
+   * It retrieves the movie sessions data and populates the table view with the data.
+   * It also sets up the cell value factories and styles for the table columns.
+   */
   @FXML
   void initialize() {
     Response<?> response = ListMovieSessionsFactory.make().handle(null);
@@ -71,10 +83,20 @@ public class ListMovieSessionsView {
     action.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deleteMovieSession));
   }
 
+  /**
+   * Deletes a movie session.
+   *
+   * @param movieSession the movie session to be deleted
+   */
   private void deleteMovieSession(MovieSessionDTO movieSession) {
     showConfirmationDialog(movieSession);
   }
 
+  /**
+   * Displays a confirmation dialog for deleting a movie session.
+   *
+   * @param movieSession The movie session to be deleted.
+   */
   private void showConfirmationDialog(MovieSessionDTO movieSession) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Confirmação de Exclusão");
@@ -99,6 +121,12 @@ public class ListMovieSessionsView {
 
   }
 
+  /**
+   * Creates a new movie session.
+   *
+   * @param event the MouseEvent that triggered the method
+   * @throws Exception if an error occurs while creating the session
+   */
   @FXML
   void createSession(MouseEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();

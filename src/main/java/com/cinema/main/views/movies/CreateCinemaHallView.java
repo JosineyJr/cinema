@@ -11,6 +11,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * This class represents the view for creating a cinema hall.
+ * It contains the necessary fields and methods for creating a cinema hall.
+ */
 public class CreateCinemaHallView {
 
     @FXML
@@ -22,6 +26,14 @@ public class CreateCinemaHallView {
     @FXML
     private TextField name;
 
+    /**
+     * Handles the action event when the "Create Cinema Hall" button is clicked.
+     * Creates a new cinema hall based on the input values provided by the user.
+     * Displays a success message if the cinema hall is created successfully,
+     * otherwise displays an error message with the response data.
+     *
+     * @param event the action event triggered by clicking the button
+     */
     @FXML
     void createCinemaHall(ActionEvent event) {
         CreateCinemaHallDTO createCinemaHallDTO = new CreateCinemaHallDTO(Integer.parseInt(this.capacity.getText()),
