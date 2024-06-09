@@ -15,7 +15,13 @@ public class DeleteProductInfosUseCase {
     this.findProductByIdRepository = findProductByIdRepository;
   }
 
-  public void deleteProduct(UUID id) throws ProductNotFoundError {
+  /**
+   * Executes the use case to delete product information by ID.
+   *
+   * @param id The ID of the product to be deleted.
+   * @throws ProductNotFoundError If the product with the given ID is not found.
+   */
+  public void execute(UUID id) throws ProductNotFoundError {
     if (findProductByIdRepository.findById(id) == null) {
       throw new ProductNotFoundError();
     }

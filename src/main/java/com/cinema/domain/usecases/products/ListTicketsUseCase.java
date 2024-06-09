@@ -12,6 +12,11 @@ public class ListTicketsUseCase {
     this.listTicketsRepository = listTicketsRepository;
   }
 
+  /**
+   * Executes the use case to list all tickets.
+   *
+   * @return a list of tickets
+   */
   public List<Ticket> execute() {
     return this.listTicketsRepository.listTickets();
   }

@@ -10,6 +10,11 @@ public class UpdateInventoryUseCase {
     this.updateInventoryRepository = updateInventoryRepository;
   }
 
+  /**
+   * Executes the update inventory use case.
+   *
+   * @param inventory The inventory to be updated.
+   */
   public void execute(Inventory inventory) {
     updateInventoryRepository.updateInventory(inventory);
   }

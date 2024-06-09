@@ -10,6 +10,12 @@ public class UpdateProductInfosUseCase {
     this.updateProductInfosRepository = updateProductInfosRepository;
   }
 
+  /**
+   * Executes the use case to update the product information.
+   *
+   * @param productInfos The updated product information.
+   * @return The updated product information.
+   */
   public ProductInfos execute(ProductInfos productInfos) {
     return updateProductInfosRepository.updateProduct(productInfos);
   }

@@ -22,8 +22,8 @@ public class DeleteProductController extends Controller<DeleteProductInfosDTO> {
 
   public Response<?> perform(DeleteProductInfosDTO object) {
     try {
-      deleteInventoryUseCase.deleteInventory(object.getInventoryId());
-      deleteProductUseCase.deleteProduct(object.getProductId());
+      deleteInventoryUseCase.execute(object.getInventoryId());
+      deleteProductUseCase.execute(object.getProductId());
 
       return ResponseFactory.noContent();
     } catch (Exception e) {
