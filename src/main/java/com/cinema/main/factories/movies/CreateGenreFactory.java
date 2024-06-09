@@ -7,6 +7,7 @@ import com.cinema.application.dtos.movies.CreateGenreDTO;
 import com.cinema.domain.usecases.movies.CreateGenreUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.movies.PgGenreRepository;
+import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateGenreFactory {
   public static Controller<CreateGenreDTO> make() {
@@ -16,7 +17,7 @@ public class CreateGenreFactory {
 
     CreateGenreController genreController = new CreateGenreController(createGenreUseCase);
 
-    PgConnection pgConnection = PgConnection.getInstance();
+    PgConnection pgConnection = PgConnectionFactory.make();
 
     return new DbTransactionController<>(genreController, pgConnection);
   }

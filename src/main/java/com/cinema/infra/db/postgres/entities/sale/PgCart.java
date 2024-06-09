@@ -8,7 +8,9 @@ import com.cinema.infra.db.postgres.entities.products.PgProduct;
 import com.cinema.infra.db.postgres.entities.products.PgTicket;
 import com.cinema.infra.db.postgres.entities.users.PgPerson;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -21,10 +23,10 @@ public class PgCart {
   @GeneratedValue
   private UUID ID;
 
-  @OneToMany(mappedBy = "cart")
+  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<PgTicket> tickets;
 
-  @OneToMany(mappedBy = "cart")
+  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<PgProduct> products;
 
   @ManyToOne
@@ -45,6 +47,10 @@ public class PgCart {
     this.tickets = tickets;
     this.products = products;
     this.person = person;
+  }
+
+  public PgCart(UUID ID) {
+    this.ID = ID;
   }
 
   public PgCart(PgPerson person) {

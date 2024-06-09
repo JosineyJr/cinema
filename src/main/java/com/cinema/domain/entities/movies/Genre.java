@@ -15,6 +15,10 @@ public class Genre {
     this.name = name;
   }
 
+  public Genre(UUID ID) {
+    this.ID = ID;
+  }
+
   public UUID getID() {
     return this.ID;
   }

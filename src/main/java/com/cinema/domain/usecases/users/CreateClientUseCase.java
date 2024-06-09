@@ -1,6 +1,7 @@
 package com.cinema.domain.usecases.users;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import com.cinema.domain.contracts.providers.IHasher;
 import com.cinema.domain.contracts.repositories.users.ICreateClientRepository;
@@ -24,19 +25,21 @@ public class CreateClientUseCase {
   /**
    * Executes the use case to create a new client.
    *
-   * @param firstName          The first name of the client.
-   * @param lastName           The last name of the client.
-   * @param CPF                The CPF (Brazilian identification number) of the client.
-   * @param password           The password of the client.
-   * @param moviesPreferences  The list of movie preferences of the client.
-   * @throws ClientAlreadyExistsError  If a client with the given CPF already exists.
+   * @param firstName         The first name of the client.
+   * @param lastName          The last name of the client.
+   * @param CPF               The CPF (Brazilian identification number) of the
+   *                          client.
+   * @param password          The password of the client.
+   * @param moviesPreferences The list of movie preferences of the client.
+   * @throws ClientAlreadyExistsError If a client with the given CPF already
+   *                                  exists.
    */
   public void execute(
       String firstName,
       String lastName,
       String CPF,
       String password,
-      ArrayList<String> moviesPreferences) throws ClientAlreadyExistsError {
+      ArrayList<String> moviesPreferencesIDs) throws ClientAlreadyExistsError {
 
     if (findClientByCPFRepository.findClientByCPF(CPF) != null) {
       throw new ClientAlreadyExistsError();
@@ -46,8 +49,10 @@ public class CreateClientUseCase {
 
     ArrayList<Genre> genres = new ArrayList<Genre>();
 
-    for (String moviePreference : moviesPreferences) {
-      genres.add(new Genre(moviePreference));
+    for (String moviePreference : moviesPreferencesIDs) {
+      UUID genreID = UUID.fromString(moviePreference);
+
+      genres.add(new Genre(genreID));
     }
 
     Client client = new Client(firstName, lastName, CPF, hashedPassword, genres);

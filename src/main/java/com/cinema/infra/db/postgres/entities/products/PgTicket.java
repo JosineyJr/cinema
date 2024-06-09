@@ -21,7 +21,7 @@ public class PgTicket {
   private PgTicketInfos ticketInfos;
 
   @ManyToOne
-  @JoinColumn(name = "cart_id", nullable = true)
+  @JoinColumn(name = "cart_id", nullable = true, insertable = true, updatable = true)
   private PgCart cart;
 
   public PgTicket() {

@@ -23,6 +23,10 @@ public class CartConverter implements IEntityConverter<PgCart, Cart> {
   public Cart convert(PgCart source) {
     List<Ticket> tickets = new ArrayList<>();
 
+    if (source.getTickets() == null) {
+      source.setTickets(new ArrayList<>());
+    }
+
     source.getTickets().stream().forEach(pgTicket -> {
       Ticket ticket = ticketConverter.convert(pgTicket);
 
@@ -30,6 +34,10 @@ public class CartConverter implements IEntityConverter<PgCart, Cart> {
     });
 
     List<Product> products = new ArrayList<>();
+
+    if (source.getProducts() == null) {
+      source.setProducts(new ArrayList<>());
+    }
 
     source.getProducts().stream().forEach(pgProduct -> {
       Product product = productConverter.convert(pgProduct);
@@ -44,11 +52,19 @@ public class CartConverter implements IEntityConverter<PgCart, Cart> {
   public PgCart pgConverter(Cart target) {
     List<PgTicket> pgTickets = new ArrayList<>();
 
+    if (target.getTickets() == null) {
+      target.setTickets(new ArrayList<>());
+    }
+
     target.getTickets().stream().forEach(ticket -> {
       pgTickets.add(ticketConverter.pgConverter(ticket));
     });
 
     List<PgProduct> pgProducts = new ArrayList<>();
+
+    if (target.getProducts() == null) {
+      target.setProducts(new ArrayList<>());
+    }
 
     target.getProducts().stream().forEach(product -> {
       pgProducts.add(productConverter.pgConverter(product));

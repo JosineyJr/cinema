@@ -34,7 +34,7 @@ public class PgCartRepository extends PgRepository
 
   @Override
   public Cart findCartByPersonID(UUID personID) {
-    PgCart pgCart = this.session.createQuery("from cart where person_id = :personID", PgCart.class)
+    PgCart pgCart = this.session.createQuery("from cart where person.id = :personID", PgCart.class)
         .setParameter("personID", personID)
         .getSingleResultOrNull();
 

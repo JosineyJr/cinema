@@ -16,6 +16,7 @@ import com.cinema.infra.db.postgres.entities.movies.PgGenre;
 import com.cinema.infra.db.postgres.entities.movies.PgMovie;
 import com.cinema.infra.db.postgres.entities.movies.PgMovieSession;
 import com.cinema.infra.db.postgres.entities.products.PgTicketInfos;
+import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 public class PgTicketInfosRepository extends PgRepository
@@ -92,7 +93,6 @@ public class PgTicketInfosRepository extends PgRepository
       return null;
     }
 
-    return null;
-
+    return ConvertEntities.convertTicketInfos(pgTicketInfos);
   }
 }

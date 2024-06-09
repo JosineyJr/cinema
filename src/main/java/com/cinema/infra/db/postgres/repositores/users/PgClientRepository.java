@@ -19,6 +19,9 @@ public class PgClientRepository extends PgRepository implements ICreateClientRep
   public void createClient(Client client) {
     PgClient pgClient = ConvertEntities.pgConvertClient(client);
 
+    System.out.println("CPF " + pgClient.getCPF());
+    System.out.println("Genreos " + pgClient.getMoviesPreferences().get(0).getID());
+
     this.session.persist(pgClient);
   }
 

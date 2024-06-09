@@ -1,7 +1,7 @@
 package com.cinema.main.views.helpers;
 
 public class Session {
-  private static String CPF = null;
+  private static String CPF = "58cc7453-e8a6-41df-9e38-6cb6270590a4";
   private static String role = null;
 
   public static String getCPF() {

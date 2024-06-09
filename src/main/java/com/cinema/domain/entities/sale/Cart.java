@@ -26,6 +26,10 @@ public class Cart {
     this.person = person;
   }
 
+  public Cart(UUID ID) {
+    this.ID = ID;
+  }
+
   public Cart(Person person) {
     this.person = person;
   }

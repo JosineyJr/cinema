@@ -8,6 +8,7 @@ import com.cinema.domain.usecases.products.ListProductsInfosUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.products.PgInventoryRepository;
 import com.cinema.infra.db.postgres.repositores.products.PgProductInfosRepository;
+import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class ListProductsInfosFactory {
   public static Controller<Object> make() {
@@ -21,7 +22,7 @@ public class ListProductsInfosFactory {
         listProductsInfosUseCase,
         listInventoryUseCase);
 
-    PgConnection pgConnection = PgConnection.getInstance();
+    PgConnection pgConnection = PgConnectionFactory.make();
 
     return new DbTransactionController<>(listProductController, pgConnection);
   }

@@ -3,9 +3,14 @@ package com.cinema.main.views.products;
 import java.util.List;
 
 import com.cinema.application.dtos.products.TicketInfosDTO;
+import com.cinema.application.dtos.sales.AddTicketToCartDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.products.ListTicketsFactory;
+import com.cinema.main.factories.sales.AddTicketToCartFactory;
+import com.cinema.main.views.helpers.AlertError;
+import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.ButtonTableCell;
+import com.cinema.main.views.helpers.Session;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -83,6 +88,17 @@ public class ListTicketsInfosView {
 
     private void addToCart(TicketInfosDTO ticket) {
         System.out.println("Adicionando ao carrinho: " + ticket);
+
+        AddTicketToCartDTO addTicketToCartDTO = new AddTicketToCartDTO(ticket.getID().toString(), Session.getCPF());
+
+        Response<?> response = AddTicketToCartFactory.make().handle(addTicketToCartDTO);
+
+        if (response.getStatusCode() == 204) {
+            new AlertSuccess("Ingresso adicionado ao carrinho com sucesso!");
+        } else {
+            new AlertError(response.getData().toString());
+        }
+
     }
 
 }
