@@ -21,6 +21,15 @@ public class LoginUseCase {
     this.hasherComparer = hasherComparer;
   }
 
+  /**
+   * Executes the login use case to authenticate a user.
+   *
+   * @param CPF The CPF (Cadastro de Pessoas Físicas) of the user.
+   * @param password The password of the user.
+   * @param isEmployee Indicates whether the user is an employee or not.
+   * @return The role of the authenticated user (CLIENT, ADMIN, or EMPLOYEE).
+   * @throws LoginError If the login credentials are invalid.
+   */
   public String execute(String CPF, String password, boolean isEmployee) throws LoginError {
     Person person = isEmployee ? this.findEmployeeByCPFRepository.findEmployeeByCPF(CPF)
         : this.findClientByCPFRepository.findClientByCPF(CPF);
