@@ -14,6 +14,10 @@ import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 import jakarta.persistence.NoResultException;
 
+/**
+ * This class represents a PostgreSQL implementation of the movie repository.
+ * It provides methods to create, find, list, and delete movies in the database.
+ */
 public class PgMovieRepository
     extends PgRepository
     implements ICreateMovieRepository,
@@ -21,6 +25,11 @@ public class PgMovieRepository
     IListMoviesRepository,
     IDeleteMovieRepository {
 
+  /**
+   * Creates a new movie in the database.
+   *
+   * @param movie The movie to be created.
+   */
   @Override
   public void createMovie(Movie movie) {
 
@@ -29,6 +38,12 @@ public class PgMovieRepository
     this.session.persist(pgMovie);
   }
 
+  /**
+   * Finds a movie in the database by its ID.
+   *
+   * @param ID The ID of the movie to find.
+   * @return The found movie, or null if not found.
+   */
   @Override
   public Movie findMovieByID(UUID ID) {
     try {
@@ -43,6 +58,11 @@ public class PgMovieRepository
     }
   }
 
+  /**
+   * Lists all movies in the database.
+   *
+   * @return A list of all movies.
+   */
   @Override
   public List<Movie> listMovies() {
     List<PgMovie> pgMovies = this.session.createQuery("from movie", PgMovie.class).getResultList();
@@ -52,6 +72,11 @@ public class PgMovieRepository
     }).toList();
   }
 
+  /**
+   * Deletes a movie from the database by its ID.
+   *
+   * @param ID The ID of the movie to delete.
+   */
   public void deleteMovie(UUID ID) {
     PgMovie pgMovie = this.session.get(PgMovie.class, ID);
 

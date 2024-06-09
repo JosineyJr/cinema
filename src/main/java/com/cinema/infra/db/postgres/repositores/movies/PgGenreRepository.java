@@ -15,6 +15,10 @@ import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 import jakarta.persistence.NoResultException;
 
+/**
+ * The PostgreSQL implementation of the Genre repository.
+ * This class provides methods to interact with the database for Genre entities.
+ */
 public class PgGenreRepository
     extends PgRepository
     implements ICreateGenreRepository,
@@ -23,6 +27,12 @@ public class PgGenreRepository
     IListGenresRepository,
     IDeleteGenreRepository {
 
+  /**
+   * Finds a genre by its name.
+   *
+   * @param name The name of the genre to find.
+   * @return The Genre object if found, or null if not found.
+   */
   @Override
   public Genre findGenreByName(String name) {
     try {
@@ -37,6 +47,11 @@ public class PgGenreRepository
     }
   }
 
+  /**
+   * Creates a new genre.
+   *
+   * @param genre The Genre object to create.
+   */
   @Override
   public void createGenre(Genre genre) {
     PgGenre pgGenre = new PgGenre(genre.getName());
@@ -44,6 +59,12 @@ public class PgGenreRepository
     this.session.persist(pgGenre);
   }
 
+  /**
+   * Finds a genre by its ID.
+   *
+   * @param ID The ID of the genre to find.
+   * @return The Genre object if found, or null if not found.
+   */
   @Override
   public Genre findGenreByID(UUID ID) {
     try {
@@ -57,6 +78,11 @@ public class PgGenreRepository
     }
   }
 
+  /**
+   * Lists all genres.
+   *
+   * @return A list of Genre objects.
+   */
   @Override
   public List<Genre> listGenres() {
     List<PgGenre> pgGenres = this.session.createQuery("from genre", PgGenre.class).getResultList();
@@ -64,6 +90,11 @@ public class PgGenreRepository
     return pgGenres.stream().map(pgGenre -> ConvertEntities.convertGenre(pgGenre)).toList();
   }
 
+  /**
+   * Deletes a genre by its ID.
+   *
+   * @param ID The ID of the genre to delete.
+   */
   public void deleteGenre(UUID ID) {
     PgGenre pgGenre = this.session.get(PgGenre.class, ID);
 

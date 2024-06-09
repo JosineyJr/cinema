@@ -15,6 +15,10 @@ import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 import jakarta.persistence.NoResultException;
 
+/**
+ * This class represents a PostgreSQL repository for CinemaHall entities.
+ * It provides methods to create, find, list, and delete cinema halls in the database.
+ */
 public class PgCinemaHallRepository
     extends PgRepository
     implements ICreateCinemaHallRepository,

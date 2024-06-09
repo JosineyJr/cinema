@@ -14,6 +14,10 @@ import com.cinema.infra.db.postgres.entities.movies.PgMovieSession;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
+/**
+ * The PgMovieSessionRepository class is responsible for handling database operations related to movie sessions.
+ * It extends the PgRepository class and implements several interfaces for different repository operations.
+ */
 public class PgMovieSessionRepository
     extends PgRepository
     implements IFindMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository,
