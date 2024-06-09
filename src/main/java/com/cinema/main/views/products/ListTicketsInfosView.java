@@ -102,6 +102,10 @@ public class ListTicketsInfosView {
    * @param ticket The ticket to be added to the shopping cart.
    */
   private void addToCart(TicketInfosDTO ticket) {
+    System.out.println("Adicionando ao carrinho: " + ticket);
+
+    System.out.println("CPF: " + Session.getCPF());
+
     AddTicketToCartDTO addTicketToCartDTO = new AddTicketToCartDTO(ticket.getID().toString(), Session.getCPF());
 
     Response<?> response = AddTicketToCartFactory.make().handle(addTicketToCartDTO);
