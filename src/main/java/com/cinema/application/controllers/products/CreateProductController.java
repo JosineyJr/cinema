@@ -16,6 +16,10 @@ import com.cinema.domain.errors.products.ProductAlreadyExistsError;
 import com.cinema.domain.usecases.products.CreateInventoryUseCase;
 import com.cinema.domain.usecases.products.CreateProductInfosUseCase;
 
+/**
+ * Controller class for creating a product.
+ * This class extends the base Controller class and handles the creation of a product and its inventory.
+ */
 public class CreateProductController extends Controller<CreateProductInfosDTO> {
   private CreateProductInfosUseCase createProductUseCase;
   private CreateInventoryUseCase createInventoryUseCase;
@@ -26,6 +30,12 @@ public class CreateProductController extends Controller<CreateProductInfosDTO> {
     this.createInventoryUseCase = createInventoryUseCase;
   }
 
+  /**
+    * Performs the creation of a new product and updates the inventory.
+    *
+    * @param object The CreateProductInfosDTO object containing the product information.
+    * @return A Response object indicating the success or failure of the operation.
+    */
   @Override
   public Response<?> perform(CreateProductInfosDTO object) {
     try {
@@ -42,6 +52,12 @@ public class CreateProductController extends Controller<CreateProductInfosDTO> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given CreateProductInfosDTO object.
+   * 
+   * @param object The CreateProductInfosDTO object to validate.
+   * @return An ArrayList of IValidator objects representing the validators for the given object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(CreateProductInfosDTO object) {
     Field name = new Field(object.getName(), "Nome");
