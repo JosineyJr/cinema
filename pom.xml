@@ -55,7 +55,7 @@
       </resource>
       <resource>
         <directory>target/generated-sources/annotations</directory>
-    </resource>
+      </resource>
     </resources>
     <plugins>
       <plugin>
@@ -72,6 +72,14 @@
         <version>0.0.8</version>
         <configuration>
           <mainClass>com.cinema.main.Main</mainClass>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
         </configuration>
       </plugin>
     </plugins>
