@@ -10,6 +10,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.cinema.application.dtos.products.CreateProductDTO;
+import com.cinema.application.helpers.Response;
+import com.cinema.main.factories.products.CreateProductFactory;
+import com.cinema.main.views.helpers.AlertError;
+import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.CurrencyField;
 
 public class CreateProductView implements Initializable {
@@ -40,5 +44,13 @@ public class CreateProductView implements Initializable {
   void registerProduct(ActionEvent event) {
     CreateProductDTO createProductDTO = new CreateProductDTO(name.getText(), price.getAmount(),
         Integer.parseInt(quantity.getText()));
+
+    Response<?> response = CreateProductFactory.make().handle(createProductDTO);
+
+    if (response.getStatusCode() == 204) {
+      new AlertSuccess("Produto criado com sucesso!");
+    } else {
+      new AlertError(response.getData().toString());
+    }
   }
 }
