@@ -20,7 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/com/cinema/main/views/movies/createMovieSession.fxml"));
+                getClass().getResource("/com/cinema/main/views/products/listTickets.fxml"));
 
         Parent root = fxmlLoader.load();
 

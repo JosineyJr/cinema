@@ -1,8 +1,14 @@
 package com.cinema.infra.db.postgres.repositores.products;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.cinema.domain.contracts.repositories.products.ICreateTicketRepository;
+import com.cinema.domain.contracts.repositories.products.IListTicketsRepository;
+import com.cinema.domain.entities.movies.CinemaHall;
+import com.cinema.domain.entities.movies.Genre;
+import com.cinema.domain.entities.movies.Movie;
+import com.cinema.domain.entities.movies.MovieSession;
 import com.cinema.domain.entities.products.Ticket;
 import com.cinema.infra.db.postgres.entities.movies.PgCinemaHall;
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
@@ -11,7 +17,7 @@ import com.cinema.infra.db.postgres.entities.movies.PgMovieSession;
 import com.cinema.infra.db.postgres.entities.products.PgTicket;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
-public class PgTicketRepository extends PgRepository implements ICreateTicketRepository {
+public class PgTicketRepository extends PgRepository implements ICreateTicketRepository, IListTicketsRepository {
 
   public PgTicketRepository() {
     super();
@@ -48,5 +54,29 @@ public class PgTicketRepository extends PgRepository implements ICreateTicketRep
     PgTicket pgTicket = new PgTicket(ticket.getPrice(), pgMovieSession);
 
     this.session.persist(pgTicket);
+  }
+
+  @Override
+  public List<Ticket> listTickets() {
+    List<PgTicket> pgTickets = this.session.createQuery("from ticket", PgTicket.class).getResultList();
+
+    return pgTickets.stream().map(pgTicket -> {
+      Genre genre = new Genre(pgTicket.getMovieSession().getMovie().getGenre().getID(),
+          pgTicket.getMovieSession().getMovie().getGenre().getName());
+
+      Movie movie = new Movie(pgTicket.getMovieSession().getMovie().getID(),
+          pgTicket.getMovieSession().getMovie().getTitle(),
+          pgTicket.getMovieSession().getMovie().getSynopsis(), pgTicket.getMovieSession().getMovie().getDirector(),
+          genre,
+          pgTicket.getMovieSession().getMovie().getDuration(), pgTicket.getMovieSession().getMovie().getMinimumAge());
+
+      CinemaHall cinemaHall = new CinemaHall(pgTicket.getMovieSession().getCinemaHall().getID(),
+          pgTicket.getMovieSession().getCinemaHall().getCapacity(),
+          pgTicket.getMovieSession().getCinemaHall().getName());
+
+      MovieSession movieSession = new MovieSession(movie, cinemaHall, pgTicket.getMovieSession().getStartDate());
+
+      return new Ticket(pgTicket.getID(), pgTicket.getPrice(), movieSession);
+    }).toList();
   }
 }

@@ -8,18 +8,21 @@ public class MovieSession {
   private Movie movie;
   private CinemaHall cinemaHall;
   private LocalDateTime startDate;
+  private int soldTickets;
 
-  public MovieSession(UUID ID, Movie movie, CinemaHall cinemaHall, LocalDateTime startDate) {
+  public MovieSession(UUID ID, Movie movie, CinemaHall cinemaHall, LocalDateTime startDate, int soldTickets) {
     this.ID = ID;
     this.movie = movie;
     this.cinemaHall = cinemaHall;
     this.startDate = startDate;
+    this.soldTickets = soldTickets;
   }
 
   public MovieSession(Movie movie, CinemaHall cinemaHall, LocalDateTime startDate) {
     this.movie = movie;
     this.cinemaHall = cinemaHall;
     this.startDate = startDate;
+    this.soldTickets = 0;
   }
 
   public UUID getID() {
@@ -54,4 +57,15 @@ public class MovieSession {
     this.startDate = startDate;
   }
 
+  public int getSoldTickets() {
+    return this.soldTickets;
+  }
+
+  public void setSoldTickets(int soldTickets) {
+    this.soldTickets = soldTickets;
+  }
+
+  public boolean ticketsAvailable() {
+    return this.soldTickets < this.cinemaHall.getCapacity();
+  }
 }
