@@ -7,15 +7,15 @@ import java.util.function.Consumer;
 
 public class ButtonTableCell<S, T> extends TableCell<S, T> {
   private final Button button;
-  private final Consumer<S> onDelete;
+  private final Consumer<S> onAction;
 
-  public ButtonTableCell(String label, Consumer<S> onDelete) {
+  public ButtonTableCell(String label, Consumer<S> onAction) {
     this.button = new Button(label);
-    this.onDelete = onDelete;
+    this.onAction = onAction;
 
     this.button.setOnAction(event -> {
-      if (onDelete != null) {
-        onDelete.accept(getTableRow().getItem());
+      if (onAction != null) {
+        onAction.accept(getTableRow().getItem());
       }
     });
   }

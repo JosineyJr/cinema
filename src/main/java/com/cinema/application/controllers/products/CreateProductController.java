@@ -11,7 +11,7 @@ import com.cinema.application.helpers.ResponseFactory;
 import com.cinema.application.validation.Field;
 import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
-import com.cinema.domain.entities.products.Product;
+import com.cinema.domain.entities.products.ProductInfo;
 import com.cinema.domain.errors.products.ProductAlreadyExistsError;
 import com.cinema.domain.usecases.products.CreateInventoryUseCase;
 import com.cinema.domain.usecases.products.CreateProductUseCase;
@@ -20,7 +20,8 @@ public class CreateProductController extends Controller<CreateProductDTO> {
   private CreateProductUseCase createProductUseCase;
   private CreateInventoryUseCase createInventoryUseCase;
 
-  public CreateProductController(CreateProductUseCase createProductUseCase, CreateInventoryUseCase createInventoryUseCase) {
+  public CreateProductController(CreateProductUseCase createProductUseCase,
+      CreateInventoryUseCase createInventoryUseCase) {
     this.createProductUseCase = createProductUseCase;
     this.createInventoryUseCase = createInventoryUseCase;
   }
@@ -32,9 +33,9 @@ public class CreateProductController extends Controller<CreateProductDTO> {
           object.getName(),
           object.getPrice());
 
-      Product product = new Product(productUUID, object.getName(), object.getPrice());
+      ProductInfo product = new ProductInfo(productUUID, object.getName(), object.getPrice());
       this.createInventoryUseCase.execute(product, object.getQuantity());
-      
+
       return ResponseFactory.noContent();
     } catch (ProductAlreadyExistsError e) {
       return ResponseFactory.badRequest(e);
@@ -54,7 +55,8 @@ public class CreateProductController extends Controller<CreateProductDTO> {
 
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
 
-    validators.addAll(ValidationBuilder.of().required(requiredFields).minValue(quantity, 0).minDoubleValue(price, 0.0).build());
+    validators.addAll(
+        ValidationBuilder.of().required(requiredFields).minValue(quantity, 0).minDoubleValue(price, 0.0).build());
 
     return validators;
   }

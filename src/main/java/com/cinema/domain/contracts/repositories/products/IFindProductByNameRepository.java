@@ -1,7 +1,7 @@
 package com.cinema.domain.contracts.repositories.products;
 
-import com.cinema.domain.entities.products.Product;
+import com.cinema.domain.entities.products.ProductInfo;
 
 public interface IFindProductByNameRepository {
-  public Product findByName(String name);
+  public ProductInfo findByName(String name);
 }

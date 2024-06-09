@@ -2,43 +2,64 @@ package com.cinema.infra.db.postgres.entities.products;
 
 import java.util.UUID;
 
-import jakarta.persistence.Column;
+import com.cinema.infra.db.postgres.entities.sale.PgCart;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "product")
 public class PgProduct {
-  public PgProduct(String name, double price) {
-    this.name = name;
-    this.price = price;
-  }
-
-  public PgProduct(UUID ID, String name, double price) {
-    this.ID = ID;
-    this.name = name;
-    this.price = price;
-  }
-
   @Id
   @GeneratedValue
   private UUID ID;
 
-  @Column(nullable = false)
-  private String name;
+  @ManyToOne
+  @JoinColumn(name = "product_infos_id", nullable = false)
+  private PgProductInfos productInfos;
 
-  @Column(nullable = false)
-  private double price;
+  @ManyToOne
+  @JoinColumn(name = "cart_id", nullable = true)
+  private PgCart cart;
+
+  public PgProduct() {
+  }
+
+  public PgProduct(UUID ID, PgProductInfos productInfos, PgCart cart) {
+    this.ID = ID;
+    this.productInfos = productInfos;
+    this.cart = cart;
+  }
+
+  public PgProduct(PgProductInfos productInfos, PgCart cart) {
+    this.productInfos = productInfos;
+    this.cart = cart;
+  }
 
   public UUID getID() {
     return this.ID;
   }
 
-  public String getName() {
-    return this.name;
+  public void setID(UUID ID) {
+    this.ID = ID;
   }
 
-  public double getPrice() {
-    return this.price;
+  public PgProductInfos getProductInfos() {
+    return this.productInfos;
   }
+
+  public void setProductInfos(PgProductInfos productInfos) {
+    this.productInfos = productInfos;
+  }
+
+  public PgCart getCart() {
+    return this.cart;
+  }
+
+  public void setCart(PgCart cart) {
+    this.cart = cart;
+  }
+
 }

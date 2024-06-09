@@ -7,11 +7,11 @@ import com.cinema.domain.contracts.repositories.movies.ICreateMovieSessionReposi
 import com.cinema.domain.contracts.repositories.movies.IFindCinemaHallByIDRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindMovieByIDRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository;
-import com.cinema.domain.contracts.repositories.products.ICreateTicketRepository;
+import com.cinema.domain.contracts.repositories.products.ICreateTicketInfosRepository;
 import com.cinema.domain.entities.movies.CinemaHall;
 import com.cinema.domain.entities.movies.Movie;
 import com.cinema.domain.entities.movies.MovieSession;
-import com.cinema.domain.entities.products.Ticket;
+import com.cinema.domain.entities.products.TicketInfos;
 import com.cinema.domain.errors.movies.CinemaHallNotFoundError;
 import com.cinema.domain.errors.movies.MovieNotFoundError;
 import com.cinema.domain.errors.movies.MovieSessionAlreadyScreeningInCinemaHallError;
@@ -21,17 +21,18 @@ public class CreateMovieSessionUseCase {
   private IFindCinemaHallByIDRepository findCinemaHallByIDRepository;
   private IFindMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository findMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository;
   private ICreateMovieSessionRepository createMovieSessionRepository;
-  private ICreateTicketRepository createTicketRepository;
+  private ICreateTicketInfosRepository createTicketInfosRepository;
 
   public CreateMovieSessionUseCase(IFindMovieByIDRepository findMovieByIDRepository,
       IFindCinemaHallByIDRepository findCinemaHallByIDRepository,
       IFindMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository findMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository,
-      ICreateMovieSessionRepository createMovieSessionRepository, ICreateTicketRepository createTicketRepository) {
+      ICreateMovieSessionRepository createMovieSessionRepository,
+      ICreateTicketInfosRepository createTicketInfosRepository) {
     this.findMovieByIDRepository = findMovieByIDRepository;
     this.findCinemaHallByIDRepository = findCinemaHallByIDRepository;
     this.findMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository = findMovieSessionByCinemaHallIDAndSessionStartTimeAndMovieDurationRepository;
     this.createMovieSessionRepository = createMovieSessionRepository;
-    this.createTicketRepository = createTicketRepository;
+    this.createTicketInfosRepository = createTicketInfosRepository;
   }
 
   public void execute(UUID movieID, UUID cinemaHallID, LocalDateTime startTime, double ticketPrice)
@@ -63,9 +64,9 @@ public class CreateMovieSessionUseCase {
 
     movieSession.setID(movieSessionID);
 
-    Ticket ticket = new Ticket(ticketPrice, movieSession);
+    TicketInfos ticket = new TicketInfos(ticketPrice, movieSession);
 
-    this.createTicketRepository.createTicket(ticket);
+    this.createTicketInfosRepository.createTicket(ticket);
 
   }
 }

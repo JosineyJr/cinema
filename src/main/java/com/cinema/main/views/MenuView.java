@@ -70,4 +70,12 @@ public class MenuView {
     void listProducts(ActionEvent event) {
 
     }
+
+    @FXML
+    void listAvailableSessions(ActionEvent event) throws Exception {
+        Stage primaryStage = StageManager.getPrimaryStage();
+
+        ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/products/listTicketsInfos.fxml");
+    }
+
 }

@@ -6,10 +6,13 @@
 
 <MenuBar prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.MenuView">
   <menus>
-    <Menu fx:id="movies" mnemonicParsing="false" text="Filmes" />
-    <Menu fx:id="products" mnemonicParsing="false" text="Produtos" />
-    <Menu fx:id="cart" mnemonicParsing="false" text="Carrinho" />
-    <Menu fx:id="profile" mnemonicParsing="false" text="Perfil" />
+    <Menu mnemonicParsing="false" text="Filmes">
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#listAvailableSessions" text="Visualizar sessoes disponiveis" />
+         </items></Menu>
+    <Menu mnemonicParsing="false" text="Produtos" />
+    <Menu mnemonicParsing="false" text="Carrinho" />
+    <Menu mnemonicParsing="false" text="Perfil" />
     <Menu mnemonicParsing="false" text="Gerenciamento">
       <items>
         <Menu mnemonicParsing="false" text="Genero dos filmes">
@@ -36,12 +39,12 @@
             <MenuItem mnemonicParsing="false" onAction="#listMovieSession" text="Listar sessoes" />
           </items>
         </Menu>
-            <Menu mnemonicParsing="false" text="Produtos">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#registerProduct" text="Cadastrar produto" />
-                  <MenuItem mnemonicParsing="false" onAction="#listProducts" text="Listar produtos" />
-               </items>
-            </Menu>
+        <Menu mnemonicParsing="false" text="Produtos">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#registerProduct" text="Cadastrar produto" />
+            <MenuItem mnemonicParsing="false" onAction="#listProducts" text="Listar produtos" />
+          </items>
+        </Menu>
       </items>
     </Menu>
   </menus>
