@@ -21,9 +21,7 @@ public class PgInventoryRepository
     IDeleteInventoryRepository, IFindInventoryByIdRepository {
 
   public void create(Inventory inventory) {
-    PgProductInfos pgProduct = new PgProductInfos(inventory.getProductInfos().getID(),
-        inventory.getProductInfos().getName(),
-        inventory.getProductInfos().getPrice());
+    PgProductInfos pgProduct = this.session.get(PgProductInfos.class, inventory.getProductInfos().getID());
 
     PgInventory pgInventory = new PgInventory(
         inventory.getQuantity(),
@@ -48,12 +46,7 @@ public class PgInventoryRepository
   }
 
   public void deleteInventory(Inventory inventory) {
-    PgInventory pgInventory = new PgInventory(
-        inventory.getID(), inventory.getQuantity(),
-        new PgProductInfos(
-            inventory.getProductInfos().getID(),
-            inventory.getProductInfos().getName(),
-            inventory.getProductInfos().getPrice()));
+    PgInventory pgInventory = this.session.get(PgInventory.class, inventory.getID());  
 
     this.session.remove(pgInventory);
   }
