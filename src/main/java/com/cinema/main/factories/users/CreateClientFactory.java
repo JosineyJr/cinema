@@ -11,6 +11,11 @@ import com.cinema.infra.providers.crypto.BCryptAdapter;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateClientFactory {
+  /**
+   * Creates a Controller instance for creating a client.
+   * 
+   * @return the Controller instance for creating a client
+   */
   public static Controller<CreateClientDTO> make() {
     PgClientRepository pgClientRepository = new PgClientRepository();
     BCryptAdapter bCryptAdapter = new BCryptAdapter(12);
