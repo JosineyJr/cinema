@@ -5,6 +5,7 @@ import com.cinema.domain.contracts.repositories.products.IDeleteProductInfosRepo
 import com.cinema.domain.contracts.repositories.products.IFindProductInfosByIdRepository;
 import com.cinema.domain.contracts.repositories.products.IFindProductInfosByNameRepository;
 import com.cinema.domain.contracts.repositories.products.IListProductsInfosRepository;
+import com.cinema.domain.contracts.repositories.products.IUpdateProductInfosRepository;
 import com.cinema.domain.entities.products.ProductInfos;
 import com.cinema.infra.db.postgres.entities.products.PgProductInfos;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
@@ -13,9 +14,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class PgProductInfosRepository extends PgRepository
-    implements ICreateProductInfosRepository, IFindProductInfosByNameRepository, IDeleteProductInfosRepository,
-    IFindProductInfosByIdRepository, IListProductsInfosRepository {
+public class PgProductInfosRepository
+    extends PgRepository
+    implements ICreateProductInfosRepository,
+    IFindProductInfosByNameRepository,
+    IDeleteProductInfosRepository,
+    IFindProductInfosByIdRepository,
+    IListProductsInfosRepository,
+    IUpdateProductInfosRepository {
+
   public UUID create(ProductInfos product) {
     PgProductInfos pgProduct = new PgProductInfos(product.getName(), product.getPrice());
     this.session.persist(pgProduct);
@@ -61,5 +68,13 @@ public class PgProductInfosRepository extends PgRepository
         pgProduct.getID(),
         pgProduct.getName(),
         pgProduct.getPrice());
+  }
+
+  public void updateProduct(ProductInfos product) {
+    PgProductInfos pgProduct = this.session.get(PgProductInfos.class, product.getID());
+    pgProduct.setName(product.getName());
+    pgProduct.setPrice(product.getPrice());
+
+    this.session.persist(pgProduct);
   }
 }

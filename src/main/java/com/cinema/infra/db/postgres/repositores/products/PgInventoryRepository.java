@@ -4,6 +4,7 @@ import com.cinema.domain.contracts.repositories.products.ICreateInventoryReposit
 import com.cinema.domain.contracts.repositories.products.IDeleteInventoryRepository;
 import com.cinema.domain.contracts.repositories.products.IFindInventoryByIdRepository;
 import com.cinema.domain.contracts.repositories.products.IListInventoryRepository;
+import com.cinema.domain.contracts.repositories.products.IUpdateInventoryRepository;
 import com.cinema.domain.entities.products.Inventory;
 import com.cinema.domain.entities.products.ProductInfos;
 import com.cinema.infra.db.postgres.entities.products.PgInventory;
@@ -18,7 +19,9 @@ public class PgInventoryRepository
     implements
     ICreateInventoryRepository,
     IListInventoryRepository,
-    IDeleteInventoryRepository, IFindInventoryByIdRepository {
+    IDeleteInventoryRepository, 
+    IFindInventoryByIdRepository, 
+    IUpdateInventoryRepository {
 
   public void create(Inventory inventory) {
     PgProductInfos pgProduct = this.session.get(PgProductInfos.class, inventory.getProductInfos().getID());
@@ -46,7 +49,7 @@ public class PgInventoryRepository
   }
 
   public void deleteInventory(Inventory inventory) {
-    PgInventory pgInventory = this.session.get(PgInventory.class, inventory.getID());  
+    PgInventory pgInventory = this.session.get(PgInventory.class, inventory.getID());
 
     this.session.remove(pgInventory);
   }
@@ -61,5 +64,13 @@ public class PgInventoryRepository
             pgInventory.getProductInfos().getName(),
             pgInventory.getProductInfos().getPrice()),
         pgInventory.getQuantity());
+  }
+
+  public void updateInventory(Inventory inventory) {
+    PgInventory pgInventory = this.session.get(PgInventory.class, inventory.getID());
+
+    pgInventory.setQuantity(inventory.getQuantity());
+
+    this.session.persist(pgInventory);
   }
 }
