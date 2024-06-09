@@ -8,13 +8,13 @@ import com.cinema.application.helpers.Response;
 import com.cinema.application.helpers.ResponseFactory;
 import com.cinema.application.validation.IValidator;
 import com.cinema.domain.usecases.products.DeleteInventoryUseCase;
-import com.cinema.domain.usecases.products.DeleteProductUseCase;
+import com.cinema.domain.usecases.products.DeleteProductInfosUseCase;
 
 public class DeleteProductController extends Controller<DeleteProductInfosDTO> {
-  private DeleteProductUseCase deleteProductUseCase;
+  private DeleteProductInfosUseCase deleteProductUseCase;
   private DeleteInventoryUseCase deleteInventoryUseCase;
 
-  public DeleteProductController(DeleteProductUseCase deleteProductUseCase,
+  public DeleteProductController(DeleteProductInfosUseCase deleteProductUseCase,
       DeleteInventoryUseCase deleteInventoryUseCase) {
     this.deleteProductUseCase = deleteProductUseCase;
     this.deleteInventoryUseCase = deleteInventoryUseCase;

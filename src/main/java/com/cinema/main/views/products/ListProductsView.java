@@ -76,7 +76,13 @@ public class ListProductsView {
 
         {
           deleteButton.setOnAction(event -> deleteProduct(getTableView().getItems().get(getIndex())));
-          editButton.setOnAction(event -> deleteProduct(getTableView().getItems().get(getIndex())));
+          editButton.setOnAction(event -> {
+            try {
+              editProduct(getTableView().getItems().get(getIndex()));
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+          });
         }
 
         @Override
@@ -128,5 +134,13 @@ public class ListProductsView {
         }
       }
     });
+  }
+
+  private void editProduct(ProductInfosDTO product) throws Exception{
+    Stage primaryStage = StageManager.getPrimaryStage();
+
+    ProductModel.getInstance().setProduct(product);
+
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/products/editProduct.fxml");
   }
 }

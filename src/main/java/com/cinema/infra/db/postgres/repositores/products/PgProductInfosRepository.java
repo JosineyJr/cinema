@@ -70,11 +70,13 @@ public class PgProductInfosRepository
         pgProduct.getPrice());
   }
 
-  public void updateProduct(ProductInfos product) {
+  public ProductInfos updateProduct(ProductInfos product) {
     PgProductInfos pgProduct = this.session.get(PgProductInfos.class, product.getID());
     pgProduct.setName(product.getName());
     pgProduct.setPrice(product.getPrice());
 
     this.session.persist(pgProduct);
+
+    return product;
   }
 }

@@ -5,11 +5,11 @@ import com.cinema.domain.contracts.repositories.products.IDeleteProductInfosRepo
 import com.cinema.domain.contracts.repositories.products.IFindProductInfosByIdRepository;
 import com.cinema.domain.errors.products.ProductNotFoundError;
 
-public class DeleteProductUseCase {
+public class DeleteProductInfosUseCase {
   private IDeleteProductInfosRepository deleteProductRepository;
   private IFindProductInfosByIdRepository findProductByIdRepository;
 
-  public DeleteProductUseCase(IDeleteProductInfosRepository deleteProductRepository,
+  public DeleteProductInfosUseCase(IDeleteProductInfosRepository deleteProductRepository,
       IFindProductInfosByIdRepository findProductByIdRepository) {
     this.deleteProductRepository = deleteProductRepository;
     this.findProductByIdRepository = findProductByIdRepository;
