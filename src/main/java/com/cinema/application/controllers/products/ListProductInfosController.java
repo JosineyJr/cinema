@@ -23,6 +23,13 @@ public class ListProductInfosController extends Controller<Object> {
     this.listInventoryUseCase = listInventoryUseCase;
   }
 
+  /**
+   * Performs the necessary operations to retrieve a list of product information and inventory details.
+   * 
+   * @param object An optional parameter (not used in this implementation).
+   * @return A Response object containing a list of ProductInfosDTO.
+   * @throws Exception if an error occurs during the execution.
+   */
   public Response<?> perform(Object object) {
     try {
       List<ProductInfos> products = this.listProductsInfosUseCase.execute();
@@ -46,6 +53,12 @@ public class ListProductInfosController extends Controller<Object> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given object.
+   *
+   * @param object the object for which validators need to be built
+   * @return an ArrayList of IValidator objects
+   */
   public ArrayList<IValidator> buildValidators(Object object) {
     return new ArrayList<IValidator>();
   }

@@ -19,6 +19,12 @@ public class CreateEmployeeController extends Controller<CreateEmployeeDTO> {
     this.createEmployeeUseCase = createEmployeeUseCase;
   }
 
+  /**
+    * Performs the creation of a new employee based on the provided CreateEmployeeDTO object.
+    *
+    * @param object The CreateEmployeeDTO object containing the employee details.
+    * @return A Response object indicating the success or failure of the operation.
+    */
   @Override
   public Response<?> perform(CreateEmployeeDTO object) {
     try {
@@ -33,6 +39,12 @@ public class CreateEmployeeController extends Controller<CreateEmployeeDTO> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given CreateEmployeeDTO object.
+   *
+   * @param object The CreateEmployeeDTO object to validate.
+   * @return An ArrayList of IValidator objects representing the validators for the CreateEmployeeDTO object.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(CreateEmployeeDTO object) {
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
