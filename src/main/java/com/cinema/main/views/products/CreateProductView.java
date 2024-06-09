@@ -9,34 +9,48 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.cinema.application.dtos.products.CreateProductDTO;
+import com.cinema.application.helpers.Response;
+import com.cinema.main.factories.products.CreateProductFactory;
+import com.cinema.main.views.helpers.AlertError;
+import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.CurrencyField;
 
 public class CreateProductView implements Initializable {
 
-    @FXML
-    private TextField name;
+  @FXML
+  private TextField name;
 
-    @FXML
-    private CurrencyField price;
+  @FXML
+  private CurrencyField price;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Ensure the CurrencyField is properly initialized with the desired locale
-        if (price != null) {
-            price.setCurrencyFormat(Locale.US);
-        }
+  @FXML
+  private TextField quantity;
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    if (price != null) {
+      price.setCurrencyFormat(Locale.US);
     }
 
-    @FXML
-    void registerProduct(ActionEvent event) {
-        // Extract the values from the fields
-        String productName = name.getText();
-        Double productPrice = price.getAmount();
+    quantity.textProperty().addListener((observable, oldValue, newValue) -> {
+      if (!newValue.matches("\\d*")) {
+          quantity.setText("0");
+      }
+  });
+  }
 
-        // Handle product registration logic here
-        System.out.println("Product Name: " + productName);
-        System.out.println("Product Price: " + productPrice);
-        
-        // You can add more logic here, like saving the product to a database or updating the UI
+  @FXML
+  void registerProduct(ActionEvent event) {
+    CreateProductDTO createProductDTO = new CreateProductDTO(name.getText(), price.getAmount(),
+        Integer.parseInt(quantity.getText()));
+
+    Response<?> response = CreateProductFactory.make().handle(createProductDTO);
+
+    if (response.getStatusCode() == 204) {
+      new AlertSuccess("Produto criado com sucesso!");
+    } else {
+      new AlertError(response.getData().toString());
     }
+  }
 }

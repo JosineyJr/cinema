@@ -1,14 +1,24 @@
 package com.cinema.infra.db.postgres.repositores.products;
 
-import java.util.UUID;
-
 import com.cinema.domain.contracts.repositories.products.ICreateProductRepository;
+import com.cinema.domain.contracts.repositories.products.IDeleteProductRepository;
+import com.cinema.domain.contracts.repositories.products.IFindProductByIdRepository;
 import com.cinema.domain.contracts.repositories.products.IFindProductByNameRepository;
 import com.cinema.domain.entities.products.ProductInfo;
 import com.cinema.infra.db.postgres.entities.products.PgProductInfos;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
-
 import jakarta.persistence.NoResultException;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+public class PgProductRepository
+    extends PgRepository
+    implements
+    ICreateProductRepository,
+    IFindProductByNameRepository,
+    IListProductsRepository,
+    IDeleteProductRepository, IFindProductByIdRepository {
 
 public class PgProductRepository extends PgRepository
     implements ICreateProductRepository, IFindProductByNameRepository {
@@ -32,4 +42,29 @@ public class PgProductRepository extends PgRepository
       throw e;
     }
   }
+
+  public List<Product> listProducts() {
+    return this.session.createQuery("FROM product p", PgProduct.class)
+        .getResultList()
+        .stream()
+        .map(
+            pgProduct -> new Product(
+                pgProduct.getID(),
+                pgProduct.getName(),
+                pgProduct.getPrice()))
+        .collect(Collectors.toList());
+  }
+
+  public void deleteProduct(UUID id) {
+    PgProduct pgProduct = this.session.find(PgProduct.class, id);
+    this.session.remove(pgProduct);
+  }
+
+  public Product findById(UUID id) {
+    PgProduct pgProduct = this.session.find(PgProduct.class, id);
+    return new Product(
+        pgProduct.getID(),
+        pgProduct.getName(),
+        pgProduct.getPrice());
+  } 
 }

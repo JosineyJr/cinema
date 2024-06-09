@@ -67,8 +67,10 @@ public class MenuView {
     }
 
     @FXML
-    void listProducts(ActionEvent event) {
+    void listProducts(ActionEvent event) throws Exception{
+        Stage primaryStage = StageManager.getPrimaryStage();
 
+        ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/products/listProducts.fxml");
     }
 
     @FXML
