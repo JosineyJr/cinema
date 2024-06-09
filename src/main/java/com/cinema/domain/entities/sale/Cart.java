@@ -5,24 +5,28 @@ import java.util.UUID;
 
 import com.cinema.domain.entities.products.Ticket;
 import com.cinema.domain.entities.users.Person;
-import com.cinema.domain.entities.products.ProductInfos;
+import com.cinema.domain.entities.products.Product;
 
 public class Cart {
   private UUID ID;
   private List<Ticket> tickets;
-  private List<ProductInfos> products;
+  private List<Product> products;
   private Person person;
 
-  public Cart(UUID ID, List<Ticket> tickets, List<ProductInfos> products, Person person) {
+  public Cart(UUID ID, List<Ticket> tickets, List<Product> products, Person person) {
     this.ID = ID;
     this.tickets = tickets;
     this.products = products;
     this.person = person;
   }
 
-  public Cart(List<Ticket> tickets, List<ProductInfos> products, Person person) {
+  public Cart(List<Ticket> tickets, List<Product> products, Person person) {
     this.tickets = tickets;
     this.products = products;
+    this.person = person;
+  }
+
+  public Cart(Person person) {
     this.person = person;
   }
 
@@ -42,11 +46,11 @@ public class Cart {
     this.tickets = tickets;
   }
 
-  public List<ProductInfos> getProducts() {
+  public List<Product> getProducts() {
     return this.products;
   }
 
-  public void setProducts(List<ProductInfos> products) {
+  public void setProducts(List<Product> products) {
     this.products = products;
   }
 
@@ -58,4 +62,13 @@ public class Cart {
     this.person = person;
   }
 
+  public boolean addTicket(Ticket ticket) {
+    if (ticket.getTicketInfos().getMovieSession().getCinemaHall().getCapacity() > this.tickets.size()) {
+      this.tickets.add(ticket);
+
+      return true;
+    }
+
+    return false;
+  }
 }

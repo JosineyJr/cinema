@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.cinema.domain.contracts.repositories.products.ICreateTicketInfosRepository;
+import com.cinema.domain.contracts.repositories.products.IFindTicketInfosByIDRepository;
 import com.cinema.domain.contracts.repositories.products.IListTicketsInfosRepository;
 import com.cinema.domain.entities.movies.CinemaHall;
 import com.cinema.domain.entities.movies.Genre;
@@ -18,7 +19,7 @@ import com.cinema.infra.db.postgres.entities.products.PgTicketInfos;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 public class PgTicketInfosRepository extends PgRepository
-    implements ICreateTicketInfosRepository, IListTicketsInfosRepository {
+    implements ICreateTicketInfosRepository, IListTicketsInfosRepository, IFindTicketInfosByIDRepository {
 
   public PgTicketInfosRepository() {
     super();
@@ -81,5 +82,17 @@ public class PgTicketInfosRepository extends PgRepository
 
       return new TicketInfos(pgTicketInfos.getID(), pgTicketInfos.getPrice(), movieSession);
     }).toList();
+  }
+
+  @Override
+  public TicketInfos findTicketInfosByID(UUID ticketInfoID) {
+    PgTicketInfos pgTicketInfos = this.session.find(PgTicketInfos.class, ticketInfoID);
+
+    if (pgTicketInfos == null) {
+      return null;
+    }
+
+    return null;
+
   }
 }

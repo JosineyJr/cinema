@@ -1,28 +1,29 @@
 package com.cinema.domain.entities.users;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import com.cinema.domain.entities.movies.Genre;
 
 public class Client extends Person {
-  private ArrayList<Genre> moviesPreferences;
+  private List<Genre> moviesPreferences;
 
-  public Client(UUID ID, String firstName, String lastName, String CPF, String password, ArrayList<Genre> moviesPreferences) {
+  public Client(UUID ID, String firstName, String lastName, String CPF, String password,
+      List<Genre> moviesPreferences) {
     super(ID, firstName, lastName, CPF, password);
     this.moviesPreferences = moviesPreferences;
   }
 
-  public Client(String firstName, String lastName, String CPF, String password, ArrayList<Genre> moviesPreferences) {
+  public Client(String firstName, String lastName, String CPF, String password, List<Genre> moviesPreferences) {
     super(firstName, lastName, CPF, password);
     this.moviesPreferences = moviesPreferences;
   }
 
-  public ArrayList<Genre> getMoviesPreferences() {
+  public List<Genre> getMoviesPreferences() {
     return moviesPreferences;
   }
 
-  public void setMoviesPreferences(ArrayList<Genre> moviesPreferences) {
+  public void setMoviesPreferences(List<Genre> moviesPreferences) {
     this.moviesPreferences = moviesPreferences;
   }
 }

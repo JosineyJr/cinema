@@ -9,6 +9,7 @@ import com.cinema.domain.contracts.repositories.movies.IFindGenreByNameRepositor
 import com.cinema.domain.contracts.repositories.movies.IListGenresRepository;
 import com.cinema.domain.entities.movies.Genre;
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
+import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 import jakarta.persistence.NoResultException;
@@ -22,7 +23,7 @@ public class PgGenreRepository extends PgRepository
       PgGenre pgGenre = this.session.createQuery("where name = :name", PgGenre.class).setParameter("name", name)
           .getSingleResult();
 
-      return new Genre(pgGenre.getID(), pgGenre.getName());
+      return ConvertEntities.convertGenre(pgGenre);
     } catch (NoResultException e) {
       return null;
     } catch (Exception e) {
@@ -42,7 +43,7 @@ public class PgGenreRepository extends PgRepository
     try {
       PgGenre pgGenre = this.session.find(PgGenre.class, ID);
 
-      return new Genre(pgGenre.getID(), pgGenre.getName());
+      return ConvertEntities.convertGenre(pgGenre);
     } catch (NoResultException e) {
       return null;
     } catch (Exception e) {
@@ -54,6 +55,6 @@ public class PgGenreRepository extends PgRepository
   public List<Genre> listGenres() {
     List<PgGenre> pgGenres = this.session.createQuery("from genre", PgGenre.class).getResultList();
 
-    return pgGenres.stream().map(pgGenre -> new Genre(pgGenre.getID(), pgGenre.getName())).toList();
+    return pgGenres.stream().map(pgGenre -> ConvertEntities.convertGenre(pgGenre)).toList();
   }
 }

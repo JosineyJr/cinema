@@ -4,7 +4,6 @@ import org.hibernate.Session;
 
 import com.cinema.infra.db.postgres.helpers.PgConnection;
 
-
 public abstract class PgRepository {
   protected Session session;
 

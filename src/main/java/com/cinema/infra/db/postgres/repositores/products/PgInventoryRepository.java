@@ -5,9 +5,8 @@ import com.cinema.domain.contracts.repositories.products.IDeleteInventoryReposit
 import com.cinema.domain.contracts.repositories.products.IFindInventoryByIdRepository;
 import com.cinema.domain.contracts.repositories.products.IListInventoryRepository;
 import com.cinema.domain.entities.products.Inventory;
-import com.cinema.domain.entities.products.ProductInfos;
 import com.cinema.infra.db.postgres.entities.products.PgInventory;
-import com.cinema.infra.db.postgres.entities.products.PgProductInfos;
+import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 import java.util.List;
 import java.util.UUID;
@@ -21,13 +20,7 @@ public class PgInventoryRepository
     IDeleteInventoryRepository, IFindInventoryByIdRepository {
 
   public void create(Inventory inventory) {
-    PgProductInfos pgProduct = new PgProductInfos(inventory.getProductInfos().getID(),
-        inventory.getProductInfos().getName(),
-        inventory.getProductInfos().getPrice());
-
-    PgInventory pgInventory = new PgInventory(
-        inventory.getQuantity(),
-        pgProduct);
+    PgInventory pgInventory = ConvertEntities.pgConvertInventory(inventory);
 
     this.session.persist(pgInventory);
   }
@@ -37,23 +30,12 @@ public class PgInventoryRepository
         .getResultList()
         .stream()
         .map(
-            pgInventory -> new Inventory(
-                pgInventory.getID(),
-                new ProductInfos(
-                    pgInventory.getProductInfos().getID(),
-                    pgInventory.getProductInfos().getName(),
-                    pgInventory.getProductInfos().getPrice()),
-                pgInventory.getQuantity()))
+            pgInventory -> ConvertEntities.convertInventory(pgInventory))
         .collect(Collectors.toList());
   }
 
   public void deleteInventory(Inventory inventory) {
-    PgInventory pgInventory = new PgInventory(
-        inventory.getID(), inventory.getQuantity(),
-        new PgProductInfos(
-            inventory.getProductInfos().getID(),
-            inventory.getProductInfos().getName(),
-            inventory.getProductInfos().getPrice()));
+    PgInventory pgInventory = ConvertEntities.pgConvertInventory(inventory);
 
     this.session.remove(pgInventory);
   }
@@ -61,12 +43,6 @@ public class PgInventoryRepository
   public Inventory findById(UUID id) {
     PgInventory pgInventory = this.session.get(PgInventory.class, id);
 
-    return new Inventory(
-        pgInventory.getID(),
-        new ProductInfos(
-            pgInventory.getProductInfos().getID(),
-            pgInventory.getProductInfos().getName(),
-            pgInventory.getProductInfos().getPrice()),
-        pgInventory.getQuantity());
+    return ConvertEntities.convertInventory(pgInventory);
   }
 }

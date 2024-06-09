@@ -38,6 +38,14 @@ public abstract class PgPerson {
     this.password = password;
   }
 
+  public PgPerson(UUID ID, String firstName, String lastName, String CPF, String password) {
+    this.ID = ID;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.CPF = CPF;
+    this.password = password;
+  }
+
   public UUID getID() {
     return this.ID;
   }

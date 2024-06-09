@@ -34,6 +34,23 @@ public class PgCart {
   public PgCart() {
   }
 
+  public PgCart(UUID ID, List<PgTicket> tickets, List<PgProduct> products, PgPerson person) {
+    this.ID = ID;
+    this.tickets = tickets;
+    this.products = products;
+    this.person = person;
+  }
+
+  public PgCart(List<PgTicket> tickets, List<PgProduct> products, PgPerson person) {
+    this.tickets = tickets;
+    this.products = products;
+    this.person = person;
+  }
+
+  public PgCart(PgPerson person) {
+    this.person = person;
+  }
+
   public UUID getID() {
     return this.ID;
   }

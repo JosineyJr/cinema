@@ -28,7 +28,7 @@ public class Product {
     this.ID = ID;
   }
 
-  public ProductInfos getProductInfo() {
+  public ProductInfos getProductInfos() {
     return this.productInfo;
   }
 

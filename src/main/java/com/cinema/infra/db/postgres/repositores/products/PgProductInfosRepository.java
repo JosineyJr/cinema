@@ -7,6 +7,7 @@ import com.cinema.domain.contracts.repositories.products.IFindProductInfosByName
 import com.cinema.domain.contracts.repositories.products.IListProductsInfosRepository;
 import com.cinema.domain.entities.products.ProductInfos;
 import com.cinema.infra.db.postgres.entities.products.PgProductInfos;
+import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 import jakarta.persistence.NoResultException;
 import java.util.List;
@@ -17,7 +18,7 @@ public class PgProductInfosRepository extends PgRepository
     implements ICreateProductInfosRepository, IFindProductInfosByNameRepository, IDeleteProductInfosRepository,
     IFindProductInfosByIdRepository, IListProductsInfosRepository {
   public UUID create(ProductInfos product) {
-    PgProductInfos pgProduct = new PgProductInfos(product.getName(), product.getPrice());
+    PgProductInfos pgProduct = ConvertEntities.pgConvertProductInfos(product);
     this.session.persist(pgProduct);
 
     return pgProduct.getID();
@@ -30,7 +31,7 @@ public class PgProductInfosRepository extends PgRepository
           .setParameter("name", name)
           .getSingleResult();
 
-      return new ProductInfos(pgProduct.getID(), pgProduct.getName(), pgProduct.getPrice());
+      return ConvertEntities.convertProductInfos(pgProduct);
     } catch (NoResultException e) {
       return null;
     } catch (Exception e) {
@@ -43,10 +44,7 @@ public class PgProductInfosRepository extends PgRepository
         .getResultList()
         .stream()
         .map(
-            pgProduct -> new ProductInfos(
-                pgProduct.getID(),
-                pgProduct.getName(),
-                pgProduct.getPrice()))
+            pgProduct -> ConvertEntities.convertProductInfos(pgProduct))
         .collect(Collectors.toList());
   }
 
@@ -57,9 +55,6 @@ public class PgProductInfosRepository extends PgRepository
 
   public ProductInfos findById(UUID id) {
     PgProductInfos pgProduct = this.session.find(PgProductInfos.class, id);
-    return new ProductInfos(
-        pgProduct.getID(),
-        pgProduct.getName(),
-        pgProduct.getPrice());
+    return ConvertEntities.convertProductInfos(pgProduct);
   }
 }

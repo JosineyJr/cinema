@@ -2,10 +2,10 @@ package com.cinema.infra.db.postgres.repositores.users;
 
 import com.cinema.domain.contracts.repositories.users.ICreateEmployeeRepository;
 import com.cinema.domain.contracts.repositories.users.IFindEmployeeByCPFRepository;
-import com.cinema.domain.entities.users.Admin;
 import com.cinema.domain.entities.users.Employee;
 import com.cinema.infra.db.postgres.entities.users.PgAdmin;
 import com.cinema.infra.db.postgres.entities.users.PgEmployee;
+import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 import jakarta.persistence.NoResultException;
@@ -21,12 +21,9 @@ public class PgEmployeeRepository extends PgRepository
           .getSingleResult();
 
       if (pgEmployee instanceof PgAdmin) {
-        return new Admin(pgEmployee.getID(), pgEmployee.getFirstName(), pgEmployee.getLastName(), pgEmployee.getCPF(),
-            pgEmployee.getPassword());
+        return ConvertEntities.convertAdmin((PgAdmin) pgEmployee);
       }
-      return new Employee(pgEmployee.getID(), pgEmployee.getFirstName(), pgEmployee.getLastName(),
-          pgEmployee.getCPF(),
-          pgEmployee.getPassword());
+      return ConvertEntities.convertEmployee(pgEmployee);
 
     } catch (NoResultException e) {
       return null;
@@ -37,7 +34,6 @@ public class PgEmployeeRepository extends PgRepository
 
   @Override
   public void createEmployee(Employee employee) {
-    this.session.persist(
-        new PgEmployee(employee.getFirstName(), employee.getLastName(), employee.getCPF(), employee.getPassword()));
+    this.session.persist(ConvertEntities.pgConvertEmployee(employee));
   }
 }

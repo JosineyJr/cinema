@@ -9,6 +9,7 @@ import com.cinema.domain.contracts.repositories.movies.IFindCinemaHallByNameRepo
 import com.cinema.domain.contracts.repositories.movies.IListCinemaHallRepository;
 import com.cinema.domain.entities.movies.CinemaHall;
 import com.cinema.infra.db.postgres.entities.movies.PgCinemaHall;
+import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 import jakarta.persistence.NoResultException;
@@ -19,7 +20,7 @@ public class PgCinemaHallRepository extends PgRepository
 
   @Override
   public void createCinemaHall(CinemaHall cinemaHall) {
-    PgCinemaHall pgCinemaHall = new PgCinemaHall(cinemaHall.getCapacity(), cinemaHall.getName());
+    PgCinemaHall pgCinemaHall = ConvertEntities.pgConvertCinemaHall(cinemaHall);
 
     this.session.persist(pgCinemaHall);
   }
@@ -30,7 +31,7 @@ public class PgCinemaHallRepository extends PgRepository
       PgCinemaHall pgCinemaHall = this.session.createQuery("where name = :name", PgCinemaHall.class)
           .setParameter("name", name).getSingleResult();
 
-      return new CinemaHall(pgCinemaHall.getID(), pgCinemaHall.getCapacity(), pgCinemaHall.getName());
+      return ConvertEntities.convertCinemaHall(pgCinemaHall);
     } catch (NoResultException e) {
       return null;
     } catch (Exception e) {
@@ -43,7 +44,7 @@ public class PgCinemaHallRepository extends PgRepository
     try {
       PgCinemaHall pgCinemaHall = this.session.find(PgCinemaHall.class, ID);
 
-      return new CinemaHall(pgCinemaHall.getID(), pgCinemaHall.getCapacity(), pgCinemaHall.getName());
+      return ConvertEntities.convertCinemaHall(pgCinemaHall);
     } catch (NoResultException e) {
       return null;
     } catch (Exception e) {
@@ -56,7 +57,7 @@ public class PgCinemaHallRepository extends PgRepository
     List<PgCinemaHall> pgCinemaHalls = this.session.createQuery("from cinema_hall", PgCinemaHall.class).getResultList();
 
     return pgCinemaHalls.stream().map(pgCinemaHall -> {
-      return new CinemaHall(pgCinemaHall.getID(), pgCinemaHall.getCapacity(), pgCinemaHall.getName());
+      return ConvertEntities.convertCinemaHall(pgCinemaHall);
     }).toList();
   }
 }
