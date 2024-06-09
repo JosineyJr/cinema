@@ -78,7 +78,7 @@ public class LoginView {
 
       Stage stage = (Stage) loginButton.getScene().getWindow();
 
-      ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/clientMoviesMenu.fxml");
+      ChangeWindow.changeScene(stage, "/com/cinema/main/views/movies/listMovieSessions.fxml");
     } else {
       new AlertError(response.getData().toString());
     }
