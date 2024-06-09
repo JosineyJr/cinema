@@ -9,6 +9,9 @@ import jakarta.persistence.Id;
 
 @Entity(name = "product")
 public class PgProduct {
+  public PgProduct() {
+  }
+  
   public PgProduct(String name, double price) {
     this.name = name;
     this.price = price;

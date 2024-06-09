@@ -6,16 +6,19 @@ public class ProductDTO {
   private UUID ID;
   private String name;
   private double price;
+  private int quantity;
 
-  public ProductDTO(UUID ID, String name, double price) {
+  public ProductDTO(UUID ID, String name, double price, int quantity) {
     this.ID = ID;
     this.name = name;
     this.price = price;
+    this.quantity = quantity;
   }
 
-  public ProductDTO(String name, double price) {
+  public ProductDTO(String name, double price, int quantity) {
     this.name = name;
     this.price = price;
+    this.quantity = quantity;
   }
 
   public UUID getID() {
@@ -40,5 +43,13 @@ public class ProductDTO {
 
   public void setPrice(double price) {
     this.price = price;
+  }
+
+  public int getQuantity() {
+    return this.quantity;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
   }
 }

@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
   prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21"
-  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.movies.ListMoviesView">
+  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.products.ListProductsView">
   <children>
     <fx:include source="../menu.fxml" />
     <Label layoutX="342.0" layoutY="40.0" text="Produtos">

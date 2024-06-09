@@ -11,6 +11,9 @@ import jakarta.persistence.OneToOne;
 
 @Entity(name = "inventory")
 public class PgInventory {
+  public PgInventory() {
+  }
+  
   public PgInventory(int quantity, PgProduct product) {
     this.quantity = quantity;
     this.product = product;
