@@ -15,6 +15,10 @@ import com.cinema.domain.entities.products.ProductInfos;
 import com.cinema.domain.usecases.products.UpdateInventoryUseCase;
 import com.cinema.domain.usecases.products.UpdateProductInfosUseCase;
 
+/**
+ * Controller class for updating product information.
+ * This class extends the base Controller class and handles the logic for updating product information and inventory.
+ */
 public class UpdateProductController extends Controller<EditProductInfosDTO> {
   private UpdateProductInfosUseCase updateProductUseCase;
   private UpdateInventoryUseCase updateInventoryUseCase;
@@ -25,6 +29,12 @@ public class UpdateProductController extends Controller<EditProductInfosDTO> {
     this.updateInventoryUseCase = updateInventoryUseCase;
   }
 
+  /**
+   * Performs the update of a product and its inventory in the system.
+   *
+   * @param object The EditProductInfosDTO object containing the updated product information.
+   * @return A Response object indicating the success or failure of the update operation.
+   */
   public Response<?> perform(EditProductInfosDTO object) {
     try {
       System.out.println(object.getID());
@@ -40,6 +50,12 @@ public class UpdateProductController extends Controller<EditProductInfosDTO> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given EditProductInfosDTO object.
+   *
+   * @param object The EditProductInfosDTO object containing the product information to be validated.
+   * @return An ArrayList of IValidator objects representing the validators for the product information.
+   */
   public ArrayList<IValidator> buildValidators(EditProductInfosDTO object) {
     Field name = new Field(object.getName(), "Nome");
     Field price = new Field(String.valueOf(object.getPrice()), "Preço");
