@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.cinema.infra.db.postgres.entities.sale.PgCart;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,11 +17,11 @@ public class PgTicket {
   @GeneratedValue
   private UUID ID;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "ticket_infos_id", nullable = false)
   private PgTicketInfos ticketInfos;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "cart_id", nullable = true, insertable = true, updatable = true)
   private PgCart cart;
 

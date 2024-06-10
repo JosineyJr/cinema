@@ -5,6 +5,8 @@ import java.util.UUID;
 import com.cinema.application.dtos.sales.TicketsCartDTO;
 import com.cinema.application.dtos.sales.ListCartDTO;
 import com.cinema.application.dtos.sales.ProductsCartDTO;
+import com.cinema.application.dtos.sales.RemoveProductFromCartDTO;
+import com.cinema.application.dtos.sales.RemoveTicketFromCartDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.domain.entities.movies.MovieSession;
 import com.cinema.domain.entities.products.Product;
@@ -13,6 +15,10 @@ import com.cinema.domain.entities.products.Ticket;
 import com.cinema.domain.entities.products.TicketInfos;
 import com.cinema.domain.entities.sale.Cart;
 import com.cinema.main.factories.sales.ListPersonCartFactory;
+import com.cinema.main.factories.sales.RemoveProductFromCartFactory;
+import com.cinema.main.factories.sales.RemoveTicketFromCartFactory;
+import com.cinema.main.views.helpers.AlertError;
+import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.ButtonTableCell;
 import com.cinema.main.views.helpers.Session;
 
@@ -123,23 +129,54 @@ public class ListCartView {
   }
 
   private void removeTicket(TicketsCartDTO ticket) {
-    showConfirmationDialog("ticket");
+    showConfirmationDialog(ticket);
   }
 
   private void removeProduct(ProductsCartDTO product) {
-    showConfirmationDialog("produto");
+    showConfirmationDialog(product);
   }
 
-  private void showConfirmationDialog(String type) {
+  private void showConfirmationDialog(ProductsCartDTO product) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
     alert.setTitle("Confirmação de Exclusão");
-    alert.setHeaderText("Deseja realmente excluir o " + type + "?");
+    alert.setHeaderText("Deseja realmente excluir o produto" + product.getName() + "?");
 
     alert.showAndWait().ifPresent(response -> {
       if (response == ButtonType.OK) {
+        RemoveProductFromCartDTO removeProductFromCartDTO = new RemoveProductFromCartDTO(product.getID());
+        Response<?> responseRemove = RemoveProductFromCartFactory.make().handle(removeProductFromCartDTO);
 
+        if (responseRemove.getStatusCode() == 204) {
+          new AlertSuccess("Produto deletado com sucesso!");
+          productsTable.getItems().remove(product);
+        } else {
+          new AlertError(responseRemove.getData().toString());
+        }
       }
     });
   }
+
+  private void showConfirmationDialog(TicketsCartDTO ticket) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+    alert.setTitle("Confirmação de Exclusão");
+    alert.setHeaderText("Deseja realmente excluir o ticket" + ticket.getMovie() + "?");
+
+    alert.showAndWait().ifPresent(response -> {
+      if (response == ButtonType.OK) {
+        RemoveTicketFromCartDTO removeTicketFromCartDTO = new RemoveTicketFromCartDTO(ticket.getID());
+
+        Response<?> responseRemove = RemoveTicketFromCartFactory.make().handle(removeTicketFromCartDTO);
+
+        if (responseRemove.getStatusCode() == 204) {
+          new AlertSuccess("Ticket deletado com sucesso!");
+          ticketsTable.getItems().remove(ticket);
+        } else {
+          new AlertError(responseRemove.getData().toString());
+        }
+      }
+    });
+  }
+
 }
