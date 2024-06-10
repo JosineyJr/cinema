@@ -13,11 +13,14 @@ import com.cinema.domain.entities.products.Ticket;
 import com.cinema.domain.entities.products.TicketInfos;
 import com.cinema.domain.entities.sale.Cart;
 import com.cinema.main.factories.sales.ListPersonCartFactory;
+import com.cinema.main.views.helpers.ButtonTableCell;
 import com.cinema.main.views.helpers.Session;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -83,7 +86,7 @@ public class ListCartView {
       }
       ticketsTable.setItems(ticketItems);
 
-      for(Product product : cart.getProducts()) {
+      for (Product product : cart.getProducts()) {
         ProductInfos productInfos = product.getProductInfos();
 
         String name = productInfos.getName();
@@ -108,10 +111,35 @@ public class ListCartView {
     startDate.setCellValueFactory(new PropertyValueFactory<TicketsCartDTO, String>("startDate"));
     startDate.setStyle("-fx-alignment: CENTER;");
 
+    ticketsAction.setCellFactory(column -> new ButtonTableCell<>("Remover", this::removeTicket));
+
     name.setCellValueFactory(new PropertyValueFactory<ProductsCartDTO, String>("name"));
     name.setStyle("-fx-alignment: CENTER;");
 
     productsPrice.setCellValueFactory(new PropertyValueFactory<ProductsCartDTO, Double>("price"));
     productsPrice.setStyle("-fx-alignment: CENTER;");
+
+    productsAction.setCellFactory(column -> new ButtonTableCell<>("Remover", this::removeProduct));
+  }
+
+  private void removeTicket(TicketsCartDTO ticket) {
+    showConfirmationDialog("ticket");
+  }
+
+  private void removeProduct(ProductsCartDTO product) {
+    showConfirmationDialog("produto");
+  }
+
+  private void showConfirmationDialog(String type) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+    alert.setTitle("Confirmação de Exclusão");
+    alert.setHeaderText("Deseja realmente excluir o " + type + "?");
+
+    alert.showAndWait().ifPresent(response -> {
+      if (response == ButtonType.OK) {
+
+      }
+    });
   }
 }
