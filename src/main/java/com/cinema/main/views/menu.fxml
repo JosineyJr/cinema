@@ -4,13 +4,11 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="com.cinema.main.views.MenuView">
+<MenuBar prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.MenuView">
   <menus>
     <Menu mnemonicParsing="false" text="Filmes">
       <items>
-        <MenuItem mnemonicParsing="false" onAction="#listAvailableSessions"
-          text="Visualizar sessoes disponiveis" />
+        <MenuItem mnemonicParsing="false" onAction="#listAvailableSessions" text="Visualizar sessoes disponiveis" />
       </items>
     </Menu>
     <Menu mnemonicParsing="false" text="Produtos" />
@@ -32,16 +30,13 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Salas de cinema">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#registerCinemaHall"
-              text="Cadastrar sala de cinema" />
-            <MenuItem mnemonicParsing="false" onAction="#listCinemaHalls"
-              text="Listar salas de cinema" />
+            <MenuItem mnemonicParsing="false" onAction="#registerCinemaHall" text="Cadastrar sala de cinema" />
+            <MenuItem mnemonicParsing="false" onAction="#listCinemaHalls" text="Listar salas de cinema" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Sessoes">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#registerMovieSession"
-              text="Cadastrar sessao" />
+            <MenuItem mnemonicParsing="false" onAction="#registerMovieSession" text="Cadastrar sessao" />
             <MenuItem mnemonicParsing="false" onAction="#listMovieSession" text="Listar sessoes" />
           </items>
         </Menu>
@@ -51,6 +46,23 @@
             <MenuItem mnemonicParsing="false" onAction="#listProducts" text="Listar produtos" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Venda">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#listSales" text="Listar vendas" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Balcao">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#registerSalesCounter" text="Cadastrar balcao" />
+                  <MenuItem mnemonicParsing="false" onAction="#listSalesCounter" text="Listar balcoes" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Usuarios">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#registerEmployee" text="Cadastrar funcionario" />
+                  <MenuItem mnemonicParsing="false" onAction="#listUsers" text="Listar usuarios" />
+               </items>
+            </Menu>
       </items>
     </Menu>
   </menus>
