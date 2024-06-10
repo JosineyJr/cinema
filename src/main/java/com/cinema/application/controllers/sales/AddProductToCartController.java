@@ -14,13 +14,27 @@ import com.cinema.domain.errors.products.ProductInfosNotFoundError;
 import com.cinema.domain.errors.sale.AllProductsSoldError;
 import com.cinema.domain.usecases.sale.AddProductToCartUseCase;
 
+/**
+ * Controller class for adding a product to the cart.
+ */
 public class AddProductToCartController extends Controller<AddProductToCartDTO> {
   private AddProductToCartUseCase addProductToCartUseCase;
 
+  /**
+   * Constructs a new AddProductToCartController with the specified use case.
+   * 
+   * @param addProductToCartUseCase the use case for adding a product to the cart
+   */
   public AddProductToCartController(AddProductToCartUseCase addProductToCartUseCase) {
     this.addProductToCartUseCase = addProductToCartUseCase;
   }
 
+  /**
+   * Performs the action of adding a product to the cart.
+   * 
+   * @param object the AddProductToCartDTO object containing the necessary data
+   * @return a Response object indicating the result of the operation
+   */
   @Override
   public Response<?> perform(AddProductToCartDTO object) {
     try {
@@ -36,6 +50,12 @@ public class AddProductToCartController extends Controller<AddProductToCartDTO> 
     }
   }
 
+  /**
+   * Builds the validators for the AddProductToCartDTO object.
+   * 
+   * @param object the AddProductToCartDTO object to be validated
+   * @return an ArrayList of IValidator objects representing the validators
+   */
   @Override
   public ArrayList<IValidator> buildValidators(AddProductToCartDTO object) {
     Field productInfoID = new Field(object.getProductInfoID(), "Informações do produto");

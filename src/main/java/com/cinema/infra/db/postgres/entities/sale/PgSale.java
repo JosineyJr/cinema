@@ -1,14 +1,22 @@
 package com.cinema.infra.db.postgres.entities.sale;
 
 import java.util.UUID;
-import java.time.LocalDateTime;
 
+import com.cinema.infra.db.postgres.entities.products.PgProduct;
+import com.cinema.infra.db.postgres.entities.products.PgTicket;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity(name = "sale")
 public class PgSale {
@@ -16,8 +24,11 @@ public class PgSale {
   @GeneratedValue
   private UUID ID;
 
-  @ManyToOne
-  private PgCart cart;
+  @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<PgProduct> products;
+
+  @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<PgTicket> tickets;
 
   @Column(name = "total_price", nullable = false)
   private double totalPrice;
@@ -32,17 +43,23 @@ public class PgSale {
   public PgSale() {
   }
 
-  public PgSale(UUID ID, PgCart cart, double totalPrice, LocalDateTime saleDate) {
+  public PgSale(UUID ID, List<PgProduct> products, List<PgTicket> tickets, double totalPrice, LocalDateTime saleDate,
+      PgSalesCounter sales_counter) {
     this.ID = ID;
-    this.cart = cart;
+    this.products = products;
+    this.tickets = tickets;
     this.totalPrice = totalPrice;
     this.saleDate = saleDate;
+    this.sales_counter = sales_counter;
   }
 
-  public PgSale(PgCart cart, double totalPrice, LocalDateTime saleDate) {
-    this.cart = cart;
+  public PgSale(List<PgProduct> products, List<PgTicket> tickets, double totalPrice, LocalDateTime saleDate,
+      PgSalesCounter sales_counter) {
+    this.products = products;
+    this.tickets = tickets;
     this.totalPrice = totalPrice;
     this.saleDate = saleDate;
+    this.sales_counter = sales_counter;
   }
 
   public UUID getID() {
@@ -51,14 +68,6 @@ public class PgSale {
 
   public void setID(UUID ID) {
     this.ID = ID;
-  }
-
-  public PgCart getCart() {
-    return this.cart;
-  }
-
-  public void setCart(PgCart cart) {
-    this.cart = cart;
   }
 
   public double getTotalPrice() {
