@@ -80,7 +80,7 @@ public class ListCartView {
         String cinemaHall = movieSession.getCinemaHall().getName();
         double price = ticketInfos.getPrice();
 
-        TicketsCartDTO item = new TicketsCartDTO(cart.getID(), movie, cinemaHall, price, startDate, personID);
+        TicketsCartDTO item = new TicketsCartDTO(ticket.getID(), movie, cinemaHall, price, startDate, personID);
 
         ticketItems.add(item);
       }
@@ -92,7 +92,7 @@ public class ListCartView {
         String name = productInfos.getName();
         double price = productInfos.getPrice();
 
-        ProductsCartDTO item = new ProductsCartDTO(cart.getID(), name, price, personID);
+        ProductsCartDTO item = new ProductsCartDTO(product.getID(), name, price, personID);
 
         productsItems.add(item);
       }
