@@ -21,6 +21,13 @@ public class AddTicketToCartController extends Controller<AddTicketToCartDTO> {
     this.addTicketToCartUseCase = addTicketToCartUseCase;
   }
 
+  /**
+   * Performs the operation of adding a ticket to the cart.
+   *
+   * @param object The AddTicketToCartDTO object containing the necessary
+   *               information for adding a ticket to the cart.
+   * @return A Response object indicating the success or failure of the operation.
+   */
   @Override
   public Response<?> perform(AddTicketToCartDTO object) {
     try {
@@ -36,6 +43,14 @@ public class AddTicketToCartController extends Controller<AddTicketToCartDTO> {
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the given AddTicketToCartDTO
+   * object.
+   *
+   * @param object The AddTicketToCartDTO object for which validators need to be
+   *               built.
+   * @return An ArrayList of IValidator objects representing the validators.
+   */
   @Override
   public ArrayList<IValidator> buildValidators(AddTicketToCartDTO object) {
     Field ticketInfoID = new Field(object.getTicketInfoID(), "Informações do ingresso");
