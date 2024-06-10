@@ -46,8 +46,6 @@ public class ListProductsToSaleView {
         if (product instanceof ProductInfosDTO) {
           ProductInfosDTO productDTO = (ProductInfosDTO) product;
 
-          System.out.println(productDTO.getName());
-
           products.add(productDTO);
         }
       }
