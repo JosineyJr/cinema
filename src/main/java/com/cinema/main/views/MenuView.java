@@ -238,4 +238,15 @@ public class MenuView {
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/listUsers.fxml");
   }
 
+  @FXML
+  void listCart(ActionEvent event) throws Exception {
+    Stage primaryStage = StageManager.getPrimaryStage();
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sale/listCart.fxml");
+  }
+
+  @FXML
+  void listProductsToSale(ActionEvent event) throws Exception {
+    Stage primaryStage = StageManager.getPrimaryStage();
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sales/listProductsToSale.fxml");
+  }
 }
