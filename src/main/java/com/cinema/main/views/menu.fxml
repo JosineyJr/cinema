@@ -13,8 +13,18 @@
           text="Visualizar sessoes disponiveis" />
       </items>
     </Menu>
-    <Menu mnemonicParsing="false" text="Produtos" />
-    <Menu mnemonicParsing="false" text="Carrinho" />
+    <Menu mnemonicParsing="false" text="Produtos">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#listProductsToSale"
+          text="Visualizar produtos disponiveis" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Carrinho">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#listCart"
+          text="Visualizar carrinho" />
+      </items>
+    </Menu>
     <Menu mnemonicParsing="false" text="Perfil" />
     <Menu mnemonicParsing="false" text="Gerenciamento">
       <items>
