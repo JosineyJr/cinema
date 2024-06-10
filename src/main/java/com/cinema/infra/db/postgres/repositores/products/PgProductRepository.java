@@ -6,6 +6,7 @@ import com.cinema.domain.contracts.repositories.products.IDeleteProductRepositor
 import com.cinema.domain.contracts.repositories.products.IFindProductByIDRepository;
 import com.cinema.domain.entities.products.Product;
 import com.cinema.infra.db.postgres.entities.products.PgProduct;
+import com.cinema.infra.db.postgres.entities.sale.PgCart;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
@@ -16,6 +17,12 @@ public class PgProductRepository
 
   public void deleteProduct(UUID id) {
     PgProduct pgProduct = this.session.get(PgProduct.class, id);
+
+    PgCart cart = pgProduct.getCart();
+    if (cart != null) {
+      cart.getProducts().remove(pgProduct);
+      pgProduct.setCart(null);
+    }
 
     this.session.remove(pgProduct);
   }
