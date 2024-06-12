@@ -67,7 +67,14 @@ public class Cart {
   }
 
   public boolean addTicket(Ticket ticket) {
-    if (ticket.getTicketInfos().getMovieSession().getCinemaHall().getCapacity() > this.tickets.size()) {
+    int count = 0;
+    for (Ticket t : tickets) {
+      if (t.getTicketInfos().getMovieSession().getID().equals(ticket.getTicketInfos().getMovieSession().getID())) {
+        count++;
+      }
+    }
+
+    if (count < ticket.getTicketInfos().getMovieSession().getCinemaHall().getCapacity()) {
       this.tickets.add(ticket);
 
       return true;
@@ -76,8 +83,21 @@ public class Cart {
     return false;
   }
 
-  public void addProduct(Product product) {
-    this.products.add(product);
+  public boolean addProduct(Product product, int quantity) {
+    int count = 0;
+    for (Product p : products) {
+      if (p.getProductInfos().getID().equals(product.getProductInfos().getID())) {
+        count++;
+      }
+    }
+
+    if (count < quantity) {
+      this.products.add(product);
+
+      return true;
+    }
+
+    return false;
   }
 
   public boolean removeTicket(Ticket ticket) {

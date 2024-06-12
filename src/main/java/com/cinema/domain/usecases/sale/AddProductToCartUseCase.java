@@ -57,13 +57,13 @@ public class AddProductToCartUseCase {
 
     Inventory inventory = this.findInventoryByProductInfosIDRepository.findInventoryByProductInfosID(productInfoID);
 
-    if (inventory.getQuantity() <= cart.getProducts().size()) {
-      throw new AllProductsSoldError();
-    }
-
     Product product = new Product(productInfos, cart);
 
-    cart.addProduct(product);
+    cart.addProduct(product, inventory.getQuantity());
+
+    if (!cart.addProduct(product, inventory.getQuantity())) {
+      throw new AllProductsSoldError();
+    }
 
     this.updateCartRepository.updateCart(cart);
   }

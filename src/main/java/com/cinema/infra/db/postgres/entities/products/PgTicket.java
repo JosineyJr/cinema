@@ -3,6 +3,7 @@ package com.cinema.infra.db.postgres.entities.products;
 import java.util.UUID;
 
 import com.cinema.infra.db.postgres.entities.sale.PgCart;
+import com.cinema.infra.db.postgres.entities.sale.PgSale;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +22,12 @@ public class PgTicket {
   private PgTicketInfos ticketInfos;
 
   @ManyToOne
-  @JoinColumn(name = "cart_id", nullable = true, insertable = true, updatable = true)
+  @JoinColumn(name = "cart_id", nullable = true)
   private PgCart cart;
+
+  @ManyToOne
+  @JoinColumn(name = "sale_id", nullable = true)
+  private PgSale sale;
 
   public PgTicket() {
   }
