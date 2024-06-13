@@ -5,6 +5,7 @@ import java.util.List;
 import com.cinema.application.dtos.products.TicketDTO;
 import com.cinema.application.dtos.sales.AddTicketToCartDTO;
 import com.cinema.application.helpers.Response;
+import com.cinema.domain.helpers.TimeIsAfter;
 import com.cinema.main.factories.products.ListTicketsFactory;
 import com.cinema.main.factories.sales.AddTicketToCartFactory;
 import com.cinema.main.views.helpers.AlertError;
@@ -70,9 +71,11 @@ public class ListMoviesToSaleView {
 
           LocalDateTime currentDateTime = LocalDateTime.now();
 
-          if (movieSessionStartTime.toLocalDate().isEqual(currentDateTime.toLocalDate())
-              && movieSessionStartTime
-                  .isAfter(currentDateTime)) {
+          boolean isSameDay = movieSessionStartTime.toLocalDate().isEqual(currentDateTime.toLocalDate());
+
+          boolean isAfter = TimeIsAfter.validate(movieSessionStartTime);
+
+          if (isSameDay && isAfter) {
             tickets.add(ticketDTO);
           }
         }
@@ -106,7 +109,8 @@ public class ListMoviesToSaleView {
 
     System.out.println("CPF: " + Session.getCPF());
 
-    AddTicketToCartDTO addTicketToCartDTO = new AddTicketToCartDTO(ticket.getID().toString(), Session.getPersonId().toString());
+    AddTicketToCartDTO addTicketToCartDTO = new AddTicketToCartDTO(ticket.getID().toString(),
+        Session.getPersonId().toString());
 
     Response<?> response = AddTicketToCartFactory.make().handle(addTicketToCartDTO);
 

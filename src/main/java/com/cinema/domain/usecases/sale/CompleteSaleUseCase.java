@@ -30,6 +30,7 @@ import com.cinema.domain.errors.sale.MovieSessionAlreadyShown;
 import com.cinema.domain.errors.sale.ProductCartNotFoundError;
 import com.cinema.domain.errors.sale.TicketCartNotFoundError;
 import com.cinema.domain.errors.users.PersonNotFoundError;
+import com.cinema.domain.helpers.TimeIsAfter;
 
 public class CompleteSaleUseCase {
   IFindTicketCartByIDRepository findTicketCartByIDRepository;
@@ -93,9 +94,9 @@ public class CompleteSaleUseCase {
         throw new TicketCartNotFoundError();
       }
 
-      boolean isValidDate = ticketCart.getTicket().getMovieSession().getStartDate().isAfter(LocalDateTime.now());
+      LocalDateTime isValidDate = ticketCart.getTicket().getMovieSession().getStartDate();
 
-      if (!isValidDate) {
+      if (!TimeIsAfter.validate(isValidDate)) {
         String startDate = ticketCart.getTicket().getMovieSession().getStartDate().toString();
 
         throw new MovieSessionAlreadyShown(startDate);

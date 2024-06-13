@@ -42,10 +42,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.sales.ListMoviesToSaleView">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.cinema.main.views.sales.ListMoviesToSaleView">
   <children>
     <fx:include source="../menu.fxml" />
-    <TableView fx:id="availableSessions" layoutX="14.0" layoutY="87.0" prefHeight="499.0" prefWidth="772.0">
+    <TableView fx:id="availableSessions" layoutX="14.0" layoutY="87.0" prefHeight="499.0"
+      prefWidth="772.0">
       <columns>
         <TableColumn fx:id="cinemaHall" prefWidth="75.0" text="Sala de cinema" />
         <TableColumn fx:id="startDate" prefWidth="75.0" text="Horario" />

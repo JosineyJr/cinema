@@ -18,6 +18,7 @@ import com.cinema.domain.entities.sale.ProductCart;
 import com.cinema.domain.entities.sale.TicketCart;
 import com.cinema.main.factories.sales.CompleteSaleFactory;
 import com.cinema.domain.errors.sale.CartNotFoundError;
+import com.cinema.domain.helpers.TimeIsAfter;
 import com.cinema.main.factories.sales.ListPersonCartFactory;
 import com.cinema.main.factories.sales.RemoveProductFromCartFactory;
 import com.cinema.main.factories.sales.RemoveTicketFromCartFactory;
@@ -80,7 +81,7 @@ public class ListCartView {
 
     Object data = response.getData();
 
-    if (data instanceof CartNotFoundError){
+    if (data instanceof CartNotFoundError) {
       new AlertError("Carrinho vazio!");
 
       return;
@@ -104,8 +105,11 @@ public class ListCartView {
         TicketsCartDTO ticketCartItem = new TicketsCartDTO(ticketCart.getID(), movie, cinemaHall, price, startDate,
             personID);
 
-        ticketItems.add(ticketCartItem);
+        if (TimeIsAfter.validate(movieSession.getStartDate())) {
+          ticketItems.add(ticketCartItem);
+        }
       }
+
       ticketsTable.setItems(ticketItems);
 
       for (ProductCart productCart : cart.getProducts()) {
