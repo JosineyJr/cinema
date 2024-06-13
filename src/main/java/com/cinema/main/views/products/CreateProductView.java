@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,8 +13,10 @@ import java.util.ResourceBundle;
 import com.cinema.application.dtos.products.CreateProductDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.products.CreateProductFactory;
+import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
+import com.cinema.main.views.helpers.ChangeWindow;
 import com.cinema.main.views.helpers.CurrencyField;
 
 /**
@@ -58,7 +61,7 @@ public class CreateProductView implements Initializable {
    * @param event the action event triggered by the user
    */
   @FXML
-  void registerProduct(ActionEvent event) {
+  void registerProduct(ActionEvent event) throws Exception{
     CreateProductDTO createProductDTO = new CreateProductDTO(name.getText(), price.getAmount(),
         Integer.parseInt(quantity.getText()));
 
@@ -66,6 +69,10 @@ public class CreateProductView implements Initializable {
 
     if (response.getStatusCode() == 204) {
       new AlertSuccess("Produto criado com sucesso!");
+
+      Stage primaryStage = StageManager.getPrimaryStage();
+
+      ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/listProducts.fxml");
     } else {
       new AlertError(response.getData().toString());
     }

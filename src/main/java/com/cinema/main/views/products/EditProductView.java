@@ -8,14 +8,17 @@ import com.cinema.application.dtos.products.EditProductDTO;
 import com.cinema.application.dtos.products.ProductDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.products.UpdateProductFactory;
+import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
+import com.cinema.main.views.helpers.ChangeWindow;
 import com.cinema.main.views.helpers.CurrencyField;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * This class represents the view for editing a product.
@@ -73,7 +76,7 @@ public class EditProductView implements Initializable {
    *              button.
    */
   @FXML
-  void editProduct(ActionEvent event) {
+  void editProduct(ActionEvent event) throws Exception{
     EditProductDTO updateProductDTO = new EditProductDTO(product.getID(), name.getText(), price.getAmount(),
         Integer.parseInt(quantity.getText()), product.getInventoryID());
 
@@ -81,6 +84,10 @@ public class EditProductView implements Initializable {
 
     if (response.getStatusCode() == 204) {
       new AlertSuccess("Produto editado com sucesso!");
+
+      Stage primaryStage = StageManager.getPrimaryStage();
+
+      ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/listProducts.fxml");
     } else {
       new AlertError(response.getData().toString());
     }
