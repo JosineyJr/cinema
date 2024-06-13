@@ -26,6 +26,8 @@ public class PgConnection implements DbTransaction {
 
   private PgConnection() {
     this.sessionFactory = buildSessionFactory();
+
+    DatabaseInitializer.iniGenre(getSession());
   }
 
   private SessionFactory buildSessionFactory() {
