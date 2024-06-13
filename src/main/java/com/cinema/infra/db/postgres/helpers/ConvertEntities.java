@@ -11,6 +11,7 @@ import com.cinema.domain.entities.sale.Cart;
 import com.cinema.domain.entities.sale.ProductCart;
 import com.cinema.domain.entities.sale.ProductSale;
 import com.cinema.domain.entities.sale.Sale;
+import com.cinema.domain.entities.sale.SalesCounter;
 import com.cinema.domain.entities.sale.TicketCart;
 import com.cinema.domain.entities.sale.TicketSale;
 import com.cinema.domain.entities.users.Admin;
@@ -28,6 +29,7 @@ import com.cinema.infra.db.postgres.entities.sale.PgCart;
 import com.cinema.infra.db.postgres.entities.sale.PgProductCart;
 import com.cinema.infra.db.postgres.entities.sale.PgProductSale;
 import com.cinema.infra.db.postgres.entities.sale.PgSale;
+import com.cinema.infra.db.postgres.entities.sale.PgSalesCounter;
 import com.cinema.infra.db.postgres.entities.sale.PgTicketCart;
 import com.cinema.infra.db.postgres.entities.sale.PgTicketSale;
 import com.cinema.infra.db.postgres.entities.users.PgAdmin;
@@ -45,6 +47,7 @@ import com.cinema.infra.db.postgres.helpers.entities.sales.CartConverter;
 import com.cinema.infra.db.postgres.helpers.entities.sales.ProductCartConverter;
 import com.cinema.infra.db.postgres.helpers.entities.sales.ProductSaleConverter;
 import com.cinema.infra.db.postgres.helpers.entities.sales.SaleConverter;
+import com.cinema.infra.db.postgres.helpers.entities.sales.SalesCounterConverter;
 import com.cinema.infra.db.postgres.helpers.entities.sales.TicketCartConverter;
 import com.cinema.infra.db.postgres.helpers.entities.sales.TicketSaleConverter;
 import com.cinema.infra.db.postgres.helpers.entities.users.AdminConverter;
@@ -188,5 +191,13 @@ public class ConvertEntities {
 
   public static PgProductSale pgConvertProductSale(ProductSale productSale) {
     return new ProductSaleConverter().pgConverter(productSale);
+  }
+
+  public static SalesCounter convertSalesCounter(PgSalesCounter salesCounter) {
+    return new SalesCounterConverter().convert(salesCounter);
+  }
+
+  public static PgSalesCounter pgConvertSalesCounter(SalesCounter salesCounter) {
+    return new SalesCounterConverter().pgConverter(salesCounter);
   }
 }

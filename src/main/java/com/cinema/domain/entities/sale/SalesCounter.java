@@ -11,17 +11,32 @@ public class SalesCounter {
 
   private SalesCounterType type;
 
+  private boolean isAvailable;
+
   private List<Sale> sales;
 
-  public SalesCounter(UUID ID, SalesCounterType type, List<Sale> sales) {
+  public SalesCounter(UUID ID, SalesCounterType type, boolean isAvailable, List<Sale> sales) {
     this.ID = ID;
     this.type = type;
+    this.isAvailable = isAvailable;
     this.sales = sales;
   }
 
-  public SalesCounter(SalesCounterType type, List<Sale> sales) {
+  public SalesCounter(SalesCounterType type, boolean isAvailable, List<Sale> sales) {
     this.type = type;
+    this.isAvailable = isAvailable;
     this.sales = sales;
+  }
+
+  public SalesCounter(SalesCounterType type, boolean isAvailable) {
+    this.type = type;
+    this.isAvailable = isAvailable;
+  }
+
+  public SalesCounter(UUID ID, SalesCounterType type, boolean isAvailable) {
+    this.ID = ID;
+    this.type = type;
+    this.isAvailable = isAvailable;
   }
 
   public UUID getID() {
@@ -48,4 +63,11 @@ public class SalesCounter {
     this.sales = sales;
   }
 
+  public boolean isAvailable() {
+    return this.isAvailable;
+  }
+
+  public void setAvailable(boolean isAvailable) {
+    this.isAvailable = isAvailable;
+  }
 }

@@ -11,6 +11,7 @@ public class Session {
   private static UUID PERSON_ID;
   private static String role;
   private static String name;
+  private static UUID SALES_COUNTER_ID;
 
   /**
    * Retrieves the CPF (Cadastro de Pessoa Física) of the user.
@@ -84,10 +85,18 @@ public class Session {
     Session.name = name;
   }
 
+  public static void setSalesCounterId(UUID salesCounterId) {
+    SALES_COUNTER_ID = salesCounterId;
+  }
+
+  public static UUID getSalesCounterId() {
+    return SALES_COUNTER_ID;
+  }
+
   /**
    * Signs out the current user by resetting the session data.
    */
-  public static void  signOut() {
+  public static void signOut() {
     CPF = null;
     PERSON_ID = null;
     role = null;

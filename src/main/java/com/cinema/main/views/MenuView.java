@@ -52,7 +52,7 @@ public class MenuView {
         sales.setVisible(false);
         balcony.setVisible(false);
         employees.setVisible(false);
-        
+
         break;
       case "client":
         management.setVisible(false);
@@ -228,20 +228,6 @@ public class MenuView {
   void listSales(ActionEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sales/listSales.fxml");
-  }
-
-  /**
-   * Handles the action when the user selects the "Register Sales Counter" option
-   * from the menu.
-   * It changes the scene to the createSalesCounter.fxml view.
-   *
-   * @param event The action event triggered by the user.
-   * @throws Exception If an error occurs while changing the scene.
-   */
-  @FXML
-  void registerSalesCounter(ActionEvent event) throws Exception {
-    Stage primaryStage = StageManager.getPrimaryStage();
-    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sales/createSalesCounter.fxml");
   }
 
   /**

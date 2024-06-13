@@ -1,7 +1,11 @@
 package com.cinema.main;
 
+import com.cinema.application.dtos.sales.ChangeAvailableSalesCounterDTO;
+import com.cinema.infra.db.postgres.errors.PgConnectionNotFoundError;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
+import com.cinema.main.factories.sales.ChangeAvailableSalesCounterFactory;
 import com.cinema.main.views.StageManager;
+import com.cinema.main.views.helpers.Session;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,6 +19,7 @@ import javafx.scene.Scene;
  * application.
  */
 public class Main extends Application {
+
     /**
      * The main method of the program.
      *
@@ -38,7 +43,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/com/cinema/main/views/auth/login.fxml"));
+                getClass().getResource("/com/cinema/main/views/sales/listAvailablesSalesCounter.fxml"));
 
         Parent root = fxmlLoader.load();
 
@@ -47,5 +52,16 @@ public class Main extends Application {
         primaryStage.show();
 
         StageManager.setPrimaryStage(primaryStage);
+    }
+
+    @Override
+    public void stop() throws PgConnectionNotFoundError {
+
+        ChangeAvailableSalesCounterDTO changeAvailableSalesCounterDTO = new ChangeAvailableSalesCounterDTO(
+                Session.getSalesCounterId(), true);
+
+        ChangeAvailableSalesCounterFactory.make().handle(changeAvailableSalesCounterDTO);
+
+        PgConnection.getInstance().disconnect();
     }
 }
