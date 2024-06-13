@@ -47,7 +47,7 @@ public class EditClientView {
 
       Stage primaryStage = StageManager.getPrimaryStage();
 
-      ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/listUsers.fxml");
+      ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/listClients.fxml");
     } else {
       new AlertError(response.getData().toString());
     }

@@ -240,8 +240,10 @@ public class MenuView {
 
   /**
    * Event handler for the "listCart" button.
-   * This method is called when the button is clicked and is responsible for changing the scene to the "listCart.fxml" view.
-   * It retrieves the primary stage using the StageManager class and calls the ChangeWindow.changeScene method to change the scene.
+   * This method is called when the button is clicked and is responsible for
+   * changing the scene to the "listCart.fxml" view.
+   * It retrieves the primary stage using the StageManager class and calls the
+   * ChangeWindow.changeScene method to change the scene.
    *
    * @param event The event that triggered the method call.
    * @throws Exception If an error occurs while changing the scene.
@@ -254,7 +256,8 @@ public class MenuView {
 
   /**
    * Event handler for the "listProductsToSale" button.
-   * This method is called when the button is clicked and is responsible for changing the scene to the "listProductsToSale" view.
+   * This method is called when the button is clicked and is responsible for
+   * changing the scene to the "listProductsToSale" view.
    * 
    * @param event The event that triggered the method.
    * @throws Exception If an error occurs while changing the scene.
@@ -265,9 +268,28 @@ public class MenuView {
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sales/listProductsToSale.fxml");
   }
 
+  /**
+   * Displays the user's profile.
+   *
+   * @param event the action event that triggered the method
+   * @throws Exception if an error occurs while displaying the profile
+   */
   @FXML
   void showProfile(ActionEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/profile.fxml");
+  }
+
+  /**
+   * Handles the event when the register client button is clicked.
+   * This method changes the scene to the create client view.
+   *
+   * @param event The action event triggered by clicking the register client button.
+   * @throws Exception If an error occurs while changing the scene.
+   */
+  @FXML
+  void registerClient(ActionEvent event) throws Exception {
+    Stage primaryStage = StageManager.getPrimaryStage();
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/createClient.fxml");
   }
 }

@@ -15,16 +15,15 @@
   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.users.ListClientsView">
   <children>
     <fx:include source="../menu.fxml" />
-    <Label layoutX="240.0" layoutY="40.0" text="Listagem de clientes">
+    <Label layoutX="246.0" layoutY="36.0" text="Listagem de clientes">
       <font>
         <Font size="36.0" />
       </font>
     </Label>
-    <TableView fx:id="users" layoutX="14.0" layoutY="116.0" prefHeight="470.0" prefWidth="773.0">
+    <TableView fx:id="clientsTableView" layoutX="14.0" layoutY="116.0" prefHeight="470.0" prefWidth="773.0">
       <columns>
         <TableColumn fx:id="name" prefWidth="75.0" text="Nome" />
         <TableColumn fx:id="CPF" prefWidth="75.0" text="CPF" />
-        <TableColumn fx:id="type" prefWidth="75.0" text="Tipo" />
         <TableColumn fx:id="action" prefWidth="75.0" text="Ação" />
       </columns>
       <columnResizePolicy>

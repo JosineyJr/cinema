@@ -1,7 +1,11 @@
 package com.cinema.infra.db.postgres.repositores.users;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.cinema.domain.contracts.repositories.users.ICreateClientRepository;
 import com.cinema.domain.contracts.repositories.users.IFindClientByCPFRepository;
+import com.cinema.domain.contracts.repositories.users.IListClientsRepository;
 import com.cinema.domain.entities.users.Client;
 import com.cinema.infra.db.postgres.entities.users.PgClient;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
@@ -12,7 +16,8 @@ import jakarta.persistence.NoResultException;
 public class PgClientRepository
     extends PgRepository
     implements ICreateClientRepository,
-    IFindClientByCPFRepository {
+    IFindClientByCPFRepository,
+    IListClientsRepository {
 
   public PgClientRepository() {
     super();
@@ -41,5 +46,13 @@ public class PgClientRepository
     } catch (Exception e) {
       throw e;
     }
+  }
+
+  public List<Client> listClients() {
+    List<PgClient> pgClients = this.session.createQuery("FROM client", PgClient.class).getResultList();
+
+    return pgClients.stream()
+        .map(pgClient -> ConvertEntities.convertClient(pgClient))
+        .collect(Collectors.toList());
   }
 }
