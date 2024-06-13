@@ -14,6 +14,10 @@ public class Client extends Person {
     this.moviesPreferences = moviesPreferences;
   }
 
+  public Client(UUID ID, String firstName, String lastName, String CPF) {
+    super(ID, firstName, lastName, CPF);
+  }
+
   public Client(String firstName, String lastName, String CPF, String password, List<Genre> moviesPreferences) {
     super(firstName, lastName, CPF, password);
     this.moviesPreferences = moviesPreferences;

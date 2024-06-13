@@ -24,6 +24,12 @@ public abstract class Person {
     this.password = password;
   }
 
+  public Person(UUID ID, String firstName, String lastName, String CPF) {
+    this.ID = ID;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.CPF = CPF;
+  }
 
   public UUID getID() {
     return this.ID;
