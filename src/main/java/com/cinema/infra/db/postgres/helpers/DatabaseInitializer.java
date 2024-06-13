@@ -147,25 +147,25 @@ public class DatabaseInitializer {
 
     session
         .createNativeQuery(
-            "INSERT INTO product (id, name, price) VALUES ('6d7dff0a-a9e6-4002-9e53-5f97be86eb43', 'Pipoca', 10.0) ON CONFLICT (name) DO NOTHING",
+            "INSERT INTO product (id, name, price) VALUES ('6d7dff0a-a9e6-4002-9e53-5f97be86eb43', 'Pipoca', 10.0) ON CONFLICT (id) DO NOTHING",
             PgProduct.class)
         .executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO product (id, name, price) VALUES ('e58d3000-c05f-435a-8571-d7637e0e1437', 'Refrigerante', 5.0) ON CONFLICT (name) DO NOTHING",
+        "INSERT INTO product (id, name, price) VALUES ('e58d3000-c05f-435a-8571-d7637e0e1437', 'Refrigerante', 5.0) ON CONFLICT (id) DO NOTHING",
         PgProduct.class)
         .executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO product (id, name, price) VALUES ('ba2c595c-553a-4acc-9720-084d292acdb9', 'Água', 3.0) ON CONFLICT (name) DO NOTHING",
+        "INSERT INTO product (id, name, price) VALUES ('ba2c595c-553a-4acc-9720-084d292acdb9', 'Água', 3.0) ON CONFLICT (id) DO NOTHING",
         PgProduct.class).executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO product (id, name, price) VALUES ('eb762246-ebe5-4cc0-b5e0-6c01607fed90', 'Combo', 15.0) ON CONFLICT (name) DO NOTHING",
+        "INSERT INTO product (id, name, price) VALUES ('eb762246-ebe5-4cc0-b5e0-6c01607fed90', 'Combo', 15.0) ON CONFLICT (id) DO NOTHING",
         PgProduct.class).executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO product (id, name, price) VALUES ('d8948068-ba03-460a-85fd-79a7e6d3a7f5', 'Combo', 20.0) ON CONFLICT (name) DO NOTHING",
+        "INSERT INTO product (id, name, price) VALUES ('d8948068-ba03-460a-85fd-79a7e6d3a7f5', 'Combo', 20.0) ON CONFLICT (id) DO NOTHING",
         PgProduct.class).executeUpdate();
 
     session.getTransaction().commit();
