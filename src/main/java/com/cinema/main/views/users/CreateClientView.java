@@ -8,6 +8,7 @@ import com.cinema.application.dtos.users.CreateClientDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.movies.ListGenresFactory;
 import com.cinema.main.factories.users.CreateClientFactory;
+import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.ChangeWindow;
@@ -108,9 +109,9 @@ public class CreateClientView {
     if (response.getStatusCode() == 200 || response.getStatusCode() == 204) {
       new AlertSuccess("Cliente criado com sucesso!");
 
-      Stage stage = (Stage) createClientButton.getScene().getWindow();
+      Stage primaryStage = StageManager.getPrimaryStage();
 
-      ChangeWindow.changeScene(stage, "/com/cinema/main/views/auth/login.fxml");
+      ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/auth/login.fxml");
 
     } else {
       new AlertError(response.getData().toString());
