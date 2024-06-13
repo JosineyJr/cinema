@@ -138,6 +138,15 @@ public class MovieDTO {
   }
 
   /**
+   * Returns the ID of the genre associated with this movie.
+   *
+   * @return the ID of the genre
+   */
+  public UUID getGenreID() {
+    return this.genre.getID();
+  }
+
+  /**
    * Sets the genre of the movie.
    * 
    * @param genre The genre of the movie.

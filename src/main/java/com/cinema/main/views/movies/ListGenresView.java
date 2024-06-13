@@ -8,9 +8,9 @@ import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.movies.DeleteGenreFactory;
 import com.cinema.main.factories.movies.ListGenresFactory;
 import com.cinema.main.views.StageManager;
+import com.cinema.main.views.helpers.ActionCellFactory;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
-import com.cinema.main.views.helpers.ButtonTableCell;
 import com.cinema.main.views.helpers.ChangeWindow;
 
 import javafx.collections.FXCollections;
@@ -46,8 +46,10 @@ public class ListGenresView {
   /**
    * Initializes the ListGenresView.
    * This method is automatically called after the FXML file has been loaded.
-   * It retrieves the list of genres from the server and populates the genreTable with the data.
-   * It also sets up the cell factory for the actionColumn to display a delete button for each genre.
+   * It retrieves the list of genres from the server and populates the genreTable
+   * with the data.
+   * It also sets up the cell factory for the actionColumn to display a delete
+   * button for each genre.
    */
   @FXML
   void initialize() {
@@ -70,7 +72,8 @@ public class ListGenresView {
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     nameColumn.setStyle("-fx-alignment: CENTER;");
 
-    actionColumn.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deleteGenre));
+    actionColumn.setCellFactory(new ActionCellFactory<>(this::editProduct, this::deleteGenre));
+
   }
 
   /**
@@ -122,6 +125,14 @@ public class ListGenresView {
     Stage primaryStage = StageManager.getPrimaryStage();
 
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createGenre.fxml");
+  }
+
+  private void editProduct(GenreDTO genre) throws Exception{
+    Stage primaryStage = StageManager.getPrimaryStage();
+
+    GenreModel.getInstance().setGenre(genre);
+
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/editGenre.fxml");
   }
 
 }

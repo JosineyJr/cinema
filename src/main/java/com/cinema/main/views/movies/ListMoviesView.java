@@ -9,9 +9,9 @@ import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.movies.DeleteMovieFactory;
 import com.cinema.main.factories.movies.ListMoviesFactory;
 import com.cinema.main.views.StageManager;
+import com.cinema.main.views.helpers.ActionCellFactory;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
-import com.cinema.main.views.helpers.ButtonTableCell;
 import com.cinema.main.views.helpers.ChangeWindow;
 
 import javafx.collections.FXCollections;
@@ -26,9 +26,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * The ListMoviesView class represents the view for listing movies in the cinema application.
- * It displays a table of movies with various details such as title, director, duration, genre, and minimum age.
- * The view also provides functionality to delete a movie and create a new movie.
+ * The ListMoviesView class represents the view for listing movies in the cinema
+ * application.
+ * It displays a table of movies with various details such as title, director,
+ * duration, genre, and minimum age.
+ * The view also provides functionality to delete a movie and create a new
+ * movie.
  */
 public class ListMoviesView {
 
@@ -93,7 +96,7 @@ public class ListMoviesView {
     minimumAge.setCellValueFactory(new PropertyValueFactory<>("minimumAge"));
     minimumAge.setStyle("-fx-alignment: CENTER;");
 
-    action.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deleteMovie));
+    action.setCellFactory(new ActionCellFactory<>(this::editMovie, this::deleteMovie));
   }
 
   /**
@@ -145,5 +148,13 @@ public class ListMoviesView {
     Stage primaryStage = StageManager.getPrimaryStage();
 
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/createMovie.fxml");
+  }
+
+  void editMovie(MovieDTO movie) throws Exception {
+    Stage primaryStage = StageManager.getPrimaryStage();
+
+    MovieModel.getInstance().setMovie(movie);
+
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/editMovie.fxml");
   }
 }

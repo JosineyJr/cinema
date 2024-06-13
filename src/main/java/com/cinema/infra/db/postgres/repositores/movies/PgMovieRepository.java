@@ -7,6 +7,7 @@ import com.cinema.domain.contracts.repositories.movies.ICreateMovieRepository;
 import com.cinema.domain.contracts.repositories.movies.IDeleteMovieRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindMovieByIDRepository;
 import com.cinema.domain.contracts.repositories.movies.IListMoviesRepository;
+import com.cinema.domain.contracts.repositories.movies.IUpdateMovieRepository;
 import com.cinema.domain.entities.movies.Movie;
 import com.cinema.infra.db.postgres.entities.movies.PgMovie;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
@@ -23,7 +24,8 @@ public class PgMovieRepository
     implements ICreateMovieRepository,
     IFindMovieByIDRepository,
     IListMoviesRepository,
-    IDeleteMovieRepository {
+    IDeleteMovieRepository,
+    IUpdateMovieRepository {
 
   /**
    * Creates a new movie in the database.
@@ -81,5 +83,11 @@ public class PgMovieRepository
     PgMovie pgMovie = this.session.get(PgMovie.class, ID);
 
     this.session.remove(pgMovie);
+  }
+
+  public void updateMovie(Movie movie) {
+    PgMovie pgMovie = ConvertEntities.pgConvertMovie(movie);
+
+    this.session.merge(pgMovie);
   }
 }

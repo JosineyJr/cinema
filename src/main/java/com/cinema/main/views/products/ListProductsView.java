@@ -8,6 +8,7 @@ import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.products.DeleteProductFactory;
 import com.cinema.main.factories.products.ListProductsFactory;
 import com.cinema.main.views.StageManager;
+import com.cinema.main.views.helpers.ActionCellFactory;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.ChangeWindow;
@@ -16,14 +17,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -83,43 +81,7 @@ public class ListProductsView {
     quantity.setCellValueFactory(new PropertyValueFactory<ProductDTO, Integer>("quantity"));
     quantity.setStyle("-fx-alignment: CENTER;");
 
-    action.setCellFactory(column -> {
-      TableCell<ProductDTO, Void> cell = new TableCell<>() {
-        private final Button deleteButton = new Button("Excluir");
-        private final Button editButton = new Button("Editar");
-
-        {
-          deleteButton.setOnAction(event -> deleteProduct(getTableView().getItems().get(getIndex())));
-          editButton.setOnAction(event -> {
-            try {
-              editProduct(getTableView().getItems().get(getIndex()));
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-          });
-        }
-
-        /**
-         * Updates the item in the list view.
-         *
-         * @param item  The item to be updated.
-         * @param empty A boolean indicating whether the item is empty or not.
-         */
-        @Override
-        protected void updateItem(Void item, boolean empty) {
-          super.updateItem(item, empty);
-          if (empty) {
-            setGraphic(null);
-          } else {
-            HBox buttons = new HBox(deleteButton, editButton);
-            buttons.setSpacing(5);
-            buttons.setStyle("-fx-alignment: CENTER;");
-            setGraphic(buttons);
-          }
-        }
-      };
-      return cell;
-    });
+    action.setCellFactory(new ActionCellFactory<>(this::editProduct, this::deleteProduct));
     action.setStyle("-fx-alignment: CENTER;");
   }
 

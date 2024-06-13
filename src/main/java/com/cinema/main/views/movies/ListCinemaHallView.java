@@ -8,9 +8,9 @@ import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.movies.DeleteCinemaHallFactory;
 import com.cinema.main.factories.movies.ListCinemaHallsFactory;
 import com.cinema.main.views.StageManager;
+import com.cinema.main.views.helpers.ActionCellFactory;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
-import com.cinema.main.views.helpers.ButtonTableCell;
 import com.cinema.main.views.helpers.ChangeWindow;
 
 import javafx.collections.FXCollections;
@@ -26,7 +26,8 @@ import javafx.stage.Stage;
 
 /**
  * This class represents the view for listing cinema halls.
- * It displays a table with cinema hall information and provides functionality to create and delete cinema halls.
+ * It displays a table with cinema hall information and provides functionality
+ * to create and delete cinema halls.
  */
 public class ListCinemaHallView {
 
@@ -44,9 +45,12 @@ public class ListCinemaHallView {
 
   /**
    * Initializes the ListCinemaHallView.
-   * This method is automatically called by JavaFX after the FXML file has been loaded.
-   * It retrieves a list of cinema halls and populates the cinemaHallTable with the data.
-   * It also sets up the cell value factories and cell factories for the table columns.
+   * This method is automatically called by JavaFX after the FXML file has been
+   * loaded.
+   * It retrieves a list of cinema halls and populates the cinemaHallTable with
+   * the data.
+   * It also sets up the cell value factories and cell factories for the table
+   * columns.
    */
   @FXML
   void initialize() {
@@ -72,14 +76,16 @@ public class ListCinemaHallView {
     capacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
     capacity.setStyle("-fx-alignment: CENTER;");
 
-    action.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deleteCinemaHall));
+    action.setCellFactory(new ActionCellFactory<>(this::editCinemaHall, this::deleteCinemaHall));
 
   }
 
   /**
    * Event handler for the createCinemaHall button.
-   * This method is called when the button is clicked and is responsible for creating a new cinema hall.
-   * It opens a new window to create a cinema hall using the createCinemaHall.fxml file.
+   * This method is called when the button is clicked and is responsible for
+   * creating a new cinema hall.
+   * It opens a new window to create a cinema hall using the createCinemaHall.fxml
+   * file.
    *
    * @param event The mouse event that triggered the method.
    * @throws Exception If an error occurs while creating the cinema hall.
@@ -103,7 +109,8 @@ public class ListCinemaHallView {
   /**
    * Displays a confirmation dialog for deleting a cinema hall.
    *
-   * @param cinemaHall The CinemaHallDTO object representing the cinema hall to be deleted.
+   * @param cinemaHall The CinemaHallDTO object representing the cinema hall to be
+   *                   deleted.
    */
   private void showConfirmationDialog(CinemaHallDTO cinemaHall) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -125,5 +132,13 @@ public class ListCinemaHallView {
         }
       }
     });
+  }
+
+  private void editCinemaHall(CinemaHallDTO cinemaHall) throws Exception {
+    CinemaHallModel.getInstance().setCinemaHall(cinemaHall);
+
+    Stage primaryStage = StageManager.getPrimaryStage();
+
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/editCinemaHall.fxml");
   }
 }
