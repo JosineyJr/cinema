@@ -9,7 +9,6 @@ import com.cinema.infra.db.postgres.entities.users.PgEmployee;
 
 public class DatabaseInitializer {
   public static void initGenre(Session session) {
-    System.out.println("Initializing genres");
     session.beginTransaction();
 
     session.createNativeQuery(
