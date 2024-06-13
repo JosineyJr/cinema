@@ -218,7 +218,7 @@ public class ListCartView {
     List<ProductsCartDTO> productsCart = productsTable.getItems();
     List<TicketsCartDTO> ticketsCart = ticketsTable.getItems();
 
-    UUID personID = UUID.fromString(Session.getCPF());
+    UUID personID = Session.getPersonId();
 
     CompleteSaleDTO completeSaleDTO = new CompleteSaleDTO(productsCart, ticketsCart, personID);
 
