@@ -14,7 +14,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -45,6 +47,20 @@ public class LoginView {
 
   @FXML
   private TextField passwordTextField;
+
+  @FXML
+  private ImageView logo;
+
+  @FXML
+  void initialize() {
+    Rectangle clip = new Rectangle(logo.getFitWidth(), logo.getFitHeight());
+    clip.setArcWidth(50);
+    clip.setArcHeight(50);
+    logo.setClip(clip);
+
+    logo.setFitWidth(150);
+    logo.setFitHeight(150);
+  }
 
   /**
    * Handles the event when the user clicks on the "Create Client" button.
@@ -107,11 +123,11 @@ public class LoginView {
       passwordTextField.setText(pwd != null ? pwd : "");
       passwordTextField.setVisible(true);
       passwordField.setVisible(false);
-  } else {
+    } else {
       String pwd = passwordTextField.getText();
       passwordField.setText(pwd != null ? pwd : "");
       passwordField.setVisible(true);
       passwordTextField.setVisible(false);
-  }
+    }
   }
 }

@@ -82,6 +82,38 @@
           <outputDirectory>${project.build.directory}/javadoc</outputDirectory>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${java.home}/bin/jpackage</executable>
+              <arguments>
+                <argument>--input</argument>
+                <argument>${project.build.directory}</argument>
+                <argument>--name</argument>
+                <argument>Cinema</argument>
+                <argument>--main-jar</argument>
+                <argument>cinema-1.0-SNAPSHOT.jar</argument>
+                <argument>--main-class</argument>
+                <argument>com.cinema.main.Main</argument>
+                <argument>--icon</argument>
+                <argument>${project.basedir}/src/main/resources/cinemaLogo.png</argument>
+                <argument>--type</argument>
+                <argument>dmg</argument>
+                <argument>--dest</argument>
+                <argument>${project.build.directory}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>
