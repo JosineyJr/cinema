@@ -9,7 +9,10 @@ import com.cinema.domain.entities.products.Product;
 import com.cinema.domain.entities.products.Ticket;
 import com.cinema.domain.entities.sale.Cart;
 import com.cinema.domain.entities.sale.ProductCart;
+import com.cinema.domain.entities.sale.ProductSale;
+import com.cinema.domain.entities.sale.Sale;
 import com.cinema.domain.entities.sale.TicketCart;
+import com.cinema.domain.entities.sale.TicketSale;
 import com.cinema.domain.entities.users.Admin;
 import com.cinema.domain.entities.users.Client;
 import com.cinema.domain.entities.users.Employee;
@@ -23,7 +26,10 @@ import com.cinema.infra.db.postgres.entities.products.PgProduct;
 import com.cinema.infra.db.postgres.entities.products.PgTicket;
 import com.cinema.infra.db.postgres.entities.sale.PgCart;
 import com.cinema.infra.db.postgres.entities.sale.PgProductCart;
+import com.cinema.infra.db.postgres.entities.sale.PgProductSale;
+import com.cinema.infra.db.postgres.entities.sale.PgSale;
 import com.cinema.infra.db.postgres.entities.sale.PgTicketCart;
+import com.cinema.infra.db.postgres.entities.sale.PgTicketSale;
 import com.cinema.infra.db.postgres.entities.users.PgAdmin;
 import com.cinema.infra.db.postgres.entities.users.PgClient;
 import com.cinema.infra.db.postgres.entities.users.PgEmployee;
@@ -37,7 +43,10 @@ import com.cinema.infra.db.postgres.helpers.entities.products.ProductConverter;
 import com.cinema.infra.db.postgres.helpers.entities.products.TicketConverter;
 import com.cinema.infra.db.postgres.helpers.entities.sales.CartConverter;
 import com.cinema.infra.db.postgres.helpers.entities.sales.ProductCartConverter;
+import com.cinema.infra.db.postgres.helpers.entities.sales.ProductSaleConverter;
+import com.cinema.infra.db.postgres.helpers.entities.sales.SaleConverter;
 import com.cinema.infra.db.postgres.helpers.entities.sales.TicketCartConverter;
+import com.cinema.infra.db.postgres.helpers.entities.sales.TicketSaleConverter;
 import com.cinema.infra.db.postgres.helpers.entities.users.AdminConverter;
 import com.cinema.infra.db.postgres.helpers.entities.users.ClientConverter;
 import com.cinema.infra.db.postgres.helpers.entities.users.EmployeeConverter;
@@ -155,5 +164,29 @@ public class ConvertEntities {
 
   public static PgCart pgConvertCart(Cart cart) {
     return new CartConverter().pgConverter(cart);
+  }
+
+  public static Sale convertSale(PgSale sale) {
+    return new SaleConverter().convert(sale);
+  }
+
+  public static PgSale pgConvertSale(Sale sale) {
+    return new SaleConverter().pgConverter(sale);
+  }
+
+  public static TicketSale convertTicketSale(PgTicketSale ticketSale) {
+    return new TicketSaleConverter().convert(ticketSale);
+  }
+
+  public static PgTicketSale pgConvertTicketSale(TicketSale ticketSale) {
+    return new TicketSaleConverter().pgConverter(ticketSale);
+  }
+
+  public static ProductSale convertProductSale(PgProductSale productSale) {
+    return new ProductSaleConverter().convert(productSale);
+  }
+
+  public static PgProductSale pgConvertProductSale(ProductSale productSale) {
+    return new ProductSaleConverter().pgConverter(productSale);
   }
 }

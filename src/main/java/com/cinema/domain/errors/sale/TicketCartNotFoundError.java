@@ -1,7 +1,7 @@
 package com.cinema.domain.errors.sale;
 
-public class TicketNotFoundError extends Exception {
-  public TicketNotFoundError() {
+public class TicketCartNotFoundError extends Exception {
+  public TicketCartNotFoundError() {
     super("Ticket não encontrado!");
   }
 

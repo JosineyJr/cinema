@@ -12,7 +12,8 @@ import com.cinema.domain.entities.sale.Cart;
 import com.cinema.domain.entities.sale.TicketCart;
 import com.cinema.domain.entities.users.Person;
 import com.cinema.domain.errors.products.TicketNotFoundError;
-import com.cinema.domain.errors.sale.AllTicketsoldError;
+import com.cinema.domain.errors.sale.AllTicketsSoldError;
+import com.cinema.domain.errors.users.PersonNotFoundError;
 
 public class AddTicketToCartUseCase {
   IFindTicketByIDRepository findTicketByID;
@@ -34,7 +35,8 @@ public class AddTicketToCartUseCase {
     this.updateCartRepository = updateCartRepository;
   }
 
-  public void execute(UUID ticketID, UUID personID) throws TicketNotFoundError, AllTicketsoldError {
+  public void execute(UUID ticketID, UUID personID)
+      throws TicketNotFoundError, AllTicketsSoldError, PersonNotFoundError {
     Ticket ticket = this.findTicketByID.findByID(ticketID);
 
     if (ticket == null) {
@@ -45,6 +47,11 @@ public class AddTicketToCartUseCase {
 
     if (cart == null) {
       Person person = this.findPersonByIDRepository.findPersonByID(personID);
+
+      if (person == null) {
+        throw new PersonNotFoundError();
+      }
+
       cart = new Cart(person);
 
       cart = this.createCartRepository.createCart(cart);
@@ -55,7 +62,7 @@ public class AddTicketToCartUseCase {
     boolean isAdd = cart.addTicket(ticketCart);
 
     if (isAdd == false) {
-      throw new AllTicketsoldError();
+      throw new AllTicketsSoldError();
     }
 
     this.updateCartRepository.updateCart(cart);

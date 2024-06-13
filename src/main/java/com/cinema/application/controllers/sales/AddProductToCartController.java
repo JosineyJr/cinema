@@ -11,7 +11,7 @@ import com.cinema.application.validation.Field;
 import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
 import com.cinema.domain.errors.products.ProductNotFoundError;
-import com.cinema.domain.errors.sale.AllProductsoldError;
+import com.cinema.domain.errors.sale.AllProductsSoldError;
 import com.cinema.domain.usecases.sale.AddProductToCartUseCase;
 
 /**
@@ -45,7 +45,7 @@ public class AddProductToCartController extends Controller<AddProductToCartDTO> 
       this.addProductToCartUseCase.execute(productID, personID);
 
       return ResponseFactory.noContent();
-    } catch (ProductNotFoundError | AllProductsoldError e) {
+    } catch (ProductNotFoundError | AllProductsSoldError e) {
       return ResponseFactory.badRequest(e);
     }
   }

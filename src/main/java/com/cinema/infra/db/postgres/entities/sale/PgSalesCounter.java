@@ -20,8 +20,8 @@ public class PgSalesCounter {
   @Column(nullable = false)
   private SalesCounterType type;
 
-  @OneToMany(mappedBy = "sales_counter")
-  private List<PgSale> sales;
+  // @OneToMany(mappedBy = "sales_counter")
+  // private List<PgSale> sales;
 
   public PgSalesCounter() {
   }
@@ -29,12 +29,12 @@ public class PgSalesCounter {
   public PgSalesCounter(UUID ID, SalesCounterType type, List<PgSale> sales) {
     this.ID = ID;
     this.type = type;
-    this.sales = sales;
+    // this.sales = sales;
   }
 
   public PgSalesCounter(SalesCounterType type, List<PgSale> sales) {
     this.type = type;
-    this.sales = sales;
+    // this.sales = sales;
   }
 
   public UUID getID() {
@@ -54,10 +54,10 @@ public class PgSalesCounter {
   }
 
   public List<PgSale> getSales() {
-    return this.sales;
+    return null;
   }
 
   public void setSales(List<PgSale> sales) {
-    this.sales = sales;
+    // this.sales = sales;
   }
 }

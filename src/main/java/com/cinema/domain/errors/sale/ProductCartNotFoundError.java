@@ -1,7 +1,7 @@
 package com.cinema.domain.errors.sale;
 
-public class ProductNotFoundError extends Exception {
-  public ProductNotFoundError() {
+public class ProductCartNotFoundError extends Exception {
+  public ProductCartNotFoundError() {
     super("Produto não encontrado!");
   }
 

@@ -2,10 +2,10 @@ package com.cinema.application.dtos.sales;
 
 import java.util.UUID;
 
-public class RemoveTicketFromCartDTO {
+public class RemoveTicketCartFromCartDTO {
   private UUID ID;
 
-  public RemoveTicketFromCartDTO(UUID ID) {
+  public RemoveTicketCartFromCartDTO(UUID ID) {
     this.ID = ID;
   }
 

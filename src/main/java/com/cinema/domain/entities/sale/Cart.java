@@ -67,7 +67,11 @@ public class Cart {
   public boolean addTicket(TicketCart ticket) {
     int count = 0;
     for (TicketCart t : tickets) {
-      if (t.getTicket().getMovieSession().getID().equals(ticket.getTicket().getMovieSession().getID())) {
+
+      boolean isSameMovieSession = t.getTicket().getMovieSession().getID()
+          .equals(ticket.getTicket().getMovieSession().getID());
+
+      if (isSameMovieSession) {
         count++;
       }
     }

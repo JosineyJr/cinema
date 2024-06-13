@@ -11,7 +11,8 @@ import com.cinema.application.validation.Field;
 import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
 import com.cinema.domain.errors.products.TicketNotFoundError;
-import com.cinema.domain.errors.sale.AllTicketsoldError;
+import com.cinema.domain.errors.sale.AllTicketsSoldError;
+import com.cinema.domain.errors.users.PersonNotFoundError;
 import com.cinema.domain.usecases.sale.AddTicketToCartUseCase;
 
 public class AddTicketToCartController extends Controller<AddTicketToCartDTO> {
@@ -38,7 +39,7 @@ public class AddTicketToCartController extends Controller<AddTicketToCartDTO> {
       this.addTicketToCartUseCase.execute(ticketID, personID);
 
       return ResponseFactory.noContent();
-    } catch (TicketNotFoundError | AllTicketsoldError e) {
+    } catch (TicketNotFoundError | AllTicketsSoldError | PersonNotFoundError e) {
       return ResponseFactory.badRequest(e);
     }
   }

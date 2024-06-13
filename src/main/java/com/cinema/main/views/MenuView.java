@@ -241,7 +241,7 @@ public class MenuView {
   @FXML
   void listCart(ActionEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
-    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sale/listCart.fxml");
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sales/listCart.fxml");
   }
 
   @FXML

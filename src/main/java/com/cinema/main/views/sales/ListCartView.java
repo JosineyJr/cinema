@@ -1,12 +1,14 @@
 package com.cinema.main.views.sales;
 
 import java.util.UUID;
+import java.util.List;
 
 import com.cinema.application.dtos.sales.TicketsCartDTO;
+import com.cinema.application.dtos.sales.CompleteSaleDTO;
 import com.cinema.application.dtos.sales.ListCartDTO;
 import com.cinema.application.dtos.sales.ProductsCartDTO;
 import com.cinema.application.dtos.sales.RemoveProductFromCartDTO;
-import com.cinema.application.dtos.sales.RemoveTicketFromCartDTO;
+import com.cinema.application.dtos.sales.RemoveTicketCartFromCartDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.domain.entities.movies.MovieSession;
 import com.cinema.domain.entities.products.Product;
@@ -14,6 +16,7 @@ import com.cinema.domain.entities.products.Ticket;
 import com.cinema.domain.entities.sale.Cart;
 import com.cinema.domain.entities.sale.ProductCart;
 import com.cinema.domain.entities.sale.TicketCart;
+import com.cinema.main.factories.sales.CompleteSaleFactory;
 import com.cinema.main.factories.sales.ListPersonCartFactory;
 import com.cinema.main.factories.sales.RemoveProductFromCartFactory;
 import com.cinema.main.factories.sales.RemoveTicketFromCartFactory;
@@ -24,9 +27,11 @@ import com.cinema.main.views.helpers.Session;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -63,9 +68,11 @@ public class ListCartView {
   private TableView<ProductsCartDTO> productsTable;
 
   @FXML
+  private Label totalCartValue;
+
+  @FXML
   void initialize() {
     UUID personID = UUID.fromString(Session.getCPF());
-    System.out.println(personID);
     ListCartDTO listCartDTO = new ListCartDTO(personID);
     Response<?> response = ListPersonCartFactory.make().handle(listCartDTO);
 
@@ -86,9 +93,10 @@ public class ListCartView {
         String cinemaHall = movieSession.getCinemaHall().getName();
         double price = ticket.getPrice();
 
-        TicketsCartDTO item = new TicketsCartDTO(ticket.getID(), movie, cinemaHall, price, startDate, personID);
+        TicketsCartDTO ticketCartItem = new TicketsCartDTO(ticketCart.getID(), movie, cinemaHall, price, startDate,
+            personID);
 
-        ticketItems.add(item);
+        ticketItems.add(ticketCartItem);
       }
       ticketsTable.setItems(ticketItems);
 
@@ -98,11 +106,13 @@ public class ListCartView {
         String name = product.getName();
         double price = product.getPrice();
 
-        ProductsCartDTO item = new ProductsCartDTO(product.getID(), name, price, personID);
+        ProductsCartDTO item = new ProductsCartDTO(productCart.getID(), name, price, personID);
 
         productsItems.add(item);
       }
       productsTable.setItems(productsItems);
+
+      calculateTotalCartValue();
     }
 
     movie.setCellValueFactory(new PropertyValueFactory<TicketsCartDTO, String>("movie"));
@@ -128,28 +138,29 @@ public class ListCartView {
     productsAction.setCellFactory(column -> new ButtonTableCell<>("Remover", this::removeProduct));
   }
 
-  private void removeTicket(TicketsCartDTO ticket) {
-    showConfirmationDialog(ticket);
+  private void removeTicket(TicketsCartDTO ticketCart) {
+    showConfirmationDialog(ticketCart);
   }
 
-  private void removeProduct(ProductsCartDTO product) {
-    showConfirmationDialog(product);
+  private void removeProduct(ProductsCartDTO productCart) {
+    showConfirmationDialog(productCart);
   }
 
-  private void showConfirmationDialog(ProductsCartDTO product) {
+  private void showConfirmationDialog(ProductsCartDTO productCart) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
     alert.setTitle("Confirmação de Exclusão");
-    alert.setHeaderText("Deseja realmente excluir o produto" + product.getName() + "?");
+    alert.setHeaderText("Deseja realmente excluir o produto" + productCart.getName() + "?");
 
     alert.showAndWait().ifPresent(response -> {
       if (response == ButtonType.OK) {
-        RemoveProductFromCartDTO removeProductFromCartDTO = new RemoveProductFromCartDTO(product.getID());
+        RemoveProductFromCartDTO removeProductFromCartDTO = new RemoveProductFromCartDTO(productCart.getID());
         Response<?> responseRemove = RemoveProductFromCartFactory.make().handle(removeProductFromCartDTO);
 
         if (responseRemove.getStatusCode() == 204) {
           new AlertSuccess("Produto deletado com sucesso!");
-          productsTable.getItems().remove(product);
+          productsTable.getItems().remove(productCart);
+          calculateTotalCartValue();
         } else {
           new AlertError(responseRemove.getData().toString());
         }
@@ -165,13 +176,14 @@ public class ListCartView {
 
     alert.showAndWait().ifPresent(response -> {
       if (response == ButtonType.OK) {
-        RemoveTicketFromCartDTO removeTicketFromCartDTO = new RemoveTicketFromCartDTO(ticket.getID());
+        RemoveTicketCartFromCartDTO removeTicketFromCartDTO = new RemoveTicketCartFromCartDTO(ticket.getID());
 
         Response<?> responseRemove = RemoveTicketFromCartFactory.make().handle(removeTicketFromCartDTO);
 
         if (responseRemove.getStatusCode() == 204) {
           new AlertSuccess("Ticket deletado com sucesso!");
           ticketsTable.getItems().remove(ticket);
+          calculateTotalCartValue();
         } else {
           new AlertError(responseRemove.getData().toString());
         }
@@ -179,4 +191,37 @@ public class ListCartView {
     });
   }
 
+  private void calculateTotalCartValue() {
+    double total = 0;
+
+    for (TicketsCartDTO ticket : ticketsTable.getItems()) {
+      total += ticket.getPrice();
+    }
+
+    for (ProductsCartDTO productCart : productsTable.getItems()) {
+      total += productCart.getPrice();
+    }
+
+    totalCartValue.setText("R$" + total);
+  }
+
+  @FXML
+  void saleCheckOut(ActionEvent event) {
+    List<ProductsCartDTO> productsCart = productsTable.getItems();
+    List<TicketsCartDTO> ticketsCart = ticketsTable.getItems();
+
+    UUID personID = UUID.fromString(Session.getCPF());
+
+    CompleteSaleDTO completeSaleDTO = new CompleteSaleDTO(productsCart, ticketsCart, personID);
+
+    Response<?> response = CompleteSaleFactory.make().handle(completeSaleDTO);
+
+    if (response.getStatusCode() == 204) {
+      new AlertSuccess("Venda realizada com sucesso!");
+
+    } else {
+      new AlertError(response.getData().toString());
+
+    }
+  }
 }

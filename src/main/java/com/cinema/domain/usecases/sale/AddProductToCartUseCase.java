@@ -14,7 +14,7 @@ import com.cinema.domain.entities.sale.Cart;
 import com.cinema.domain.entities.sale.ProductCart;
 import com.cinema.domain.entities.users.Person;
 import com.cinema.domain.errors.products.ProductNotFoundError;
-import com.cinema.domain.errors.sale.AllProductsoldError;
+import com.cinema.domain.errors.sale.AllProductsSoldError;
 
 public class AddProductToCartUseCase {
   IFindProductByIDRepository findProductByIdRepository;
@@ -39,7 +39,7 @@ public class AddProductToCartUseCase {
     this.findInventoryByproductIDRepository = findInventoryByproductIDRepository;
   }
 
-  public void execute(UUID productID, UUID personID) throws ProductNotFoundError, AllProductsoldError {
+  public void execute(UUID productID, UUID personID) throws ProductNotFoundError, AllProductsSoldError {
     Product product = this.findProductByIdRepository.findById(productID);
 
     if (product == null) {
@@ -62,7 +62,7 @@ public class AddProductToCartUseCase {
     boolean isProductAdded = cart.addProduct(productCart, inventory.getQuantity());
 
     if (!isProductAdded) {
-      throw new AllProductsoldError();
+      throw new AllProductsSoldError();
     }
 
     this.updateCartRepository.updateCart(cart);

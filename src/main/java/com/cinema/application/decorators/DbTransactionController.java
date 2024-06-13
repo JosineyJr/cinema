@@ -8,7 +8,8 @@ import com.cinema.application.helpers.Response;
 import com.cinema.application.validation.IValidator;
 
 /**
- * A decorator class that adds database transaction functionality to a controller.
+ * A decorator class that adds database transaction functionality to a
+ * controller.
  *
  * @param <T> the type of object handled by the controller
  */
@@ -17,9 +18,10 @@ public class DbTransactionController<T> extends Controller<T> {
   private DbTransaction dbTransaction;
 
   /**
-   * Constructs a new DbTransactionController with the specified decoratee and database transaction.
+   * Constructs a new DbTransactionController with the specified decoratee and
+   * database transaction.
    *
-   * @param decoratee the controller to decorate
+   * @param decoratee     the controller to decorate
    * @param dbTransaction the database transaction to use
    */
   public DbTransactionController(Controller<T> decoratee, DbTransaction dbTransaction) {
@@ -28,18 +30,20 @@ public class DbTransactionController<T> extends Controller<T> {
   }
 
   /**
-   * Performs the operation on the object, handling it with the decoratee controller within a database transaction.
+   * Performs the operation on the object, handling it with the decoratee
+   * controller within a database transaction.
    *
    * @param object the object to perform the operation on
    * @return the response from the decoratee controller
-   * @throws Exception if an error occurs during the operation or transaction handling
+   * @throws Exception if an error occurs during the operation or transaction
+   *                   handling
    */
   @Override
   public Response<?> perform(T object) {
     this.dbTransaction.openTransaction();
 
     try {
-      Response<?> response = this.decoratee.handle(object);
+      Response<?> response = this.decoratee.perform(object);
 
       this.dbTransaction.commit();
 

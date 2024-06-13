@@ -5,6 +5,7 @@ import com.cinema.domain.contracts.repositories.products.IDeleteInventoryReposit
 import com.cinema.domain.contracts.repositories.products.IFindInventoryByIdRepository;
 import com.cinema.domain.contracts.repositories.products.IFindInventoryByProductIDRepository;
 import com.cinema.domain.contracts.repositories.products.IListInventoryRepository;
+import com.cinema.domain.contracts.repositories.products.IRemoveProductItemFromInventory;
 import com.cinema.domain.contracts.repositories.products.IUpdateInventoryRepository;
 import com.cinema.domain.entities.products.Inventory;
 import com.cinema.infra.db.postgres.entities.products.PgInventory;
@@ -21,7 +22,7 @@ public class PgInventoryRepository
     IListInventoryRepository,
     IDeleteInventoryRepository,
     IFindInventoryByIdRepository,
-    IUpdateInventoryRepository, IFindInventoryByProductIDRepository {
+    IUpdateInventoryRepository, IFindInventoryByProductIDRepository, IRemoveProductItemFromInventory {
 
   public void create(Inventory inventory) {
     PgInventory pgInventory = ConvertEntities.pgConvertInventory(inventory);
@@ -67,5 +68,17 @@ public class PgInventoryRepository
 
     return ConvertEntities.convertInventory(inventory);
 
+  }
+
+  @Override
+  public void removeProductItemFromInventory(UUID productID, int quantity) {
+    PgInventory inventory = this.session
+        .createQuery("FROM inventory WHERE product.id = :productID", PgInventory.class)
+        .setParameter("productID", productID)
+        .getSingleResult();
+
+    inventory.setQuantity(inventory.getQuantity() - quantity);
+
+    this.session.persist(inventory);
   }
 }

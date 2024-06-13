@@ -13,8 +13,6 @@ import com.cinema.infra.db.postgres.repositores.PgRepository;
 public class PgCartRepository extends PgRepository
     implements IFindCartByPersonIDRepository, ICreateCartRepository, IUpdateCartRepository {
 
-  ConvertEntities convertEntities;
-
   @Override
   public void updateCart(Cart cart) {
     PgCart pgCart = ConvertEntities.pgConvertCart(cart);

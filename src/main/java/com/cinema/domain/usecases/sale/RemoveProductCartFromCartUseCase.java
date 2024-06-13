@@ -4,13 +4,13 @@ import java.util.UUID;
 
 import com.cinema.domain.contracts.repositories.products.IDeleteProductRepository;
 import com.cinema.domain.contracts.repositories.sale.IFindProductCartByIDRepository;
-import com.cinema.domain.errors.sale.ProductNotFoundError;
+import com.cinema.domain.errors.sale.ProductCartNotFoundError;
 
-public class RemoveProductFromCartUseCase {
+public class RemoveProductCartFromCartUseCase {
   private IFindProductCartByIDRepository findProductByIDRepository;
   private IDeleteProductRepository deleteProductRepository;
 
-  public RemoveProductFromCartUseCase(
+  public RemoveProductCartFromCartUseCase(
       IFindProductCartByIDRepository findProductByIDRepository,
       IDeleteProductRepository deleteProductRepository) {
     this.findProductByIDRepository = findProductByIDRepository;
@@ -21,11 +21,12 @@ public class RemoveProductFromCartUseCase {
    * Executes the use case to remove a product from the cart.
    *
    * @param ID the ID of the product to be removed
-   * @throws ProductNotFoundError if the product with the given ID is not found
+   * @throws ProductCartNotFoundError if the product with the given ID is not
+   *                                  found
    */
-  public void execute(UUID ID) throws ProductNotFoundError {
+  public void execute(UUID ID) throws ProductCartNotFoundError {
     if (this.findProductByIDRepository.findProductByID(ID) == null) {
-      throw new ProductNotFoundError();
+      throw new ProductCartNotFoundError();
     }
 
     this.deleteProductRepository.deleteProduct(ID);
