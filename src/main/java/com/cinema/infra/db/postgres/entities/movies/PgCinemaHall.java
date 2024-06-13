@@ -16,7 +16,7 @@ public class PgCinemaHall {
   @Column(nullable = false)
   private int capacity;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String name;
 
   public PgCinemaHall() {

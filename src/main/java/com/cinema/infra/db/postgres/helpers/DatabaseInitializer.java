@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.cinema.infra.db.postgres.entities.movies.PgCinemaHall;
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
 import com.cinema.infra.db.postgres.entities.movies.PgMovie;
 import com.cinema.infra.db.postgres.entities.users.PgAdmin;
@@ -105,6 +106,36 @@ public class DatabaseInitializer {
     session.createNativeQuery(
         "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('7018100a-dac9-4984-843f-f76cbc38f6c8', 'George Lucas', 120, 16, 'WAGRRRRWWGAHHHHWWWRRGGAWWWWWWRR', 'Star Wars: The Empire Strikes Back', 'f6290685-0972-4cb9-8ccc-3542f288483d') ON CONFLICT (title) DO NOTHING",
         PgMovie.class).executeUpdate();
+
+    session.getTransaction().commit();
+  }
+
+  public static void initCinemaHall(Session session) {
+    session.beginTransaction();
+
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('b7507766-d1c8-47cf-8870-8d73b4dcf0f6', 'Sala 1', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('76405e8b-98cf-4d7a-b654-f7bd59ce3b26', 'Sala 2', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('579cad6a-373f-468c-ba91-fb83daeb8ad7', 'Sala 3', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('4480d232-64a8-4b1b-bc0d-c0cc019d80ca', 'Sala 4', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('b99ef0c4-7cf4-4195-bd96-058413519fe0', 'Sala 5', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
 
     session.getTransaction().commit();
   }
