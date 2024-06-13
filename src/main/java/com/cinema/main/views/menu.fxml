@@ -79,11 +79,15 @@
             <MenuItem mnemonicParsing="false" onAction="#listSalesCounter" text="Listar balcoes" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Usuarios">
+        <Menu mnemonicParsing="false" text="Funcionários">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#registerEmployee"
               text="Cadastrar funcionario" />
-            <MenuItem mnemonicParsing="false" onAction="#listUsers" text="Listar usuarios" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Clientes">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#listClients" text="Listar clientes" />
           </items>
         </Menu>
       </items>

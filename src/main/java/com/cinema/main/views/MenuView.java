@@ -233,9 +233,9 @@ public class MenuView {
    * @throws Exception If an error occurs while changing the scene.
    */
   @FXML
-  void listUsers(ActionEvent event) throws Exception {
+  void listClients(ActionEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
-    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/listUsers.fxml");
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/listClients.fxml");
   }
 
   /**

@@ -42,7 +42,7 @@ public class CreateEmployeeView {
     Response<?> response = CreateEmployeeFactory.make().handle(createEmployeeDTO);
 
     if (response.getStatusCode() == 200 || response.getStatusCode() == 204) {
-      new AlertSuccess("Cliente criado com sucesso!");
+      new AlertSuccess("Funcionário criado com sucesso!");
 
       Stage primaryStage = StageManager.getPrimaryStage();
 
