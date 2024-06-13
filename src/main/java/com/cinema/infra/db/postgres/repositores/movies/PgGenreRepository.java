@@ -8,6 +8,7 @@ import com.cinema.domain.contracts.repositories.movies.IDeleteGenreRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindGenreByIDRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindGenreByNameRepository;
 import com.cinema.domain.contracts.repositories.movies.IListGenresRepository;
+import com.cinema.domain.contracts.repositories.movies.IUpdateGenreRepository;
 import com.cinema.domain.entities.movies.Genre;
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
@@ -25,7 +26,7 @@ public class PgGenreRepository
     IFindGenreByNameRepository,
     IFindGenreByIDRepository,
     IListGenresRepository,
-    IDeleteGenreRepository {
+    IDeleteGenreRepository, IUpdateGenreRepository {
 
   /**
    * Finds a genre by its name.
@@ -99,5 +100,18 @@ public class PgGenreRepository
     PgGenre pgGenre = this.session.get(PgGenre.class, ID);
 
     this.session.remove(pgGenre);
+  }
+
+  /**
+   * Updates the genre with the provided information.
+   *
+   * @param genre The genre object containing the updated information.
+   */
+  public void updateGenre(Genre genre) {
+    PgGenre pgGenre = this.session.get(PgGenre.class, genre.getID());
+
+    pgGenre.setName(genre.getName());
+
+    this.session.persist(pgGenre);
   }
 }
