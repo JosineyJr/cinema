@@ -6,33 +6,30 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="com.cinema.main.views.MenuView">
+<MenuBar prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.MenuView">
   <menus>
-    <Menu mnemonicParsing="false" text="Filmes">
+    <Menu fx:id="movies" mnemonicParsing="false" text="Filmes">
       <items>
-        <MenuItem mnemonicParsing="false" onAction="#listAvailableSessions"
-          text="Visualizar sessoes disponiveis" />
+        <MenuItem mnemonicParsing="false" onAction="#listAvailableSessions" text="Visualizar sessoes disponiveis" />
       </items>
     </Menu>
-    <Menu mnemonicParsing="false" text="Produtos">
+    <Menu fx:id="products" mnemonicParsing="false" text="Produtos">
       <items>
-        <MenuItem mnemonicParsing="false" onAction="#listProductsToSale"
-          text="Visualizar produtos disponiveis" />
+        <MenuItem mnemonicParsing="false" onAction="#listProductsToSale" text="Visualizar produtos disponiveis" />
       </items>
     </Menu>
-    <Menu mnemonicParsing="false" text="Carrinho">
+    <Menu fx:id="cart" mnemonicParsing="false" text="Carrinho">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#listCart" text="Visualizar carrinho" />
       </items>
     </Menu>
-    <Menu mnemonicParsing="false" text="Perfil">
+    <Menu fx:id="profile" mnemonicParsing="false" text="Perfil">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#showProfile" text="Visualizar perfil" />
         <!-- <MenuItem mnemonicParsing="false" onAction="#logout" text="Sair" /> -->
       </items>
     </Menu>
-    <Menu mnemonicParsing="false" text="Gerenciamento">
+    <Menu fx:id="management" mnemonicParsing="false" text="Gerenciamento">
       <items>
         <Menu mnemonicParsing="false" text="Genero dos filmes">
           <items>
@@ -48,16 +45,13 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Salas de cinema">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#registerCinemaHall"
-              text="Cadastrar sala de cinema" />
-            <MenuItem mnemonicParsing="false" onAction="#listCinemaHalls"
-              text="Listar salas de cinema" />
+            <MenuItem mnemonicParsing="false" onAction="#registerCinemaHall" text="Cadastrar sala de cinema" />
+            <MenuItem mnemonicParsing="false" onAction="#listCinemaHalls" text="Listar salas de cinema" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Sessoes">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#registerMovieSession"
-              text="Cadastrar sessao" />
+            <MenuItem mnemonicParsing="false" onAction="#registerMovieSession" text="Cadastrar sessao" />
             <MenuItem mnemonicParsing="false" onAction="#listMovieSession" text="Listar sessoes" />
           </items>
         </Menu>
@@ -67,24 +61,21 @@
             <MenuItem mnemonicParsing="false" onAction="#listProducts" text="Listar produtos" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Venda">
+        <Menu fx:id="sales" mnemonicParsing="false" text="Venda">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#listSales" text="Listar vendas" />
+            <MenuItem fx:id="listSaleItem" mnemonicParsing="false" onAction="#listSales" text="Listar vendas" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Balcao">
+        <Menu fx:id="balcony" mnemonicParsing="false" text="Balcao">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#registerSalesCounter"
-              text="Cadastrar balcao" />
+            <MenuItem mnemonicParsing="false" onAction="#registerSalesCounter" text="Cadastrar balcao" />
             <MenuItem mnemonicParsing="false" onAction="#listSalesCounter" text="Listar balcoes" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Funcionários">
+        <Menu fx:id="employees" mnemonicParsing="false" text="Funcionários">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#registerEmployee"
-              text="Cadastrar funcionario" />
-            <MenuItem mnemonicParsing="false" onAction="#listEmployees"
-              text="Listar funcionários" />
+            <MenuItem mnemonicParsing="false" onAction="#registerEmployee" text="Cadastrar funcionario" />
+            <MenuItem mnemonicParsing="false" onAction="#listEmployees" text="Listar funcionários" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Clientes">

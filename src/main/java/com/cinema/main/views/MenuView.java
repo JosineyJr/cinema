@@ -1,9 +1,11 @@
 package com.cinema.main.views;
 
 import com.cinema.main.views.helpers.ChangeWindow;
+import com.cinema.main.views.helpers.Session;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 import javafx.stage.Stage;
 
 /**
@@ -13,6 +15,52 @@ import javafx.stage.Stage;
  * options.
  */
 public class MenuView {
+  @FXML
+  private Menu movies;
+
+  @FXML
+  private Menu products;
+
+  @FXML
+  private Menu cart;
+
+  @FXML
+  private Menu profile;
+
+  @FXML
+  private Menu management;
+
+  @FXML
+  private Menu sales;
+
+  @FXML
+  private Menu balcony;
+
+  @FXML
+  private Menu employees;
+
+  /**
+   * Initializes the MenuView.
+   * This method is automatically called by JavaFX after the FXML file has been
+   * loaded.
+   * It prints the role of the current session to the console.
+   */
+  @FXML
+  public void initialize() {
+    switch (Session.getRole()) {
+      case "employee":
+        sales.setVisible(false);
+        balcony.setVisible(false);
+        employees.setVisible(false);
+        
+        break;
+      case "client":
+        management.setVisible(false);
+        break;
+      default:
+        break;
+    }
+  }
 
   /**
    * Handles the action when the user selects the "List Genres" option from the
@@ -284,7 +332,8 @@ public class MenuView {
    * Handles the event when the register client button is clicked.
    * This method changes the scene to the create client view.
    *
-   * @param event The action event triggered by clicking the register client button.
+   * @param event The action event triggered by clicking the register client
+   *              button.
    * @throws Exception If an error occurs while changing the scene.
    */
   @FXML
@@ -295,7 +344,8 @@ public class MenuView {
 
   /**
    * Event handler for the "listEmployees" button.
-   * This method is called when the button is clicked and it opens a new window to display a list of employees.
+   * This method is called when the button is clicked and it opens a new window to
+   * display a list of employees.
    *
    * @param event The event triggered by clicking the button.
    * @throws Exception If an error occurs while changing the scene.
