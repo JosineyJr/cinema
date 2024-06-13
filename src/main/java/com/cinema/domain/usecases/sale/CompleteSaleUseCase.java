@@ -13,6 +13,7 @@ import com.cinema.domain.contracts.repositories.sale.ICreateSaleRepository;
 import com.cinema.domain.contracts.repositories.sale.ICreateTicketSaleRepository;
 import com.cinema.domain.contracts.repositories.sale.IFindProductCartByIDRepository;
 import com.cinema.domain.contracts.repositories.sale.IFindProductsSaleByProductID;
+import com.cinema.domain.contracts.repositories.sale.IFindSalesCounterByIDRepository;
 import com.cinema.domain.contracts.repositories.sale.IFindTicketCartByIDRepository;
 import com.cinema.domain.contracts.repositories.sale.IFindTicketsSaleByMovieSessionID;
 import com.cinema.domain.contracts.repositories.sale.IUpdateSaleRepository;
@@ -21,6 +22,7 @@ import com.cinema.domain.entities.products.Inventory;
 import com.cinema.domain.entities.sale.ProductCart;
 import com.cinema.domain.entities.sale.ProductSale;
 import com.cinema.domain.entities.sale.Sale;
+import com.cinema.domain.entities.sale.SalesCounter;
 import com.cinema.domain.entities.sale.TicketCart;
 import com.cinema.domain.entities.sale.TicketSale;
 import com.cinema.domain.entities.users.Person;
@@ -28,6 +30,7 @@ import com.cinema.domain.errors.sale.AllProductsSoldError;
 import com.cinema.domain.errors.sale.AllTicketsSoldError;
 import com.cinema.domain.errors.sale.MovieSessionAlreadyShown;
 import com.cinema.domain.errors.sale.ProductCartNotFoundError;
+import com.cinema.domain.errors.sale.SalesCounterNotFoundError;
 import com.cinema.domain.errors.sale.TicketCartNotFoundError;
 import com.cinema.domain.errors.users.PersonNotFoundError;
 import com.cinema.domain.helpers.TimeIsAfter;
@@ -45,6 +48,7 @@ public class CompleteSaleUseCase {
   ICreateTicketSaleRepository createTicketSaleRepository;
   ICreateProductSaleRepository createProductSaleRepository;
   ICleanCartByPersonIDRepository cleanCartByPersonIDRepository;
+  IFindSalesCounterByIDRepository findSalesCounterByIDRepository;
 
   public CompleteSaleUseCase(IFindTicketCartByIDRepository findTicketCartByIDRepository,
       IFindProductCartByIDRepository findProductCartByIDRepository, IFindPersonByIDRepository findPersonByIDRepository,
@@ -54,7 +58,8 @@ public class CompleteSaleUseCase {
       IFindProductsSaleByProductID findProductsSaleByProductID,
       IRemoveProductItemFromInventory removeProductItemFromInventory,
       ICreateTicketSaleRepository createTicketSaleRepository, ICreateProductSaleRepository createProductSaleRepository,
-      ICleanCartByPersonIDRepository cleanCartByPersonIDRepository) {
+      ICleanCartByPersonIDRepository cleanCartByPersonIDRepository,
+      IFindSalesCounterByIDRepository findSalesCounterByIDRepository) {
     this.findTicketCartByIDRepository = findTicketCartByIDRepository;
     this.findProductCartByIDRepository = findProductCartByIDRepository;
     this.findPersonByIDRepository = findPersonByIDRepository;
@@ -67,11 +72,12 @@ public class CompleteSaleUseCase {
     this.createTicketSaleRepository = createTicketSaleRepository;
     this.createProductSaleRepository = createProductSaleRepository;
     this.cleanCartByPersonIDRepository = cleanCartByPersonIDRepository;
+    this.findSalesCounterByIDRepository = findSalesCounterByIDRepository;
   }
 
-  public void execute(List<UUID> productsCartIDs, List<UUID> ticketsCartIDs, UUID personID)
+  public void execute(List<UUID> productsCartIDs, List<UUID> ticketsCartIDs, UUID personID, UUID salesCounterID)
       throws PersonNotFoundError, TicketCartNotFoundError, ProductCartNotFoundError, AllTicketsSoldError,
-      AllProductsSoldError, MovieSessionAlreadyShown {
+      AllProductsSoldError, MovieSessionAlreadyShown, SalesCounterNotFoundError {
 
     Person person = this.findPersonByIDRepository.findPersonByID(personID);
 
@@ -79,7 +85,13 @@ public class CompleteSaleUseCase {
       throw new PersonNotFoundError();
     }
 
-    Sale sale = new Sale(person);
+    SalesCounter salesCounter = this.findSalesCounterByIDRepository.findByID(salesCounterID);
+
+    if (salesCounter == null) {
+      throw new SalesCounterNotFoundError();
+    }
+
+    Sale sale = new Sale(person, salesCounter);
 
     UUID saleID = this.createSaleRepository.createSale(sale);
 

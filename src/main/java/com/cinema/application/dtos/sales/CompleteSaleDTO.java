@@ -10,11 +10,14 @@ public class CompleteSaleDTO {
 
   private UUID personID;
 
+  private UUID salesCounterID;
+
   public CompleteSaleDTO(List<ProductsCartDTO> productsCart, List<TicketsCartDTO> ticketsCart,
-      UUID personID) {
+      UUID personID, UUID salesCounterID) {
     this.productsCart = productsCart;
     this.ticketsCart = ticketsCart;
     this.personID = personID;
+    this.salesCounterID = salesCounterID;
   }
 
   public List<ProductsCartDTO> getProductsCart() {
@@ -39,6 +42,14 @@ public class CompleteSaleDTO {
 
   public void setPersonID(UUID personID) {
     this.personID = personID;
+  }
+
+  public UUID getSalesCounterID() {
+    return this.salesCounterID;
+  }
+
+  public void setSalesCounterID(UUID salesCounterID) {
+    this.salesCounterID = salesCounterID;
   }
 
 }

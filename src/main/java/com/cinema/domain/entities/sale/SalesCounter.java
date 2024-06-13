@@ -39,6 +39,10 @@ public class SalesCounter {
     this.isAvailable = isAvailable;
   }
 
+  public SalesCounter(UUID ID) {
+    this.ID = ID;
+  }
+
   public UUID getID() {
     return this.ID;
   }

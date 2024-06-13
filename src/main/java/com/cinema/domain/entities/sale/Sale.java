@@ -46,8 +46,9 @@ public class Sale {
     this.ID = ID;
   }
 
-  public Sale(Person person) {
+  public Sale(Person person, SalesCounter salesCounter) {
     this.person = person;
+    this.salesCounter = salesCounter;
   }
 
   public UUID getID() {

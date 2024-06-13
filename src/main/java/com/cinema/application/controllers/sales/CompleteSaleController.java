@@ -17,6 +17,7 @@ import com.cinema.domain.errors.sale.AllProductsSoldError;
 import com.cinema.domain.errors.sale.AllTicketsSoldError;
 import com.cinema.domain.errors.sale.MovieSessionAlreadyShown;
 import com.cinema.domain.errors.sale.ProductCartNotFoundError;
+import com.cinema.domain.errors.sale.SalesCounterNotFoundError;
 import com.cinema.domain.errors.sale.TicketCartNotFoundError;
 import com.cinema.domain.errors.users.PersonNotFoundError;
 import com.cinema.domain.usecases.sale.CompleteSaleUseCase;
@@ -43,11 +44,12 @@ public class CompleteSaleController extends Controller<CompleteSaleDTO> {
         productsCartIDs.add(productCartID.getID());
       }
 
-      this.completeSaleUseCase.execute(productsCartIDs, ticketsCartIDs, object.getPersonID());
+      this.completeSaleUseCase.execute(productsCartIDs, ticketsCartIDs, object.getPersonID(),
+          object.getSalesCounterID());
 
       return ResponseFactory.noContent();
     } catch (PersonNotFoundError | TicketCartNotFoundError | AllTicketsSoldError | ProductCartNotFoundError
-        | AllProductsSoldError | MovieSessionAlreadyShown e) {
+        | AllProductsSoldError | MovieSessionAlreadyShown | SalesCounterNotFoundError e) {
       return ResponseFactory.badRequest(e);
     }
   }
@@ -55,6 +57,7 @@ public class CompleteSaleController extends Controller<CompleteSaleDTO> {
   @Override
   public ArrayList<IValidator> buildValidators(CompleteSaleDTO object) {
     Field personID = new Field(object.getPersonID().toString(), "ID da pessoa");
+    Field salesCounterID = new Field(object.getSalesCounterID().toString(), "ID do balcão de vendas");
 
     String itens = String.valueOf(object.getTicketsCart().size() + object.getProductsCart().size());
 
@@ -62,7 +65,8 @@ public class CompleteSaleController extends Controller<CompleteSaleDTO> {
 
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
 
-    validators.addAll(ValidationBuilder.of().validateUUID(personID).minValue(totalItens, 1).build());
+    validators.addAll(
+        ValidationBuilder.of().validateUUID(personID).validateUUID(salesCounterID).minValue(totalItens, 1).build());
 
     return validators;
   }

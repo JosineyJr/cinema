@@ -11,6 +11,7 @@ import com.cinema.infra.db.postgres.repositores.sale.PgCartRepository;
 import com.cinema.infra.db.postgres.repositores.sale.PgProductCartRepository;
 import com.cinema.infra.db.postgres.repositores.sale.PgProductSaleRepository;
 import com.cinema.infra.db.postgres.repositores.sale.PgSaleRepository;
+import com.cinema.infra.db.postgres.repositores.sale.PgSalesCounterRepository;
 import com.cinema.infra.db.postgres.repositores.sale.PgTicketCartRepository;
 import com.cinema.infra.db.postgres.repositores.sale.PgTicketSaleRepository;
 import com.cinema.infra.db.postgres.repositores.users.PgPersonRepository;
@@ -25,11 +26,12 @@ public class CompleteSaleFactory {
     PgTicketSaleRepository ticketSaleRepository = new PgTicketSaleRepository();
     PgProductSaleRepository productSaleRepository = new PgProductSaleRepository();
     PgCartRepository cartRepository = new PgCartRepository();
+    PgSalesCounterRepository salesCounterRepository = new PgSalesCounterRepository();
 
     CompleteSaleUseCase useCase = new CompleteSaleUseCase(
         ticketCartRepository, productCartRepository, personRepository, saleRepository,
         saleRepository, inventoryRepository, ticketSaleRepository, productSaleRepository, inventoryRepository,
-        ticketSaleRepository, productSaleRepository, cartRepository);
+        ticketSaleRepository, productSaleRepository, cartRepository, salesCounterRepository);
 
     CompleteSaleController controller = new CompleteSaleController(useCase);
 

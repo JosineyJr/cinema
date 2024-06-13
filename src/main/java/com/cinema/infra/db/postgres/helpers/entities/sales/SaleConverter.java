@@ -16,6 +16,7 @@ public class SaleConverter implements IEntityConverter<PgSale, Sale> {
     private TicketSaleConverter ticketSaleConverter = new TicketSaleConverter();
     private ProductSaleConverter productSaleConverter = new ProductSaleConverter();
     private PersonConverter personConverter = new PersonConverter();
+    private SalesCounterConverter salesCounterConverter = new SalesCounterConverter();
 
     @Override
     public Sale convert(PgSale source) {
@@ -44,7 +45,7 @@ public class SaleConverter implements IEntityConverter<PgSale, Sale> {
         });
 
         return new Sale(source.getID(), ticketsSale, productsSale, source.getTotalPrice(), source.getSaleDate(),
-                personConverter.convert(source.getPerson()), null);
+                personConverter.convert(source.getPerson()), salesCounterConverter.convert(source.getSalesCounter()));
     }
 
     @Override
@@ -70,7 +71,7 @@ public class SaleConverter implements IEntityConverter<PgSale, Sale> {
         });
 
         return new PgSale(target.getID(), pgProductsSale, pgTicketsSale, target.getTotalPrice(), target.getSaleDate(),
-                null, personConverter.pgConverter(target.getPerson()));
+                salesCounterConverter.pgConverter(target.getSalesCounter()),
+                personConverter.pgConverter(target.getPerson()));
     }
-
 }

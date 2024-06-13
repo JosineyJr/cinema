@@ -224,7 +224,8 @@ public class ListCartView {
 
     UUID personID = Session.getPersonId();
 
-    CompleteSaleDTO completeSaleDTO = new CompleteSaleDTO(productsCart, ticketsCart, personID);
+    CompleteSaleDTO completeSaleDTO = new CompleteSaleDTO(productsCart, ticketsCart, personID,
+        Session.getSalesCounterId());
 
     Response<?> response = CompleteSaleFactory.make().handle(completeSaleDTO);
 
@@ -237,7 +238,6 @@ public class ListCartView {
 
     } else {
       new AlertError(response.getData().toString());
-
     }
   }
 }
