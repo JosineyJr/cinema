@@ -38,7 +38,13 @@ public class LoginView {
   private Button loginButton;
 
   @FXML
-  private PasswordField password;
+  private PasswordField passwordField;
+
+  @FXML
+  private CheckBox showPassword;
+
+  @FXML
+  private TextField passwordTextField;
 
   /**
    * Handles the event when the user clicks on the "Create Client" button.
@@ -71,7 +77,7 @@ public class LoginView {
    */
   @FXML
   void login(ActionEvent event) throws Exception {
-    LoginDTO loginDTO = new LoginDTO(CPF.getText(), password.getText(), isEmployee.isSelected());
+    LoginDTO loginDTO = new LoginDTO(CPF.getText(), passwordField.getText(), isEmployee.isSelected());
 
     Response<?> response = LoginFactory.make().handle(loginDTO);
 
@@ -85,5 +91,27 @@ public class LoginView {
     } else {
       new AlertError(response.getData().toString());
     }
+  }
+
+  /**
+   * Toggles the visibility of the password field.
+   * If the showPassword checkbox is selected, the password field is replaced with
+   * a visible text field.
+   * If the showPassword checkbox is not selected, the visible text field is
+   * replaced with a password field.
+   */
+  @FXML
+  private void togglePasswordVisibility() {
+    if (showPassword.isSelected()) {
+      String pwd = passwordField.getText();
+      passwordTextField.setText(pwd != null ? pwd : "");
+      passwordTextField.setVisible(true);
+      passwordField.setVisible(false);
+  } else {
+      String pwd = passwordTextField.getText();
+      passwordField.setText(pwd != null ? pwd : "");
+      passwordField.setVisible(true);
+      passwordTextField.setVisible(false);
+  }
   }
 }
