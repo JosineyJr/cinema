@@ -4,6 +4,7 @@ import org.hibernate.Session;
 
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
 import com.cinema.infra.db.postgres.entities.users.PgAdmin;
+import com.cinema.infra.db.postgres.entities.users.PgClient;
 import com.cinema.infra.db.postgres.entities.users.PgEmployee;
 
 public class DatabaseInitializer {
@@ -57,11 +58,16 @@ public class DatabaseInitializer {
         PgAdmin.class).executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO employee (id, cpf, first_name, last_name, password) VALUES ('8d83c944-1341-4eb8-8fa0-3e4c7df05a09', '91694536084', 'User', '01', '$2a$12$DVUzorhTAmHiclBWhx708e.zYQSGvDwYmz7sORpaOSGIgQMFi8EkK') ON CONFLICT (cpf) DO NOTHING",
+        "INSERT INTO employee (id, cpf, first_name, last_name, password) VALUES ('8d83c944-1341-4eb8-8fa0-3e4c7df05a09', '91694536084', 'Func', '1', '$2a$12$BfAuYBB8nmjjLAGxzpyrKOo2NL65O5ngEDt3yYne3AABXNSw5Vedm') ON CONFLICT (cpf) DO NOTHING",
         PgEmployee.class).executeUpdate();
     session.createNativeQuery(
-        "INSERT INTO employee (id, cpf, first_name, last_name, password) VALUES ('848d720d-cf11-4ca9-967f-4adf06be5510', '29838176010', 'User', '02', '$2a$12$rhF9TfbjuLNPW.RR0X2vVeSHDw8Pe7hATSNEyu/Ho8wVIP/oXiBYS') ON CONFLICT (cpf) DO NOTHING",
+        "INSERT INTO employee (id, cpf, first_name, last_name, password) VALUES ('848d720d-cf11-4ca9-967f-4adf06be5510', '29838176010', 'Func', '2', '$2a$12$0oQ7D5W1i6bVmoL4VWJmueJWVg64sNeDjiA2cg.eA.P96YoB.i57a') ON CONFLICT (cpf) DO NOTHING",
         PgEmployee.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO client (id, cpf, first_name, last_name, password) VALUES ('1f533520-06b7-4a08-ab7e-9d9adce97517', '79101926063', 'Cliente', '1', '$2a$12$CXXlqRCEZ5dar2QfgWi/qugmdu7glmVIJerxaKZLAhl5H1gRmetGi') ON CONFLICT (cpf) DO NOTHING",
+        PgClient.class)
+        .executeUpdate();
 
     session.getTransaction().commit();
   }
