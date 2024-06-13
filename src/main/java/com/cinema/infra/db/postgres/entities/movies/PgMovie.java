@@ -15,7 +15,7 @@ public class PgMovie {
   @GeneratedValue
   private UUID ID;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String title;
 
   @Column(nullable = false)
