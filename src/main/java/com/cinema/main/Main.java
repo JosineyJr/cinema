@@ -58,11 +58,12 @@ public class Main extends Application {
 
     @Override
     public void stop() throws PgConnectionNotFoundError {
+        if (Session.getSalesCounterId() != null) {
+            ChangeAvailableSalesCounterDTO changeAvailableSalesCounterDTO = new ChangeAvailableSalesCounterDTO(
+                    Session.getSalesCounterId(), true);
 
-        ChangeAvailableSalesCounterDTO changeAvailableSalesCounterDTO = new ChangeAvailableSalesCounterDTO(
-                Session.getSalesCounterId(), true);
-
-        ChangeAvailableSalesCounterFactory.make().handle(changeAvailableSalesCounterDTO);
+            ChangeAvailableSalesCounterFactory.make().handle(changeAvailableSalesCounterDTO);
+        }
 
         PgConnection.getInstance().disconnect();
     }
