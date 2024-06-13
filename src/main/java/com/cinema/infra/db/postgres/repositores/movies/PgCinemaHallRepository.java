@@ -8,6 +8,7 @@ import com.cinema.domain.contracts.repositories.movies.IDeleteCinemaHallReposito
 import com.cinema.domain.contracts.repositories.movies.IFindCinemaHallByIDRepository;
 import com.cinema.domain.contracts.repositories.movies.IFindCinemaHallByNameRepository;
 import com.cinema.domain.contracts.repositories.movies.IListCinemaHallRepository;
+import com.cinema.domain.contracts.repositories.movies.IUpdateCinemaHallRepository;
 import com.cinema.domain.entities.movies.CinemaHall;
 import com.cinema.infra.db.postgres.entities.movies.PgCinemaHall;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
@@ -25,7 +26,8 @@ public class PgCinemaHallRepository
     IFindCinemaHallByNameRepository,
     IFindCinemaHallByIDRepository,
     IListCinemaHallRepository,
-    IDeleteCinemaHallRepository {
+    IDeleteCinemaHallRepository,
+    IUpdateCinemaHallRepository {
 
   @Override
   public void createCinemaHall(CinemaHall cinemaHall) {
@@ -74,5 +76,11 @@ public class PgCinemaHallRepository
     PgCinemaHall pgCinemaHall = this.session.get(PgCinemaHall.class, cinemaHallId);
 
     this.session.remove(pgCinemaHall);
+  }
+
+  public void updateCinemaHall(CinemaHall cinemaHall) {
+    PgCinemaHall pgCinemaHall = ConvertEntities.pgConvertCinemaHall(cinemaHall);
+
+    this.session.merge(pgCinemaHall);
   }
 }
