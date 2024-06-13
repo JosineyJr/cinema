@@ -34,6 +34,8 @@
 
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
@@ -49,6 +51,14 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
+        <ImageView layoutX="300.0" layoutY="50.0" fitWidth="200.0" fitHeight="100.0" preserveRatio="true">
+          <image>
+            <Image url="@path/to/your/image.png" />
+          </image>
+          <clip>
+            <Rectangle width="200.0" height="100.0" arcWidth="20.0" arcHeight="20.0" />
+          </clip>
+        </ImageView>
         <Label layoutX="368.0" layoutY="158.0" text="Login">
           <font>
             <Font name="Fira Code Bold" size="24.0" />
