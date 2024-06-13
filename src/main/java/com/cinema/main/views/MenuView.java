@@ -292,4 +292,17 @@ public class MenuView {
     Stage primaryStage = StageManager.getPrimaryStage();
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/createClient.fxml");
   }
+
+  /**
+   * Event handler for the "listEmployees" button.
+   * This method is called when the button is clicked and it opens a new window to display a list of employees.
+   *
+   * @param event The event triggered by clicking the button.
+   * @throws Exception If an error occurs while changing the scene.
+   */
+  @FXML
+  void listEmployees(ActionEvent event) throws Exception {
+    Stage primaryStage = StageManager.getPrimaryStage();
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/listEmployees.fxml");
+  }
 }

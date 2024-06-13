@@ -83,12 +83,14 @@
           <items>
             <MenuItem mnemonicParsing="false" onAction="#registerEmployee"
               text="Cadastrar funcionario" />
+            <MenuItem mnemonicParsing="false" onAction="#listEmployees"
+              text="Listar funcionários" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Clientes">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#listClients" text="Listar clientes" />
-            <MenuItem mnemonicParsing="false" onAction="#registerClient" text="Cadastrar cliente"/>
+            <MenuItem mnemonicParsing="false" onAction="#registerClient" text="Cadastrar cliente" />
           </items>
         </Menu>
       </items>

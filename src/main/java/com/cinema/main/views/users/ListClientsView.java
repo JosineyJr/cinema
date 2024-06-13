@@ -7,15 +7,14 @@ import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.users.ListClientsFactory;
 import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.ActionCellFactory;
+import com.cinema.main.views.helpers.CellValueFactoryUtil;
 import com.cinema.main.views.helpers.ChangeWindow;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class ListClientsView {
@@ -50,14 +49,11 @@ public class ListClientsView {
       this.clientsTableView.setItems(clients);
     }
 
-    this.name.setCellValueFactory(cellData -> {
-      ClientDTO client = cellData.getValue();
-      String fullName = client.getFirstName() + " " + client.getLastName();
-      return new SimpleStringProperty(fullName);
-    });
+    this.name.setCellValueFactory(CellValueFactoryUtil
+        .createCellValueFactory(client -> client.getFirstName() + " " + client.getLastName()));
     this.name.setStyle("-fx-alignment: CENTER;");
 
-    this.CPF.setCellValueFactory(new PropertyValueFactory<>("CPF"));
+    this.CPF.setCellValueFactory(CellValueFactoryUtil.createCellValueFactory(ClientDTO::getCPF));
     this.CPF.setStyle("-fx-alignment: CENTER;");
 
     this.action.setCellFactory(new ActionCellFactory<>(this::editClient, this::deleteClient));
