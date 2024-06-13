@@ -10,6 +10,7 @@ public class Session {
   private static String CPF;
   private static UUID PERSON_ID;
   private static String role;
+  private static String name;
 
   /**
    * Retrieves the CPF (Cadastro de Pessoa Física) of the user.
@@ -63,5 +64,23 @@ public class Session {
    */
   public static void setPersonId(UUID personId) {
     PERSON_ID = personId;
+  }
+
+  /**
+   * Retrieves the name of the user.
+   *
+   * @return The name of the user.
+   */
+  public static String getName() {
+    return name;
+  }
+
+  /**
+   * Sets the name of the user.
+   *
+   * @param name The name to set.
+   */
+  public static void setName(String name) {
+    Session.name = name;
   }
 }

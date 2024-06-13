@@ -40,8 +40,7 @@ public class LoginUseCase {
     }
 
     Session.setPersonId(person.getID());
-
-    System.out.println(Session.getPersonId());
+    Session.setName(person.getFirstName() + " " + person.getLastName());
 
     if (person instanceof Client) {
       return Role.CLIENT.toString();

@@ -25,7 +25,12 @@
           text="Visualizar carrinho" />
       </items>
     </Menu>
-    <Menu mnemonicParsing="false" text="Perfil" />
+    <Menu mnemonicParsing="false" text="Perfil"> 
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#showProfile" text="Visualizar perfil" />
+        <!-- <MenuItem mnemonicParsing="false" onAction="#logout" text="Sair" /> -->
+      </items>
+    </Menu>
     <Menu mnemonicParsing="false" text="Gerenciamento">
       <items>
         <Menu mnemonicParsing="false" text="Genero dos filmes">
