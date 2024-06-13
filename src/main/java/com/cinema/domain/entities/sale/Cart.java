@@ -3,24 +3,22 @@ package com.cinema.domain.entities.sale;
 import java.util.List;
 import java.util.UUID;
 
-import com.cinema.domain.entities.products.Ticket;
 import com.cinema.domain.entities.users.Person;
-import com.cinema.domain.entities.products.Product;
 
 public class Cart {
   private UUID ID;
-  private List<Ticket> tickets;
-  private List<Product> products;
+  private List<TicketCart> tickets;
+  private List<ProductCart> products;
   private Person person;
 
-  public Cart(UUID ID, List<Ticket> tickets, List<Product> products, Person person) {
+  public Cart(UUID ID, List<TicketCart> tickets, List<ProductCart> products, Person person) {
     this.ID = ID;
     this.tickets = tickets;
     this.products = products;
     this.person = person;
   }
 
-  public Cart(List<Ticket> tickets, List<Product> products, Person person) {
+  public Cart(List<TicketCart> tickets, List<ProductCart> products, Person person) {
     this.tickets = tickets;
     this.products = products;
     this.person = person;
@@ -42,19 +40,19 @@ public class Cart {
     this.ID = ID;
   }
 
-  public List<Ticket> getTickets() {
+  public List<TicketCart> getTickets() {
     return this.tickets;
   }
 
-  public void setTickets(List<Ticket> tickets) {
+  public void setTickets(List<TicketCart> tickets) {
     this.tickets = tickets;
   }
 
-  public List<Product> getProducts() {
+  public List<ProductCart> getProducts() {
     return this.products;
   }
 
-  public void setProducts(List<Product> products) {
+  public void setProducts(List<ProductCart> products) {
     this.products = products;
   }
 
@@ -66,15 +64,15 @@ public class Cart {
     this.person = person;
   }
 
-  public boolean addTicket(Ticket ticket) {
+  public boolean addTicket(TicketCart ticket) {
     int count = 0;
-    for (Ticket t : tickets) {
-      if (t.getTicketInfos().getMovieSession().getID().equals(ticket.getTicketInfos().getMovieSession().getID())) {
+    for (TicketCart t : tickets) {
+      if (t.getTicket().getMovieSession().getID().equals(ticket.getTicket().getMovieSession().getID())) {
         count++;
       }
     }
 
-    if (count < ticket.getTicketInfos().getMovieSession().getCinemaHall().getCapacity()) {
+    if (count < ticket.getTicket().getMovieSession().getCinemaHall().getCapacity()) {
       this.tickets.add(ticket);
 
       return true;
@@ -83,10 +81,10 @@ public class Cart {
     return false;
   }
 
-  public boolean addProduct(Product product, int quantity) {
+  public boolean addProduct(ProductCart product, int quantity) {
     int count = 0;
-    for (Product p : products) {
-      if (p.getProductInfos().getID().equals(product.getProductInfos().getID())) {
+    for (ProductCart p : products) {
+      if (p.getProduct().getID().equals(product.getProduct().getID())) {
         count++;
       }
     }
@@ -100,7 +98,7 @@ public class Cart {
     return false;
   }
 
-  public boolean removeTicket(Ticket ticket) {
+  public boolean removeTicket(TicketCart ticket) {
     return this.tickets.remove(ticket);
   }
 }

@@ -7,14 +7,14 @@ import com.cinema.application.dtos.sales.AddProductToCartDTO;
 import com.cinema.domain.usecases.sale.AddProductToCartUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.products.PgInventoryRepository;
-import com.cinema.infra.db.postgres.repositores.products.PgProductInfosRepository;
+import com.cinema.infra.db.postgres.repositores.products.PgProductRepository;
 import com.cinema.infra.db.postgres.repositores.sale.PgCartRepository;
 import com.cinema.infra.db.postgres.repositores.users.PgPersonRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class AddProductToCartFactory {
   public static Controller<AddProductToCartDTO> make() {
-    PgProductInfosRepository pgProductInfosRepository = new PgProductInfosRepository();
+    PgProductRepository pgProductRepository = new PgProductRepository();
 
     PgCartRepository pgCartRepository = new PgCartRepository();
 
@@ -22,7 +22,7 @@ public class AddProductToCartFactory {
 
     PgInventoryRepository pgInventoryRepository = new PgInventoryRepository();
 
-    AddProductToCartUseCase addProductToCartUseCase = new AddProductToCartUseCase(pgProductInfosRepository,
+    AddProductToCartUseCase addProductToCartUseCase = new AddProductToCartUseCase(pgProductRepository,
         pgCartRepository, pgPersonRepository, pgCartRepository, pgCartRepository, pgInventoryRepository);
 
     AddProductToCartController addProductToCartController = new AddProductToCartController(addProductToCartUseCase);

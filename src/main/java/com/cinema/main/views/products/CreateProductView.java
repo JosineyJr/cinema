@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.cinema.application.dtos.products.CreateProductInfosDTO;
+import com.cinema.application.dtos.products.CreateProductDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.products.CreateProductFactory;
 import com.cinema.main.views.helpers.AlertError;
@@ -34,8 +34,10 @@ public class CreateProductView implements Initializable {
   /**
    * Initializes the CreateProductView.
    * 
-   * @param location  The location used to resolve relative paths for the root object, or null if the location is not known.
-   * @param resources The resources used to localize the root object, or null if the root object was not localized.
+   * @param location  The location used to resolve relative paths for the root
+   *                  object, or null if the location is not known.
+   * @param resources The resources used to localize the root object, or null if
+   *                  the root object was not localized.
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -57,7 +59,7 @@ public class CreateProductView implements Initializable {
    */
   @FXML
   void registerProduct(ActionEvent event) {
-    CreateProductInfosDTO createProductDTO = new CreateProductInfosDTO(name.getText(), price.getAmount(),
+    CreateProductDTO createProductDTO = new CreateProductDTO(name.getText(), price.getAmount(),
         Integer.parseInt(quantity.getText()));
 
     Response<?> response = CreateProductFactory.make().handle(createProductDTO);

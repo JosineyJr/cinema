@@ -1,16 +1,19 @@
 package com.cinema.main.views.products;
 
-import com.cinema.application.dtos.products.ProductInfosDTO;
+import com.cinema.application.dtos.products.ProductDTO;
 
 /**
- * The ProductModel class represents a model for a product in the cinema application.
- * It follows the Singleton design pattern to ensure that only one instance of the class exists.
+ * The ProductModel class represents a model for a product in the cinema
+ * application.
+ * It follows the Singleton design pattern to ensure that only one instance of
+ * the class exists.
  */
 public class ProductModel {
   private static ProductModel productModel = null;
-  private ProductInfosDTO product;
+  private ProductDTO product;
 
-  private ProductModel() {}
+  private ProductModel() {
+  }
 
   /**
    * Returns the instance of the ProductModel class.
@@ -30,7 +33,7 @@ public class ProductModel {
    *
    * @return The product information.
    */
-  public ProductInfosDTO getProduct() {
+  public ProductDTO getProduct() {
     return product;
   }
 
@@ -39,7 +42,7 @@ public class ProductModel {
    *
    * @param product The product information to be set.
    */
-  public void setProduct(ProductInfosDTO product) {
+  public void setProduct(ProductDTO product) {
     this.product = product;
   }
 }

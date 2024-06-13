@@ -2,9 +2,9 @@ package com.cinema.infra.db.postgres.entities.products;
 
 import java.util.UUID;
 
-import com.cinema.infra.db.postgres.entities.sale.PgCart;
-import com.cinema.infra.db.postgres.entities.sale.PgSale;
+import com.cinema.infra.db.postgres.entities.movies.PgMovieSession;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -17,30 +17,25 @@ public class PgTicket {
   @GeneratedValue
   private UUID ID;
 
-  @ManyToOne
-  @JoinColumn(name = "ticket_infos_id", nullable = false)
-  private PgTicketInfos ticketInfos;
+  @Column
+  private double price;
 
   @ManyToOne
-  @JoinColumn(name = "cart_id", nullable = true)
-  private PgCart cart;
-
-  @ManyToOne
-  @JoinColumn(name = "sale_id", nullable = true)
-  private PgSale sale;
+  @JoinColumn(name = "movie_session_id", nullable = false)
+  private PgMovieSession movieSession;
 
   public PgTicket() {
   }
 
-  public PgTicket(UUID ID, PgTicketInfos ticketInfos, PgCart cart) {
+  public PgTicket(UUID ID, double price, PgMovieSession movieSession) {
     this.ID = ID;
-    this.ticketInfos = ticketInfos;
-    this.cart = cart;
+    this.price = price;
+    this.movieSession = movieSession;
   }
 
-  public PgTicket(PgTicketInfos ticketInfos, PgCart cart) {
-    this.ticketInfos = ticketInfos;
-    this.cart = cart;
+  public PgTicket(double price, PgMovieSession movieSession) {
+    this.price = price;
+    this.movieSession = movieSession;
   }
 
   public UUID getID() {
@@ -51,20 +46,20 @@ public class PgTicket {
     this.ID = ID;
   }
 
-  public PgTicketInfos getTicketInfos() {
-    return this.ticketInfos;
+  public double getPrice() {
+    return this.price;
   }
 
-  public void setTicketInfos(PgTicketInfos ticketInfos) {
-    this.ticketInfos = ticketInfos;
+  public void setPrice(double price) {
+    this.price = price;
   }
 
-  public PgCart getCart() {
-    return this.cart;
+  public PgMovieSession getMovieSession() {
+    return this.movieSession;
   }
 
-  public void setCart(PgCart cart) {
-    this.cart = cart;
+  public void setMovieSession(PgMovieSession movieSession) {
+    this.movieSession = movieSession;
   }
 
 }

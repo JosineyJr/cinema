@@ -2,48 +2,48 @@ package com.cinema.domain.usecases.sale;
 
 import java.util.UUID;
 
-import com.cinema.domain.contracts.repositories.products.IFindInventoryByProductInfosIDRepository;
-import com.cinema.domain.contracts.repositories.products.IFindProductInfosByIdRepository;
+import com.cinema.domain.contracts.repositories.products.IFindInventoryByProductIDRepository;
+import com.cinema.domain.contracts.repositories.products.IFindProductByIDRepository;
 import com.cinema.domain.contracts.repositories.sale.ICreateCartRepository;
 import com.cinema.domain.contracts.repositories.sale.IFindCartByPersonIDRepository;
 import com.cinema.domain.contracts.repositories.sale.IUpdateCartRepository;
 import com.cinema.domain.contracts.repositories.users.IFindPersonByIDRepository;
 import com.cinema.domain.entities.products.Inventory;
 import com.cinema.domain.entities.products.Product;
-import com.cinema.domain.entities.products.ProductInfos;
 import com.cinema.domain.entities.sale.Cart;
+import com.cinema.domain.entities.sale.ProductCart;
 import com.cinema.domain.entities.users.Person;
-import com.cinema.domain.errors.products.ProductInfosNotFoundError;
-import com.cinema.domain.errors.sale.AllProductsSoldError;
+import com.cinema.domain.errors.products.ProductNotFoundError;
+import com.cinema.domain.errors.sale.AllProductsoldError;
 
 public class AddProductToCartUseCase {
-  IFindProductInfosByIdRepository findProductInfosByIdRepository;
+  IFindProductByIDRepository findProductByIdRepository;
   IFindCartByPersonIDRepository findCartByPersonID;
   IFindPersonByIDRepository findPersonByIDRepository;
   ICreateCartRepository createCartRepository;
   IUpdateCartRepository updateCartRepository;
-  IFindInventoryByProductInfosIDRepository findInventoryByProductInfosIDRepository;
+  IFindInventoryByProductIDRepository findInventoryByproductIDRepository;
 
   public AddProductToCartUseCase(
-      IFindProductInfosByIdRepository findProductInfosByIdRepository,
+      IFindProductByIDRepository findProductByIdRepository,
       IFindCartByPersonIDRepository findCartByPersonID,
       IFindPersonByIDRepository findPersonByIDRepository,
       ICreateCartRepository createCartRepository,
       IUpdateCartRepository updateCartRepository,
-      IFindInventoryByProductInfosIDRepository findInventoryByProductInfosIDRepository) {
-    this.findProductInfosByIdRepository = findProductInfosByIdRepository;
+      IFindInventoryByProductIDRepository findInventoryByproductIDRepository) {
+    this.findProductByIdRepository = findProductByIdRepository;
     this.findCartByPersonID = findCartByPersonID;
     this.findPersonByIDRepository = findPersonByIDRepository;
     this.createCartRepository = createCartRepository;
     this.updateCartRepository = updateCartRepository;
-    this.findInventoryByProductInfosIDRepository = findInventoryByProductInfosIDRepository;
+    this.findInventoryByproductIDRepository = findInventoryByproductIDRepository;
   }
 
-  public void execute(UUID productInfoID, UUID personID) throws ProductInfosNotFoundError, AllProductsSoldError {
-    ProductInfos productInfos = this.findProductInfosByIdRepository.findById(productInfoID);
+  public void execute(UUID productID, UUID personID) throws ProductNotFoundError, AllProductsoldError {
+    Product product = this.findProductByIdRepository.findById(productID);
 
-    if (productInfos == null) {
-      throw new ProductInfosNotFoundError();
+    if (product == null) {
+      throw new ProductNotFoundError();
     }
 
     Cart cart = this.findCartByPersonID.findCartByPersonID(personID);
@@ -55,14 +55,14 @@ public class AddProductToCartUseCase {
       cart = this.createCartRepository.createCart(cart);
     }
 
-    Inventory inventory = this.findInventoryByProductInfosIDRepository.findInventoryByProductInfosID(productInfoID);
+    Inventory inventory = this.findInventoryByproductIDRepository.findInventoryByProductID(productID);
 
-    Product product = new Product(productInfos, cart);
+    ProductCart productCart = new ProductCart(product, cart, product.getPrice());
 
-    cart.addProduct(product, inventory.getQuantity());
+    boolean isProductAdded = cart.addProduct(productCart, inventory.getQuantity());
 
-    if (!cart.addProduct(product, inventory.getQuantity())) {
-      throw new AllProductsSoldError();
+    if (!isProductAdded) {
+      throw new AllProductsoldError();
     }
 
     this.updateCartRepository.updateCart(cart);

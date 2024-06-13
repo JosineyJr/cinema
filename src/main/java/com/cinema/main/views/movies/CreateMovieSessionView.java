@@ -16,8 +16,10 @@ import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.movies.CreateMovieSessionFactory;
 import com.cinema.main.factories.movies.ListCinemaHallsFactory;
 import com.cinema.main.factories.movies.ListMoviesFactory;
+import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
+import com.cinema.main.views.helpers.ChangeWindow;
 import com.cinema.main.views.helpers.Item;
 
 import javafx.beans.value.ObservableValue;
@@ -27,10 +29,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * This class represents the view for creating a movie session.
- * It contains the necessary fields and methods to handle the creation of a movie session.
+ * It contains the necessary fields and methods to handle the creation of a
+ * movie session.
  */
 public class CreateMovieSessionView {
 
@@ -55,8 +59,10 @@ public class CreateMovieSessionView {
     /**
      * Initializes the CreateMovieSessionView.
      * This method is automatically called after the FXML file has been loaded.
-     * It populates the movie and cinema hall dropdown menus with data retrieved from the server.
-     * It also sets up a listener for the startTime text field to enforce a specific time format.
+     * It populates the movie and cinema hall dropdown menus with data retrieved
+     * from the server.
+     * It also sets up a listener for the startTime text field to enforce a specific
+     * time format.
      */
     @FXML
     void initialize() {
@@ -105,12 +111,14 @@ public class CreateMovieSessionView {
     }
 
     /**
-     * Creates a new movie session based on the selected cinema hall, movie, start date, start time, and ticket price.
+     * Creates a new movie session based on the selected cinema hall, movie, start
+     * date, start time, and ticket price.
      * 
      * @param event the action event triggered by the user
+     * @throws Exception
      */
     @FXML
-    void createMovieSession(ActionEvent event) {
+    void createMovieSession(ActionEvent event) throws Exception {
         String cinemaHallID = this.cinemaHall.getSelectionModel().getSelectedItem().getID().toString();
         String movieID = this.movie.getSelectionModel().getSelectedItem().getID().toString();
         LocalDate startDate = this.startDate.getValue();
@@ -127,6 +135,10 @@ public class CreateMovieSessionView {
 
         if (response.getStatusCode() == 204) {
             new AlertSuccess("Sessão criada com sucesso");
+
+            Stage primaryStage = StageManager.getPrimaryStage();
+
+            ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/listMovieSessions.fxml");
         } else {
             new AlertError(response.getData().toString());
         }

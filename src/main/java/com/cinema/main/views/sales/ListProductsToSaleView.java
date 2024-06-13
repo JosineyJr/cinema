@@ -2,10 +2,10 @@ package com.cinema.main.views.sales;
 
 import java.util.List;
 
-import com.cinema.application.dtos.products.ProductInfosDTO;
+import com.cinema.application.dtos.products.ProductDTO;
 import com.cinema.application.dtos.sales.AddProductToCartDTO;
 import com.cinema.application.helpers.Response;
-import com.cinema.main.factories.products.ListProductsInfosFactory;
+import com.cinema.main.factories.products.ListProductsFactory;
 import com.cinema.main.factories.sales.AddProductToCartFactory;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
@@ -22,29 +22,29 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ListProductsToSaleView {
 
   @FXML
-  private TableColumn<ProductInfosDTO, Void> action;
+  private TableColumn<ProductDTO, Void> action;
 
   @FXML
-  private TableView<ProductInfosDTO> availableProducts;
+  private TableView<ProductDTO> availableProducts;
 
   @FXML
-  private TableColumn<ProductInfosDTO, String> name;
+  private TableColumn<ProductDTO, String> name;
 
   @FXML
-  private TableColumn<ProductInfosDTO, String> price;
+  private TableColumn<ProductDTO, String> price;
 
   @FXML
   public void initialize() {
-    Response<?> response = ListProductsInfosFactory.make().handle(null);
+    Response<?> response = ListProductsFactory.make().handle(null);
 
     Object data = response.getData();
 
     if (data instanceof List) {
-      ObservableList<ProductInfosDTO> products = FXCollections.observableArrayList();
+      ObservableList<ProductDTO> products = FXCollections.observableArrayList();
 
       for (Object product : (List<?>) data) {
-        if (product instanceof ProductInfosDTO) {
-          ProductInfosDTO productDTO = (ProductInfosDTO) product;
+        if (product instanceof ProductDTO) {
+          ProductDTO productDTO = (ProductDTO) product;
 
           products.add(productDTO);
         }
@@ -62,7 +62,7 @@ public class ListProductsToSaleView {
     action.setCellFactory(column -> new ButtonTableCell<>("Add carrinho", this::addToCart));
   }
 
-  private void addToCart(ProductInfosDTO product) {
+  private void addToCart(ProductDTO product) {
     AddProductToCartDTO addProductToCartDTO = new AddProductToCartDTO(product.getID().toString(), Session.getCPF());
 
     Response<?> response = AddProductToCartFactory.make().handle(addProductToCartDTO);

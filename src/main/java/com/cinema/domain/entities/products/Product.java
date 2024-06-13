@@ -2,22 +2,20 @@ package com.cinema.domain.entities.products;
 
 import java.util.UUID;
 
-import com.cinema.domain.entities.sale.Cart;
-
 public class Product {
   private UUID ID;
-  private ProductInfos productInfo;
-  private Cart cart;
+  private String name;
+  private double price;
 
-  public Product(UUID ID, ProductInfos productInfo, Cart cart) {
+  public Product(UUID ID, String name, double price) {
     this.ID = ID;
-    this.productInfo = productInfo;
-    this.cart = cart;
+    this.name = name;
+    this.price = price;
   }
 
-  public Product(ProductInfos productInfo, Cart cart) {
-    this.productInfo = productInfo;
-    this.cart = cart;
+  public Product(String name, double price) {
+    this.name = name;
+    this.price = price;
   }
 
   public UUID getID() {
@@ -28,20 +26,20 @@ public class Product {
     this.ID = ID;
   }
 
-  public ProductInfos getProductInfos() {
-    return this.productInfo;
+  public String getName() {
+    return this.name;
   }
 
-  public void setProductInfo(ProductInfos productInfo) {
-    this.productInfo = productInfo;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public Cart getCart() {
-    return this.cart;
+  public double getPrice() {
+    return this.price;
   }
 
-  public void setCart(Cart cart) {
-    this.cart = cart;
+  public void setPrice(double price) {
+    this.price = price;
   }
 
 }

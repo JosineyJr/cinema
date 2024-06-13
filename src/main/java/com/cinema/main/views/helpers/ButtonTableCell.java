@@ -13,6 +13,7 @@ import java.util.function.Consumer;
  */
 public class ButtonTableCell<S, T> extends TableCell<S, T> {
   private final Button button;
+  @SuppressWarnings("unused")
   private final Consumer<S> onAction;
 
   /**

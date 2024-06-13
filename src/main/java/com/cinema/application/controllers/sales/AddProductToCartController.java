@@ -10,8 +10,8 @@ import com.cinema.application.helpers.ResponseFactory;
 import com.cinema.application.validation.Field;
 import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
-import com.cinema.domain.errors.products.ProductInfosNotFoundError;
-import com.cinema.domain.errors.sale.AllProductsSoldError;
+import com.cinema.domain.errors.products.ProductNotFoundError;
+import com.cinema.domain.errors.sale.AllProductsoldError;
 import com.cinema.domain.usecases.sale.AddProductToCartUseCase;
 
 /**
@@ -38,14 +38,14 @@ public class AddProductToCartController extends Controller<AddProductToCartDTO> 
   @Override
   public Response<?> perform(AddProductToCartDTO object) {
     try {
-      UUID productInfoID = UUID.fromString(object.getProductInfoID());
+      UUID productID = UUID.fromString(object.getProductID());
 
       UUID personID = UUID.fromString(object.getPersonID());
 
-      this.addProductToCartUseCase.execute(productInfoID, personID);
+      this.addProductToCartUseCase.execute(productID, personID);
 
       return ResponseFactory.noContent();
-    } catch (ProductInfosNotFoundError | AllProductsSoldError e) {
+    } catch (ProductNotFoundError | AllProductsoldError e) {
       return ResponseFactory.badRequest(e);
     }
   }
@@ -58,12 +58,12 @@ public class AddProductToCartController extends Controller<AddProductToCartDTO> 
    */
   @Override
   public ArrayList<IValidator> buildValidators(AddProductToCartDTO object) {
-    Field productInfoID = new Field(object.getProductInfoID(), "Informações do produto");
+    Field productID = new Field(object.getProductID(), "rmações do produto");
     Field personID = new Field(object.getPersonID(), "ID da pessoa");
 
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
 
-    validators.addAll(ValidationBuilder.of().validateUUID(productInfoID).validateUUID(personID).build());
+    validators.addAll(ValidationBuilder.of().validateUUID(productID).validateUUID(personID).build());
 
     return validators;
   }

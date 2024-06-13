@@ -1,20 +1,20 @@
 package com.cinema.application.dtos.sales;
 
 public class AddTicketToCartDTO {
-  private String ticketInfoID;
+  private String ticketID;
   private String personID;
 
-  public AddTicketToCartDTO(String ticketInfoID, String personID) {
-    this.ticketInfoID = ticketInfoID;
+  public AddTicketToCartDTO(String ticketID, String personID) {
+    this.ticketID = ticketID;
     this.personID = personID;
   }
 
-  public String getTicketInfoID() {
-    return this.ticketInfoID;
+  public String getTicketID() {
+    return this.ticketID;
   }
 
-  public void setTicketInfoID(String ticketInfoID) {
-    this.ticketInfoID = ticketInfoID;
+  public void setTicketID(String ticketID) {
+    this.ticketID = ticketID;
   }
 
   public String getPersonID() {

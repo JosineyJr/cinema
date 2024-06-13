@@ -6,12 +6,12 @@ import com.cinema.application.decorators.DbTransactionController;
 import com.cinema.application.dtos.sales.RemoveProductFromCartDTO;
 import com.cinema.domain.usecases.sale.RemoveProductFromCartUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
-import com.cinema.infra.db.postgres.repositores.products.PgProductRepository;
+import com.cinema.infra.db.postgres.repositores.sale.PgProductCartRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class RemoveProductFromCartFactory {
   public static Controller<RemoveProductFromCartDTO> make() {
-    PgProductRepository pgProductRepository = new PgProductRepository();
+    PgProductCartRepository pgProductRepository = new PgProductCartRepository();
 
     RemoveProductFromCartUseCase removeProductFromCartUseCase = new RemoveProductFromCartUseCase(pgProductRepository,
         pgProductRepository);

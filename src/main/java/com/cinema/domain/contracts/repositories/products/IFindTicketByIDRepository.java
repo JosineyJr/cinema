@@ -5,5 +5,5 @@ import java.util.UUID;
 import com.cinema.domain.entities.products.Ticket;
 
 public interface IFindTicketByIDRepository {
-  Ticket findTicketByID(UUID ID);
+  public Ticket findByID(UUID ticketID);
 }

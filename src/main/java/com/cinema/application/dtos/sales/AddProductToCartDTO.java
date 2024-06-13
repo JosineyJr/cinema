@@ -1,20 +1,20 @@
 package com.cinema.application.dtos.sales;
 
 public class AddProductToCartDTO {
-  private String productInfoID;
+  private String productID;
   private String personID;
 
-  public AddProductToCartDTO(String productInfoID, String personID) {
-    this.productInfoID = productInfoID;
+  public AddProductToCartDTO(String productID, String personID) {
+    this.productID = productID;
     this.personID = personID;
   }
 
-  public String getProductInfoID() {
-    return this.productInfoID;
+  public String getProductID() {
+    return this.productID;
   }
 
-  public void setProductInfoID(String productInfoID) {
-    this.productInfoID = productInfoID;
+  public void setProductID(String productID) {
+    this.productID = productID;
   }
 
   public String getPersonID() {

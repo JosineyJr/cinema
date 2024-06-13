@@ -10,8 +10,8 @@ import com.cinema.application.helpers.ResponseFactory;
 import com.cinema.application.validation.Field;
 import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
-import com.cinema.domain.errors.products.TicketInfosNotFoundError;
-import com.cinema.domain.errors.sale.AllTicketsSoldError;
+import com.cinema.domain.errors.products.TicketNotFoundError;
+import com.cinema.domain.errors.sale.AllTicketsoldError;
 import com.cinema.domain.usecases.sale.AddTicketToCartUseCase;
 
 public class AddTicketToCartController extends Controller<AddTicketToCartDTO> {
@@ -32,13 +32,13 @@ public class AddTicketToCartController extends Controller<AddTicketToCartDTO> {
   public Response<?> perform(AddTicketToCartDTO object) {
     try {
 
-      UUID ticketInfoID = UUID.fromString(object.getTicketInfoID());
+      UUID ticketID = UUID.fromString(object.getTicketID());
       UUID personID = UUID.fromString(object.getPersonID());
 
-      this.addTicketToCartUseCase.execute(ticketInfoID, personID);
+      this.addTicketToCartUseCase.execute(ticketID, personID);
 
       return ResponseFactory.noContent();
-    } catch (TicketInfosNotFoundError | AllTicketsSoldError e) {
+    } catch (TicketNotFoundError | AllTicketsoldError e) {
       return ResponseFactory.badRequest(e);
     }
   }
@@ -53,12 +53,12 @@ public class AddTicketToCartController extends Controller<AddTicketToCartDTO> {
    */
   @Override
   public ArrayList<IValidator> buildValidators(AddTicketToCartDTO object) {
-    Field ticketInfoID = new Field(object.getTicketInfoID(), "Informações do ingresso");
+    Field ticketID = new Field(object.getTicketID(), "rmações do ingresso");
     Field personID = new Field(object.getPersonID(), "ID da pessoa");
 
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
 
-    validators.addAll(ValidationBuilder.of().validateUUID(ticketInfoID).validateUUID(personID).build());
+    validators.addAll(ValidationBuilder.of().validateUUID(ticketID).validateUUID(personID).build());
 
     return validators;
   }

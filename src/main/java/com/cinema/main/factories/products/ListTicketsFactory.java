@@ -1,11 +1,11 @@
 package com.cinema.main.factories.products;
 
 import com.cinema.application.controllers.Controller;
-import com.cinema.application.controllers.products.ListTicketsInfosController;
+import com.cinema.application.controllers.products.ListTicketsController;
 import com.cinema.application.decorators.DbTransactionController;
-import com.cinema.domain.usecases.products.ListTicketsInfosUseCase;
+import com.cinema.domain.usecases.products.ListTicketsUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
-import com.cinema.infra.db.postgres.repositores.products.PgTicketInfosRepository;
+import com.cinema.infra.db.postgres.repositores.products.PgTicketRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class ListTicketsFactory {
@@ -15,11 +15,11 @@ public class ListTicketsFactory {
    * @return The created Controller object.
    */
   public static Controller<Object> make() {
-    PgTicketInfosRepository ticketRepository = new PgTicketInfosRepository();
+    PgTicketRepository ticketRepository = new PgTicketRepository();
 
-    ListTicketsInfosUseCase listTicketsUseCase = new ListTicketsInfosUseCase(ticketRepository);
+    ListTicketsUseCase listTicketsUseCase = new ListTicketsUseCase(ticketRepository);
 
-    ListTicketsInfosController listTicketsController = new ListTicketsInfosController(listTicketsUseCase);
+    ListTicketsController listTicketsController = new ListTicketsController(listTicketsUseCase);
 
     PgConnection pgConnection = PgConnectionFactory.make();
 

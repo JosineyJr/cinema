@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.cinema.application.dtos.products.EditProductInfosDTO;
-import com.cinema.application.dtos.products.ProductInfosDTO;
+import com.cinema.application.dtos.products.EditProductDTO;
+import com.cinema.application.dtos.products.ProductDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.products.UpdateProductFactory;
 import com.cinema.main.views.helpers.AlertError;
@@ -31,16 +31,19 @@ public class EditProductView implements Initializable {
   @FXML
   private TextField quantity;
 
-  private ProductInfosDTO product;
+  private ProductDTO product;
 
   /**
-    * Initializes the EditProductView.
-    * This method is called after the FXML file has been loaded and the controller object has been created.
-    * It is used to perform any necessary initialization tasks.
-    *
-    * @param location   The location used to resolve relative paths for the root object, or null if the location is not known.
-    * @param resources  The resources used to localize the root object, or null if the root object was not localized.
-    */
+   * Initializes the EditProductView.
+   * This method is called after the FXML file has been loaded and the controller
+   * object has been created.
+   * It is used to perform any necessary initialization tasks.
+   *
+   * @param location  The location used to resolve relative paths for the root
+   *                  object, or null if the location is not known.
+   * @param resources The resources used to localize the root object, or null if
+   *                  the root object was not localized.
+   */
   public void initialize(URL location, ResourceBundle resources) {
     if (price != null) {
       price.setCurrencyFormat(Locale.US);
@@ -61,14 +64,17 @@ public class EditProductView implements Initializable {
 
   /**
    * Handles the action event when the user clicks on the "Edit Product" button.
-   * Retrieves the updated product information from the input fields and sends it to the server for updating.
-   * Displays a success message if the product is successfully edited, or an error message if an error occurs.
+   * Retrieves the updated product information from the input fields and sends it
+   * to the server for updating.
+   * Displays a success message if the product is successfully edited, or an error
+   * message if an error occurs.
    *
-   * @param event The action event triggered by clicking the "Edit Product" button.
+   * @param event The action event triggered by clicking the "Edit Product"
+   *              button.
    */
   @FXML
   void editProduct(ActionEvent event) {
-    EditProductInfosDTO updateProductDTO = new EditProductInfosDTO(product.getID(), name.getText(), price.getAmount(),
+    EditProductDTO updateProductDTO = new EditProductDTO(product.getID(), name.getText(), price.getAmount(),
         Integer.parseInt(quantity.getText()), product.getInventoryID());
 
     Response<?> response = UpdateProductFactory.make().handle(updateProductDTO);

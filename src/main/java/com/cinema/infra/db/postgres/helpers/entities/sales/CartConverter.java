@@ -3,44 +3,42 @@ package com.cinema.infra.db.postgres.helpers.entities.sales;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cinema.domain.entities.products.Product;
-import com.cinema.domain.entities.products.Ticket;
 import com.cinema.domain.entities.sale.Cart;
-import com.cinema.infra.db.postgres.entities.products.PgProduct;
-import com.cinema.infra.db.postgres.entities.products.PgTicket;
+import com.cinema.domain.entities.sale.ProductCart;
+import com.cinema.domain.entities.sale.TicketCart;
 import com.cinema.infra.db.postgres.entities.sale.PgCart;
+import com.cinema.infra.db.postgres.entities.sale.PgProductCart;
+import com.cinema.infra.db.postgres.entities.sale.PgTicketCart;
 import com.cinema.infra.db.postgres.helpers.entities.IEntityConverter;
-import com.cinema.infra.db.postgres.helpers.entities.products.ProductConverter;
-import com.cinema.infra.db.postgres.helpers.entities.products.TicketConverter;
 import com.cinema.infra.db.postgres.helpers.entities.users.PersonConverter;
 
 public class CartConverter implements IEntityConverter<PgCart, Cart> {
   private PersonConverter personConverter = new PersonConverter();
-  private TicketConverter ticketConverter = new TicketConverter();
-  private ProductConverter productConverter = new ProductConverter();
+  private TicketCartConverter ticketConverter = new TicketCartConverter();
+  private ProductCartConverter productConverter = new ProductCartConverter();
 
   @Override
   public Cart convert(PgCart source) {
-    List<Ticket> tickets = new ArrayList<>();
+    List<TicketCart> tickets = new ArrayList<>();
 
     if (source.getTickets() == null) {
       source.setTickets(new ArrayList<>());
     }
 
     source.getTickets().stream().forEach(pgTicket -> {
-      Ticket ticket = ticketConverter.convert(pgTicket);
+      TicketCart ticket = ticketConverter.convert(pgTicket);
 
       tickets.add(ticket);
     });
 
-    List<Product> products = new ArrayList<>();
+    List<ProductCart> products = new ArrayList<>();
 
     if (source.getProducts() == null) {
       source.setProducts(new ArrayList<>());
     }
 
     source.getProducts().stream().forEach(pgProduct -> {
-      Product product = productConverter.convert(pgProduct);
+      ProductCart product = productConverter.convert(pgProduct);
 
       products.add(product);
     });
@@ -50,7 +48,7 @@ public class CartConverter implements IEntityConverter<PgCart, Cart> {
 
   @Override
   public PgCart pgConverter(Cart target) {
-    List<PgTicket> pgTickets = new ArrayList<>();
+    List<PgTicketCart> pgTickets = new ArrayList<>();
 
     if (target.getTickets() == null) {
       target.setTickets(new ArrayList<>());
@@ -60,7 +58,7 @@ public class CartConverter implements IEntityConverter<PgCart, Cart> {
       pgTickets.add(ticketConverter.pgConverter(ticket));
     });
 
-    List<PgProduct> pgProducts = new ArrayList<>();
+    List<PgProductCart> pgProducts = new ArrayList<>();
 
     if (target.getProducts() == null) {
       target.setProducts(new ArrayList<>());

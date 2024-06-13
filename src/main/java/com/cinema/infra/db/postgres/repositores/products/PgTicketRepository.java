@@ -1,34 +1,46 @@
 package com.cinema.infra.db.postgres.repositores.products;
 
+import java.util.List;
 import java.util.UUID;
 
-import com.cinema.domain.contracts.repositories.products.IDeleteTicketRepository;
+import com.cinema.domain.contracts.repositories.products.ICreateTicketRepository;
 import com.cinema.domain.contracts.repositories.products.IFindTicketByIDRepository;
+import com.cinema.domain.contracts.repositories.products.IListTicketsRepository;
 import com.cinema.domain.entities.products.Ticket;
 import com.cinema.infra.db.postgres.entities.products.PgTicket;
-import com.cinema.infra.db.postgres.entities.sale.PgCart;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
-public class PgTicketRepository
-    extends PgRepository
-    implements IDeleteTicketRepository,
-    IFindTicketByIDRepository {
+public class PgTicketRepository extends PgRepository
+    implements ICreateTicketRepository, IListTicketsRepository, IFindTicketByIDRepository {
 
-  public void deleteTicket(UUID ID) {
-    PgTicket pgTicket = this.session.get(PgTicket.class, ID);
-
-    PgCart cart = pgTicket.getCart();
-    if (cart != null) {
-      cart.getTickets().remove(pgTicket);
-      pgTicket.setCart(null);
-    }
-
-    this.session.remove(pgTicket);
+  public PgTicketRepository() {
+    super();
   }
 
-  public Ticket findTicketByID(UUID ID) {
-    PgTicket pgTicket = this.session.get(PgTicket.class, ID);
+  @Override
+  public void createTicket(Ticket ticket) {
+    PgTicket pgTicket = ConvertEntities.pgConvertTicket(ticket);
+
+    this.session.persist(pgTicket);
+  }
+
+  @Override
+  public List<Ticket> listTickets() {
+    List<PgTicket> pgTickets = this.session.createQuery("from ticket", PgTicket.class).getResultList();
+
+    return pgTickets.stream().map(pgTicket -> {
+      return ConvertEntities.convertTicket(pgTicket);
+    }).toList();
+  }
+
+  @Override
+  public Ticket findByID(UUID ticketID) {
+    PgTicket pgTicket = this.session.find(PgTicket.class, ticketID);
+
+    if (pgTicket == null) {
+      return null;
+    }
 
     return ConvertEntities.convertTicket(pgTicket);
   }

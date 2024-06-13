@@ -2,69 +2,98 @@ package com.cinema.infra.db.postgres.entities.products;
 
 import java.util.UUID;
 
-import com.cinema.infra.db.postgres.entities.sale.PgCart;
-import com.cinema.infra.db.postgres.entities.sale.PgSale;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
+/**
+ * Represents product information in the database.
+ */
 @Entity(name = "product")
 public class PgProduct {
   @Id
   @GeneratedValue
   private UUID ID;
 
-  @ManyToOne
-  @JoinColumn(name = "product_infos_id", nullable = false)
-  private PgProductInfos productInfos;
+  @Column(nullable = false)
+  private String name;
 
-  @ManyToOne
-  @JoinColumn(name = "cart_id", nullable = true)
-  private PgCart cart;
+  @Column(nullable = false)
+  private double price;
 
-  @ManyToOne
-  @JoinColumn(name = "sale_id", nullable = true)
-  private PgSale sale;
-
+  /**
+   * Default constructor.
+   */
   public PgProduct() {
   }
 
-  public PgProduct(UUID ID, PgProductInfos productInfos, PgCart cart) {
+  /**
+   * Constructor with name and price parameters.
+   * 
+   * @param name  the name of the product
+   * @param price the price of the product
+   */
+  public PgProduct(String name, double price) {
+    this.name = name;
+    this.price = price;
+  }
+
+  /**
+   * Constructor with ID, name, and price parameters.
+   * 
+   * @param ID    the ID of the product
+   * @param name  the name of the product
+   * @param price the price of the product
+   */
+  public PgProduct(UUID ID, String name, double price) {
     this.ID = ID;
-    this.productInfos = productInfos;
-    this.cart = cart;
+    this.name = name;
+    this.price = price;
   }
 
-  public PgProduct(PgProductInfos productInfos, PgCart cart) {
-    this.productInfos = productInfos;
-    this.cart = cart;
-  }
-
+  /**
+   * Get the ID of the product.
+   * 
+   * @return the ID of the product
+   */
   public UUID getID() {
     return this.ID;
   }
 
-  public void setID(UUID ID) {
-    this.ID = ID;
+  /**
+   * Get the name of the product.
+   * 
+   * @return the name of the product
+   */
+  public String getName() {
+    return this.name;
   }
 
-  public PgProductInfos getProductInfos() {
-    return this.productInfos;
+  /**
+   * Get the price of the product.
+   * 
+   * @return the price of the product
+   */
+  public double getPrice() {
+    return this.price;
   }
 
-  public void setProductInfos(PgProductInfos productInfos) {
-    this.productInfos = productInfos;
+  /**
+   * Set the name of the product.
+   * 
+   * @param name the name of the product
+   */
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public PgCart getCart() {
-    return this.cart;
+  /**
+   * Set the price of the product.
+   * 
+   * @param price the price of the product
+   */
+  public void setPrice(double price) {
+    this.price = price;
   }
-
-  public void setCart(PgCart cart) {
-    this.cart = cart;
-  }
-
 }

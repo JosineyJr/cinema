@@ -3,7 +3,7 @@ package com.cinema.infra.db.postgres.repositores.products;
 import com.cinema.domain.contracts.repositories.products.ICreateInventoryRepository;
 import com.cinema.domain.contracts.repositories.products.IDeleteInventoryRepository;
 import com.cinema.domain.contracts.repositories.products.IFindInventoryByIdRepository;
-import com.cinema.domain.contracts.repositories.products.IFindInventoryByProductInfosIDRepository;
+import com.cinema.domain.contracts.repositories.products.IFindInventoryByProductIDRepository;
 import com.cinema.domain.contracts.repositories.products.IListInventoryRepository;
 import com.cinema.domain.contracts.repositories.products.IUpdateInventoryRepository;
 import com.cinema.domain.entities.products.Inventory;
@@ -21,7 +21,7 @@ public class PgInventoryRepository
     IListInventoryRepository,
     IDeleteInventoryRepository,
     IFindInventoryByIdRepository,
-    IUpdateInventoryRepository, IFindInventoryByProductInfosIDRepository {
+    IUpdateInventoryRepository, IFindInventoryByProductIDRepository {
 
   public void create(Inventory inventory) {
     PgInventory pgInventory = ConvertEntities.pgConvertInventory(inventory);
@@ -59,12 +59,13 @@ public class PgInventoryRepository
   }
 
   @Override
-  public Inventory findInventoryByProductInfosID(UUID productInfosID) {
+  public Inventory findInventoryByProductID(UUID productID) {
     PgInventory inventory = this.session
-        .createQuery("FROM inventory WHERE productInfos.id = :productInfosID", PgInventory.class)
-        .setParameter("productInfosID", productInfosID)
+        .createQuery("FROM inventory WHERE product.id = :productID", PgInventory.class)
+        .setParameter("productID", productID)
         .getSingleResult();
 
     return ConvertEntities.convertInventory(inventory);
+
   }
 }

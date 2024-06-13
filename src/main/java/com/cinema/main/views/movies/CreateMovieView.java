@@ -7,8 +7,10 @@ import com.cinema.application.dtos.movies.GenreDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.movies.CreateMovieFactory;
 import com.cinema.main.factories.movies.ListGenresFactory;
+import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
+import com.cinema.main.views.helpers.ChangeWindow;
 import com.cinema.main.views.helpers.Item;
 
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * This class represents the view for creating a movie.
@@ -48,7 +51,8 @@ public class CreateMovieView {
     /**
      * Initializes the CreateMovieView.
      * This method is automatically called after the FXML file has been loaded.
-     * It retrieves a list of genres and populates the genre ComboBox with the retrieved data.
+     * It retrieves a list of genres and populates the genre ComboBox with the
+     * retrieved data.
      */
     @FXML
     void initialize() {
@@ -69,13 +73,17 @@ public class CreateMovieView {
 
     /**
      * Handles the action event when the "Create Movie" button is clicked.
-     * Retrieves the selected genre ID from the genre combo box and creates a new movie using the provided information.
-     * Displays a success message if the movie is created successfully, or an error message if there is an issue.
+     * Retrieves the selected genre ID from the genre combo box and creates a new
+     * movie using the provided information.
+     * Displays a success message if the movie is created successfully, or an error
+     * message if there is an issue.
      *
-     * @param event The action event triggered by clicking the "Create Movie" button.
+     * @param event The action event triggered by clicking the "Create Movie"
+     *              button.
+     * @throws Exception
      */
     @FXML
-    void createMovie(ActionEvent event) {
+    void createMovie(ActionEvent event) throws Exception {
         String genreID = this.genre.getSelectionModel().getSelectedItem().getID().toString();
 
         CreateMovieDTO createMovieDTO = new CreateMovieDTO(this.title.getText(),
@@ -87,6 +95,10 @@ public class CreateMovieView {
 
         if (response.getStatusCode() == 204) {
             new AlertSuccess("Filme criado com sucesso");
+
+            Stage primaryStage = StageManager.getPrimaryStage();
+
+            ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/listMovies.fxml");
         } else {
             new AlertError(response.getData().toString());
         }

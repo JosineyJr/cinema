@@ -2,11 +2,11 @@ package com.cinema.main.views.products;
 
 import java.util.List;
 
-import com.cinema.application.dtos.products.DeleteProductInfosDTO;
-import com.cinema.application.dtos.products.ProductInfosDTO;
+import com.cinema.application.dtos.products.DeleteProductDTO;
+import com.cinema.application.dtos.products.ProductDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.products.DeleteProductFactory;
-import com.cinema.main.factories.products.ListProductsInfosFactory;
+import com.cinema.main.factories.products.ListProductsFactory;
 import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
@@ -27,61 +27,64 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
- * The ListProductsView class represents a view for listing products in a cinema application.
- * It displays a table with product information, such as name, price, and quantity.
+ * The ListProductsView class represents a view for listing products in a cinema
+ * application.
+ * It displays a table with product information, such as name, price, and
+ * quantity.
  * Users can perform actions like deleting and editing products.
  */
 public class ListProductsView {
   @FXML
-  private TableColumn<ProductInfosDTO, Void> action;
+  private TableColumn<ProductDTO, Void> action;
 
   @FXML
-  private TableColumn<ProductInfosDTO, String> name;
+  private TableColumn<ProductDTO, String> name;
 
   @FXML
-  private TableColumn<ProductInfosDTO, Double> price;
+  private TableColumn<ProductDTO, Double> price;
 
   @FXML
-  private TableColumn<ProductInfosDTO, Integer> quantity;
+  private TableColumn<ProductDTO, Integer> quantity;
 
   @FXML
-  private TableView<ProductInfosDTO> productsTable;
+  private TableView<ProductDTO> productsTable;
 
   /**
    * Initializes the ListProductsView.
    * This method is automatically called after the FXML file has been loaded.
    * It retrieves the product information and populates the products table.
-   * It also sets up the cell factory for the action column, which contains delete and edit buttons.
+   * It also sets up the cell factory for the action column, which contains delete
+   * and edit buttons.
    */
   @FXML
   void initialize() {
-    Response<?> response = ListProductsInfosFactory.make().handle(null);
+    Response<?> response = ListProductsFactory.make().handle(null);
 
     Object data = response.getData();
 
     if (data instanceof List) {
-      ObservableList<ProductInfosDTO> products = FXCollections.observableArrayList();
+      ObservableList<ProductDTO> products = FXCollections.observableArrayList();
 
       for (Object product : (List<?>) data) {
-        if (product instanceof ProductInfosDTO) {
-          products.add((ProductInfosDTO) product);
+        if (product instanceof ProductDTO) {
+          products.add((ProductDTO) product);
         }
       }
 
       productsTable.setItems(products);
     }
 
-    name.setCellValueFactory(new PropertyValueFactory<ProductInfosDTO, String>("name"));
+    name.setCellValueFactory(new PropertyValueFactory<ProductDTO, String>("name"));
     name.setStyle("-fx-alignment: CENTER;");
 
-    price.setCellValueFactory(new PropertyValueFactory<ProductInfosDTO, Double>("price"));
+    price.setCellValueFactory(new PropertyValueFactory<ProductDTO, Double>("price"));
     price.setStyle("-fx-alignment: CENTER;");
 
-    quantity.setCellValueFactory(new PropertyValueFactory<ProductInfosDTO, Integer>("quantity"));
+    quantity.setCellValueFactory(new PropertyValueFactory<ProductDTO, Integer>("quantity"));
     quantity.setStyle("-fx-alignment: CENTER;");
 
     action.setCellFactory(column -> {
-      TableCell<ProductInfosDTO, Void> cell = new TableCell<>() {
+      TableCell<ProductDTO, Void> cell = new TableCell<>() {
         private final Button deleteButton = new Button("Excluir");
         private final Button editButton = new Button("Editar");
 
@@ -138,7 +141,7 @@ public class ListProductsView {
    *
    * @param product The product to be deleted.
    */
-  private void deleteProduct(ProductInfosDTO product) {
+  private void deleteProduct(ProductDTO product) {
     showConfirmationDialog(product);
   }
 
@@ -147,7 +150,7 @@ public class ListProductsView {
    *
    * @param product The product to be deleted.
    */
-  private void showConfirmationDialog(ProductInfosDTO product) {
+  private void showConfirmationDialog(ProductDTO product) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
     alert.setTitle("Confirmação de Exclusão");
@@ -156,7 +159,7 @@ public class ListProductsView {
     alert.showAndWait().ifPresent(response -> {
       if (response == ButtonType.OK) {
         Response<?> responseDelete = DeleteProductFactory.make()
-            .handle(new DeleteProductInfosDTO(product.getID(), product.getInventoryID()));
+            .handle(new DeleteProductDTO(product.getID(), product.getInventoryID()));
 
         if (responseDelete.getStatusCode() == 204) {
           new AlertSuccess("Produto deletado com sucesso!");
@@ -174,7 +177,7 @@ public class ListProductsView {
    * @param product The product to be edited.
    * @throws Exception If an error occurs while editing the product.
    */
-  private void editProduct(ProductInfosDTO product) throws Exception {
+  private void editProduct(ProductDTO product) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
 
     ProductModel.getInstance().setProduct(product);

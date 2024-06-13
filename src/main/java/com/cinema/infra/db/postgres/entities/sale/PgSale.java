@@ -1,10 +1,6 @@
 package com.cinema.infra.db.postgres.entities.sale;
 
 import java.util.UUID;
-
-import com.cinema.infra.db.postgres.entities.products.PgProduct;
-import com.cinema.infra.db.postgres.entities.products.PgTicket;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,10 +21,10 @@ public class PgSale {
   private UUID ID;
 
   @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<PgProduct> products;
+  private List<PgProductSale> products;
 
   @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<PgTicket> tickets;
+  private List<PgTicketSale> tickets;
 
   @Column(name = "total_price", nullable = false)
   private double totalPrice;
@@ -41,25 +37,6 @@ public class PgSale {
   private PgSalesCounter sales_counter;
 
   public PgSale() {
-  }
-
-  public PgSale(UUID ID, List<PgProduct> products, List<PgTicket> tickets, double totalPrice, LocalDateTime saleDate,
-      PgSalesCounter sales_counter) {
-    this.ID = ID;
-    this.products = products;
-    this.tickets = tickets;
-    this.totalPrice = totalPrice;
-    this.saleDate = saleDate;
-    this.sales_counter = sales_counter;
-  }
-
-  public PgSale(List<PgProduct> products, List<PgTicket> tickets, double totalPrice, LocalDateTime saleDate,
-      PgSalesCounter sales_counter) {
-    this.products = products;
-    this.tickets = tickets;
-    this.totalPrice = totalPrice;
-    this.saleDate = saleDate;
-    this.sales_counter = sales_counter;
   }
 
   public UUID getID() {

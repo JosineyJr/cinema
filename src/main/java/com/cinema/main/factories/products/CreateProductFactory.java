@@ -3,12 +3,12 @@ package com.cinema.main.factories.products;
 import com.cinema.application.controllers.Controller;
 import com.cinema.application.controllers.products.CreateProductController;
 import com.cinema.application.decorators.DbTransactionController;
-import com.cinema.application.dtos.products.CreateProductInfosDTO;
+import com.cinema.application.dtos.products.CreateProductDTO;
 import com.cinema.domain.usecases.products.CreateInventoryUseCase;
-import com.cinema.domain.usecases.products.CreateProductInfosUseCase;
+import com.cinema.domain.usecases.products.CreateProductUseCase;
 import com.cinema.infra.db.postgres.helpers.PgConnection;
 import com.cinema.infra.db.postgres.repositores.products.PgInventoryRepository;
-import com.cinema.infra.db.postgres.repositores.products.PgProductInfosRepository;
+import com.cinema.infra.db.postgres.repositores.products.PgProductRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class CreateProductFactory {
@@ -17,11 +17,11 @@ public class CreateProductFactory {
    * 
    * @return the Controller object for creating product information.
    */
-  public static Controller<CreateProductInfosDTO> make() {
-    PgProductInfosRepository pgProductRepository = new PgProductInfosRepository();
+  public static Controller<CreateProductDTO> make() {
+    PgProductRepository pgProductRepository = new PgProductRepository();
     PgInventoryRepository pgInventoryRepository = new PgInventoryRepository();
 
-    CreateProductInfosUseCase createProductUseCase = new CreateProductInfosUseCase(pgProductRepository,
+    CreateProductUseCase createProductUseCase = new CreateProductUseCase(pgProductRepository,
         pgInventoryRepository,
         pgProductRepository);
 

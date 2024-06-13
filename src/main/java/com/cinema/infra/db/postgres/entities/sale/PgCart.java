@@ -4,8 +4,6 @@ import java.util.UUID;
 
 import java.util.List;
 
-import com.cinema.infra.db.postgres.entities.products.PgProduct;
-import com.cinema.infra.db.postgres.entities.products.PgTicket;
 import com.cinema.infra.db.postgres.entities.users.PgPerson;
 
 import jakarta.persistence.CascadeType;
@@ -24,10 +22,10 @@ public class PgCart {
   private UUID ID;
 
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<PgTicket> tickets;
+  private List<PgTicketCart> tickets;
 
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<PgProduct> products;
+  private List<PgProductCart> products;
 
   @ManyToOne
   @JoinColumn(name = "person_id", nullable = true)
@@ -36,14 +34,14 @@ public class PgCart {
   public PgCart() {
   }
 
-  public PgCart(UUID ID, List<PgTicket> tickets, List<PgProduct> products, PgPerson person) {
+  public PgCart(UUID ID, List<PgTicketCart> tickets, List<PgProductCart> products, PgPerson person) {
     this.ID = ID;
     this.tickets = tickets;
     this.products = products;
     this.person = person;
   }
 
-  public PgCart(List<PgTicket> tickets, List<PgProduct> products, PgPerson person) {
+  public PgCart(List<PgTicketCart> tickets, List<PgProductCart> products, PgPerson person) {
     this.tickets = tickets;
     this.products = products;
     this.person = person;
@@ -65,19 +63,19 @@ public class PgCart {
     this.ID = ID;
   }
 
-  public List<PgTicket> getTickets() {
+  public List<PgTicketCart> getTickets() {
     return this.tickets;
   }
 
-  public void setTickets(List<PgTicket> tickets) {
+  public void setTickets(List<PgTicketCart> tickets) {
     this.tickets = tickets;
   }
 
-  public List<PgProduct> getProducts() {
+  public List<PgProductCart> getProducts() {
     return this.products;
   }
 
-  public void setProducts(List<PgProduct> products) {
+  public void setProducts(List<PgProductCart> products) {
     this.products = products;
   }
 

@@ -157,7 +157,7 @@ public class MenuView {
   /**
    * Handles the action when the user selects the "List Available Sessions" option
    * from the menu.
-   * It changes the scene to the listTicketsInfos.fxml view.
+   * It changes the scene to the listTickets.fxml view.
    *
    * @param event The action event triggered by the user.
    * @throws Exception If an error occurs while changing the scene.
@@ -165,7 +165,7 @@ public class MenuView {
   @FXML
   void listAvailableSessions(ActionEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
-    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/products/listTicketsInfos.fxml");
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sales/listMoviesToSale.fxml");
   }
 
   /**

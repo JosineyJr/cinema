@@ -6,10 +6,10 @@ import com.cinema.domain.entities.movies.Movie;
 import com.cinema.domain.entities.movies.MovieSession;
 import com.cinema.domain.entities.products.Inventory;
 import com.cinema.domain.entities.products.Product;
-import com.cinema.domain.entities.products.ProductInfos;
 import com.cinema.domain.entities.products.Ticket;
-import com.cinema.domain.entities.products.TicketInfos;
 import com.cinema.domain.entities.sale.Cart;
+import com.cinema.domain.entities.sale.ProductCart;
+import com.cinema.domain.entities.sale.TicketCart;
 import com.cinema.domain.entities.users.Admin;
 import com.cinema.domain.entities.users.Client;
 import com.cinema.domain.entities.users.Employee;
@@ -20,10 +20,10 @@ import com.cinema.infra.db.postgres.entities.movies.PgMovie;
 import com.cinema.infra.db.postgres.entities.movies.PgMovieSession;
 import com.cinema.infra.db.postgres.entities.products.PgInventory;
 import com.cinema.infra.db.postgres.entities.products.PgProduct;
-import com.cinema.infra.db.postgres.entities.products.PgProductInfos;
 import com.cinema.infra.db.postgres.entities.products.PgTicket;
-import com.cinema.infra.db.postgres.entities.products.PgTicketInfos;
 import com.cinema.infra.db.postgres.entities.sale.PgCart;
+import com.cinema.infra.db.postgres.entities.sale.PgProductCart;
+import com.cinema.infra.db.postgres.entities.sale.PgTicketCart;
 import com.cinema.infra.db.postgres.entities.users.PgAdmin;
 import com.cinema.infra.db.postgres.entities.users.PgClient;
 import com.cinema.infra.db.postgres.entities.users.PgEmployee;
@@ -34,10 +34,10 @@ import com.cinema.infra.db.postgres.helpers.entities.movies.MovieConverter;
 import com.cinema.infra.db.postgres.helpers.entities.movies.MovieSessionConverter;
 import com.cinema.infra.db.postgres.helpers.entities.products.InventoryConverter;
 import com.cinema.infra.db.postgres.helpers.entities.products.ProductConverter;
-import com.cinema.infra.db.postgres.helpers.entities.products.ProductInfosConverter;
 import com.cinema.infra.db.postgres.helpers.entities.products.TicketConverter;
-import com.cinema.infra.db.postgres.helpers.entities.products.TicketInfosConverter;
 import com.cinema.infra.db.postgres.helpers.entities.sales.CartConverter;
+import com.cinema.infra.db.postgres.helpers.entities.sales.ProductCartConverter;
+import com.cinema.infra.db.postgres.helpers.entities.sales.TicketCartConverter;
 import com.cinema.infra.db.postgres.helpers.entities.users.AdminConverter;
 import com.cinema.infra.db.postgres.helpers.entities.users.ClientConverter;
 import com.cinema.infra.db.postgres.helpers.entities.users.EmployeeConverter;
@@ -109,14 +109,6 @@ public class ConvertEntities {
     return new MovieSessionConverter().pgConverter(movieSession);
   }
 
-  public static TicketInfos convertTicketInfos(PgTicketInfos ticketInfos) {
-    return new TicketInfosConverter().convert(ticketInfos);
-  }
-
-  public static PgTicketInfos pgConvertTicketInfos(TicketInfos ticketInfos) {
-    return new TicketInfosConverter().pgConverter(ticketInfos);
-  }
-
   public static Ticket convertTicket(PgTicket ticket) {
     return new TicketConverter().convert(ticket);
   }
@@ -125,12 +117,12 @@ public class ConvertEntities {
     return new TicketConverter().pgConverter(ticket);
   }
 
-  public static ProductInfos convertProductInfos(PgProductInfos productInfos) {
-    return new ProductInfosConverter().convert(productInfos);
+  public static TicketCart convertTicketCart(PgTicketCart ticketCart) {
+    return new TicketCartConverter().convert(ticketCart);
   }
 
-  public static PgProductInfos pgConvertProductInfos(ProductInfos productInfos) {
-    return new ProductInfosConverter().pgConverter(productInfos);
+  public static PgTicketCart pgConvertTicketCart(TicketCart ticketCart) {
+    return new TicketCartConverter().pgConverter(ticketCart);
   }
 
   public static Product convertProduct(PgProduct product) {
@@ -139,6 +131,14 @@ public class ConvertEntities {
 
   public static PgProduct pgConvertProduct(Product product) {
     return new ProductConverter().pgConverter(product);
+  }
+
+  public static ProductCart convertProductCart(PgProductCart productCart) {
+    return new ProductCartConverter().convert(productCart);
+  }
+
+  public static PgProductCart pgConvertProductCart(ProductCart productCart) {
+    return new ProductCartConverter().pgConverter(productCart);
   }
 
   public static Inventory convertInventory(PgInventory inventory) {
