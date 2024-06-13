@@ -81,7 +81,7 @@ public class ListProductsView {
     quantity.setCellValueFactory(new PropertyValueFactory<ProductDTO, Integer>("quantity"));
     quantity.setStyle("-fx-alignment: CENTER;");
 
-    action.setCellFactory(new ActionCellFactory<>(this::deleteProduct, this::editProduct));
+    action.setCellFactory(new ActionCellFactory<>(this::editProduct, this::deleteProduct));
     action.setStyle("-fx-alignment: CENTER;");
   }
 

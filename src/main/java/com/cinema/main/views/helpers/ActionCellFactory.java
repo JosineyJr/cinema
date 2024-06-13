@@ -8,10 +8,10 @@ import javafx.util.Callback;
 
 public class ActionCellFactory<T> implements Callback<TableColumn<T, Void>, TableCell<T, Void>> {
 
-  private final ActionHandler<T> deleteHandler;
   private final ExceptionThrowingActionHandler<T> editHandler;
+  private final ActionHandler<T> deleteHandler;
 
-  public ActionCellFactory(ActionHandler<T> deleteHandler, ExceptionThrowingActionHandler<T> editHandler) {
+  public ActionCellFactory(ExceptionThrowingActionHandler<T> editHandler, ActionHandler<T> deleteHandler) {
     this.deleteHandler = deleteHandler;
     this.editHandler = editHandler;
   }
@@ -19,11 +19,10 @@ public class ActionCellFactory<T> implements Callback<TableColumn<T, Void>, Tabl
   @Override
   public TableCell<T, Void> call(TableColumn<T, Void> param) {
     return new TableCell<>() {
-      private final Button deleteButton = new Button("Excluir");
       private final Button editButton = new Button("Editar");
+      private final Button deleteButton = new Button("Excluir");
 
       {
-        deleteButton.setOnAction(event -> deleteHandler.handle(getTableView().getItems().get(getIndex())));
         editButton.setOnAction(event -> {
           try {
             editHandler.handle(getTableView().getItems().get(getIndex()));
@@ -31,6 +30,7 @@ public class ActionCellFactory<T> implements Callback<TableColumn<T, Void>, Tabl
             e.printStackTrace();
           }
         });
+        deleteButton.setOnAction(event -> deleteHandler.handle(getTableView().getItems().get(getIndex())));
       }
 
       @Override
@@ -39,7 +39,7 @@ public class ActionCellFactory<T> implements Callback<TableColumn<T, Void>, Tabl
         if (empty) {
           setGraphic(null);
         } else {
-          HBox buttons = new HBox(deleteButton, editButton);
+          HBox buttons = new HBox(editButton, deleteButton);
           buttons.setSpacing(5);
           buttons.setStyle("-fx-alignment: CENTER;");
           setGraphic(buttons);

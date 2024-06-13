@@ -40,7 +40,7 @@ public class EditGenreView {
 
       Stage primaryStage = StageManager.getPrimaryStage();
 
-      ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/editGenre.fxml");
+      ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/listGenres.fxml");
     } else {
       new AlertError(response.getData().toString());
     }
