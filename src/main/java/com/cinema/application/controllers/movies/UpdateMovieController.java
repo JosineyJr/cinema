@@ -15,13 +15,27 @@ import com.cinema.domain.errors.movies.GenreNotFoundError;
 import com.cinema.domain.errors.movies.MovieNotFoundError;
 import com.cinema.domain.usecases.movies.UpdateMovieUseCase;
 
+/**
+ * Controller class for updating a movie.
+ */
 public class UpdateMovieController extends Controller<UpdateMovieDTO> {
   private UpdateMovieUseCase updateMovieUseCase;
 
+  /**
+   * Constructs a new UpdateMovieController with the specified UpdateMovieUseCase.
+   *
+   * @param updateMovieUseCase the use case for updating a movie
+   */
   public UpdateMovieController(UpdateMovieUseCase updateMovieUseCase) {
     this.updateMovieUseCase = updateMovieUseCase;
   }
 
+  /**
+   * Performs the update operation for a movie.
+   *
+   * @param updateMovieDTO the DTO containing the updated movie information
+   * @return a Response object indicating the result of the update operation
+   */
   public Response<?> perform(UpdateMovieDTO updateMovieDTO) {
     try {
       UUID genreUUID = UUID.fromString(updateMovieDTO.getGenreID());
@@ -37,17 +51,20 @@ public class UpdateMovieController extends Controller<UpdateMovieDTO> {
 
       return ResponseFactory.noContent();
     } catch (MovieNotFoundError e) {
-
       return ResponseFactory.badRequest(e);
     } catch (GenreNotFoundError e) {
-
       return ResponseFactory.badRequest(e);
     } catch (Exception e) {
-
       return ResponseFactory.serverError(e);
     }
   }
 
+  /**
+   * Builds and returns a list of validators for the update movie operation.
+   *
+   * @param object the UpdateMovieDTO object containing the movie information
+   * @return a list of validators for the update movie operation
+   */
   public ArrayList<IValidator> buildValidators(UpdateMovieDTO object) {
     Field title = new Field(object.getTitle(), "Título");
     Field synopsis = new Field(object.getSynopsis(), "Descrição");
@@ -65,5 +82,4 @@ public class UpdateMovieController extends Controller<UpdateMovieDTO> {
 
     return validators;
   }
-
 }
