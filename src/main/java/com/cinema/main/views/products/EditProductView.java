@@ -87,7 +87,7 @@ public class EditProductView implements Initializable {
 
       Stage primaryStage = StageManager.getPrimaryStage();
 
-      ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/listProducts.fxml");
+      ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/products/listProducts.fxml");
     } else {
       new AlertError(response.getData().toString());
     }
