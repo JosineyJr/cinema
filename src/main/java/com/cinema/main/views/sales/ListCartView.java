@@ -219,6 +219,10 @@ public class ListCartView {
     if (response.getStatusCode() == 204) {
       new AlertSuccess("Venda realizada com sucesso!");
 
+      productsTable.getItems().clear();
+      ticketsTable.getItems().clear();
+      totalCartValue.setText("R$0.0");
+
     } else {
       new AlertError(response.getData().toString());
 

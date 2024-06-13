@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 import com.cinema.domain.contracts.repositories.products.IFindInventoryByProductIDRepository;
 import com.cinema.domain.contracts.repositories.products.IRemoveProductItemFromInventory;
+import com.cinema.domain.contracts.repositories.sale.ICleanCartByPersonIDRepository;
 import com.cinema.domain.contracts.repositories.sale.ICreateProductSaleRepository;
 import com.cinema.domain.contracts.repositories.sale.ICreateSaleRepository;
 import com.cinema.domain.contracts.repositories.sale.ICreateTicketSaleRepository;
@@ -25,6 +26,7 @@ import com.cinema.domain.entities.sale.TicketSale;
 import com.cinema.domain.entities.users.Person;
 import com.cinema.domain.errors.sale.AllProductsSoldError;
 import com.cinema.domain.errors.sale.AllTicketsSoldError;
+import com.cinema.domain.errors.sale.MovieSessionAlreadyShown;
 import com.cinema.domain.errors.sale.ProductCartNotFoundError;
 import com.cinema.domain.errors.sale.TicketCartNotFoundError;
 import com.cinema.domain.errors.users.PersonNotFoundError;
@@ -41,6 +43,7 @@ public class CompleteSaleUseCase {
   IRemoveProductItemFromInventory removeProductItemFromInventory;
   ICreateTicketSaleRepository createTicketSaleRepository;
   ICreateProductSaleRepository createProductSaleRepository;
+  ICleanCartByPersonIDRepository cleanCartByPersonIDRepository;
 
   public CompleteSaleUseCase(IFindTicketCartByIDRepository findTicketCartByIDRepository,
       IFindProductCartByIDRepository findProductCartByIDRepository, IFindPersonByIDRepository findPersonByIDRepository,
@@ -49,8 +52,8 @@ public class CompleteSaleUseCase {
       IFindTicketsSaleByMovieSessionID findTicketsSaleByMovieSessionID,
       IFindProductsSaleByProductID findProductsSaleByProductID,
       IRemoveProductItemFromInventory removeProductItemFromInventory,
-      ICreateTicketSaleRepository createTicketSaleRepository,
-      ICreateProductSaleRepository createProductSaleRepository) {
+      ICreateTicketSaleRepository createTicketSaleRepository, ICreateProductSaleRepository createProductSaleRepository,
+      ICleanCartByPersonIDRepository cleanCartByPersonIDRepository) {
     this.findTicketCartByIDRepository = findTicketCartByIDRepository;
     this.findProductCartByIDRepository = findProductCartByIDRepository;
     this.findPersonByIDRepository = findPersonByIDRepository;
@@ -62,11 +65,12 @@ public class CompleteSaleUseCase {
     this.removeProductItemFromInventory = removeProductItemFromInventory;
     this.createTicketSaleRepository = createTicketSaleRepository;
     this.createProductSaleRepository = createProductSaleRepository;
+    this.cleanCartByPersonIDRepository = cleanCartByPersonIDRepository;
   }
 
   public void execute(List<UUID> productsCartIDs, List<UUID> ticketsCartIDs, UUID personID)
       throws PersonNotFoundError, TicketCartNotFoundError, ProductCartNotFoundError, AllTicketsSoldError,
-      AllProductsSoldError {
+      AllProductsSoldError, MovieSessionAlreadyShown {
 
     Person person = this.findPersonByIDRepository.findPersonByID(personID);
 
@@ -87,6 +91,14 @@ public class CompleteSaleUseCase {
 
       if (ticketCart == null) {
         throw new TicketCartNotFoundError();
+      }
+
+      boolean isValidDate = ticketCart.getTicket().getMovieSession().getStartDate().isAfter(LocalDateTime.now());
+
+      if (!isValidDate) {
+        String startDate = ticketCart.getTicket().getMovieSession().getStartDate().toString();
+
+        throw new MovieSessionAlreadyShown(startDate);
       }
 
       TicketSale ticketSale = new TicketSale(ticketCart.getTicket(), sale, ticketCart.getPrice());
@@ -157,5 +169,7 @@ public class CompleteSaleUseCase {
     sale.setSaleDate(LocalDateTime.now());
 
     this.updateSaleRepository.updateSale(sale);
+
+    this.cleanCartByPersonIDRepository.cleanCart(personID);
   }
 }

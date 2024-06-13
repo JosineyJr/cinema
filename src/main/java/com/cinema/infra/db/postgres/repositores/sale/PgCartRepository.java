@@ -2,6 +2,7 @@ package com.cinema.infra.db.postgres.repositores.sale;
 
 import java.util.UUID;
 
+import com.cinema.domain.contracts.repositories.sale.ICleanCartByPersonIDRepository;
 import com.cinema.domain.contracts.repositories.sale.ICreateCartRepository;
 import com.cinema.domain.contracts.repositories.sale.IFindCartByPersonIDRepository;
 import com.cinema.domain.contracts.repositories.sale.IUpdateCartRepository;
@@ -11,7 +12,8 @@ import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
 
 public class PgCartRepository extends PgRepository
-    implements IFindCartByPersonIDRepository, ICreateCartRepository, IUpdateCartRepository {
+    implements IFindCartByPersonIDRepository, ICreateCartRepository, IUpdateCartRepository,
+    ICleanCartByPersonIDRepository {
 
   @Override
   public void updateCart(Cart cart) {
@@ -41,6 +43,15 @@ public class PgCartRepository extends PgRepository
     }
 
     return ConvertEntities.convertCart(pgCart);
+  }
+
+  @Override
+  public void cleanCart(UUID personID) {
+    PgCart pgCart = this.session.createQuery("from cart where person.id = :personID", PgCart.class)
+        .setParameter("personID", personID)
+        .getSingleResultOrNull();
+
+    this.session.remove(pgCart);
   }
 
 }

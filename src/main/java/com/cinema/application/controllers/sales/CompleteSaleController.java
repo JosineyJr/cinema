@@ -15,6 +15,7 @@ import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
 import com.cinema.domain.errors.sale.AllProductsSoldError;
 import com.cinema.domain.errors.sale.AllTicketsSoldError;
+import com.cinema.domain.errors.sale.MovieSessionAlreadyShown;
 import com.cinema.domain.errors.sale.ProductCartNotFoundError;
 import com.cinema.domain.errors.sale.TicketCartNotFoundError;
 import com.cinema.domain.errors.users.PersonNotFoundError;
@@ -46,7 +47,7 @@ public class CompleteSaleController extends Controller<CompleteSaleDTO> {
 
       return ResponseFactory.noContent();
     } catch (PersonNotFoundError | TicketCartNotFoundError | AllTicketsSoldError | ProductCartNotFoundError
-        | AllProductsSoldError e) {
+        | AllProductsSoldError | MovieSessionAlreadyShown e) {
       return ResponseFactory.badRequest(e);
     }
   }
