@@ -50,7 +50,7 @@ public class CreateCinemaHallView {
 
             Stage primaryStage = StageManager.getPrimaryStage();
 
-            ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/listCinemaHall.fxml");
+            ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/listCinemaHalls.fxml");
         } else {
             new AlertError(response.getData().toString());
         }
