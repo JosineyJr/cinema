@@ -52,6 +52,15 @@ public class DatabaseInitializer {
   public static void initUsers(Session session) {
     session.beginTransaction();
 
+    session.createNativeQuery("ALTER TABLE admin ADD CONSTRAINT unique_cpf_admin UNIQUE (cpf)", PgAdmin.class)
+        .executeUpdate();
+
+    session.createNativeQuery("ALTER TABLE employee ADD CONSTRAINT unique_cpf_employee UNIQUE (cpf)", PgEmployee.class)
+        .executeUpdate();
+
+    session.createNativeQuery("ALTER TABLE client ADD CONSTRAINT unique_cpf_client UNIQUE (cpf)", PgClient.class)
+        .executeUpdate();
+
     session.createNativeQuery(
         "INSERT INTO admin (id, cpf, first_name, last_name, password) VALUES ('70e4dd2f-ce7c-4f3c-afee-00d64f87dbde', '12461414009', 'Master', 'User', '$2a$12$UWXHGddEHi6tLhutfDdUf.jbhg9iLXUYbNUf0lrxUHYa702IRiVLa') ON CONFLICT (cpf) DO NOTHING",
         PgAdmin.class).executeUpdate();
