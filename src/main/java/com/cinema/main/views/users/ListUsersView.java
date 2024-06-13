@@ -2,10 +2,13 @@ package com.cinema.main.views.users;
 
 import java.util.List;
 
+import com.cinema.application.dtos.users.ClientDTO;
 import com.cinema.application.dtos.users.PersonDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.users.ListPersonsFactory;
+import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.ActionCellFactory;
+import com.cinema.main.views.helpers.ChangeWindow;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class ListUsersView {
 
@@ -67,7 +71,17 @@ public class ListUsersView {
     System.out.println("Deleting person: " + person.getName());
   }
 
-  private void editPerson(PersonDTO person) {
-    System.out.println("Editing person: " + person.getName());
+  private void editPerson(PersonDTO person) throws Exception {
+    String[] names = person.getName().split(" ");
+    String firstName = names[0];
+    String lastName = names.length > 1 ? names[1] : "";
+
+    ClientDTO client = new ClientDTO(person.getID(), firstName, lastName, person.getCPF());
+
+    ClientModel.getInstance().setClient(client);
+
+    Stage primaryStage = StageManager.getPrimaryStage();
+
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/editClient.fxml");
   }
 }

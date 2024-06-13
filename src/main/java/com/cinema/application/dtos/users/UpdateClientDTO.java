@@ -54,7 +54,7 @@ public class UpdateClientDTO {
   }
 
   /**
-   * Returns the CPF (Brazilian individual taxpayer registry) of the client.
+   * Returns the CPF of the client.
    *
    * @return the CPF of the client
    */

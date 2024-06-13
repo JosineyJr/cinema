@@ -2,7 +2,6 @@ package com.cinema.infra.db.postgres.repositores.users;
 
 import com.cinema.domain.contracts.repositories.users.ICreateClientRepository;
 import com.cinema.domain.contracts.repositories.users.IFindClientByCPFRepository;
-import com.cinema.domain.contracts.repositories.users.IUpdateClientRepository;
 import com.cinema.domain.entities.users.Client;
 import com.cinema.infra.db.postgres.entities.users.PgClient;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
@@ -13,8 +12,7 @@ import jakarta.persistence.NoResultException;
 public class PgClientRepository
     extends PgRepository
     implements ICreateClientRepository,
-    IFindClientByCPFRepository,
-    IUpdateClientRepository {
+    IFindClientByCPFRepository {
 
   public PgClientRepository() {
     super();
@@ -43,11 +41,5 @@ public class PgClientRepository
     } catch (Exception e) {
       throw e;
     }
-  }
-
-  public void updateClient(Client client) {
-    PgClient pgClient = ConvertEntities.pgConvertClient(client);
-
-    this.session.merge(pgClient);
   }
 }

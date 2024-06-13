@@ -12,12 +12,12 @@ import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
 import com.cinema.domain.entities.users.Client;
 import com.cinema.domain.errors.users.PersonNotFoundError;
-import com.cinema.domain.usecases.users.UpdateClientUseCase;
+import com.cinema.domain.usecases.users.UpdatePersonUseCase;
 
 public class UpdateClientController extends Controller<UpdateClientDTO> {
-  private UpdateClientUseCase updateClientUseCase;
+  private UpdatePersonUseCase updateClientUseCase;
 
-  public UpdateClientController(UpdateClientUseCase updateClientUseCase) {
+  public UpdateClientController(UpdatePersonUseCase updateClientUseCase) {
     this.updateClientUseCase = updateClientUseCase;
   }
 
@@ -39,6 +39,7 @@ public class UpdateClientController extends Controller<UpdateClientDTO> {
     } catch (PersonNotFoundError e) {
       return ResponseFactory.badRequest(e);
     } catch (Exception e) {
+      System.out.println(e.getMessage());
       return ResponseFactory.serverError(e);
     }
   }
