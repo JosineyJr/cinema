@@ -21,6 +21,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * The EditMovieView class represents the view for editing movie details.
+ * It provides fields for editing the movie's title, director, duration, minimum age, synopsis, and genre.
+ * The view is responsible for populating the genre dropdown with available genres,
+ * setting the initial values for the movie's details, and handling the action event when the "Edit Movie" button is clicked.
+ */
 public class EditMovieView {
   @FXML
   private TextField director;
@@ -42,6 +48,13 @@ public class EditMovieView {
 
   private MovieDTO movie;
 
+  /**
+   * Initializes the EditMovieView.
+   * This method is automatically called when the view is loaded.
+   * It populates the genre dropdown with available genres,
+   * and sets the initial values for the movie's title, director, duration, minimum age, and synopsis.
+   * It also selects the genre that matches the movie's genre.
+   */
   @FXML
   void initialize() {
     Response<?> response = ListGenresFactory.make().handle(null);
@@ -69,6 +82,14 @@ public class EditMovieView {
     this.genre.setValue(genreItem);
   }
 
+  /**
+   * Handles the action event when the "Edit Movie" button is clicked.
+   * Updates the movie details based on the user input and displays a success message if the movie is edited successfully.
+   * Otherwise, displays an error message with the response data.
+   *
+   * @param event the action event triggered by clicking the "Edit Movie" button
+   * @throws Exception if an exception occurs during the movie update process
+   */
   @FXML
   void editMovie(ActionEvent event) throws Exception {
     String genreID = this.genre.getSelectionModel().getSelectedItem().getID().toString();
