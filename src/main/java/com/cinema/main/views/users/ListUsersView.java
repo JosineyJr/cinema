@@ -5,7 +5,7 @@ import java.util.List;
 import com.cinema.application.dtos.users.PersonDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.users.ListPersonsFactory;
-import com.cinema.main.views.helpers.ButtonTableCell;
+import com.cinema.main.views.helpers.ActionCellFactory;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,10 +60,14 @@ public class ListUsersView {
     this.type.setCellValueFactory(new PropertyValueFactory<>("role"));
     this.type.setStyle("-fx-alignment: CENTER;");
 
-    this.action.setCellFactory(column -> new ButtonTableCell<>("Excluir", this::deletePerson));
+    this.action.setCellFactory(new ActionCellFactory<>(this::editPerson, this::deletePerson));
   }
 
   private void deletePerson(PersonDTO person) {
     System.out.println("Deleting person: " + person.getName());
+  }
+
+  private void editPerson(PersonDTO person) {
+    System.out.println("Editing person: " + person.getName());
   }
 }
