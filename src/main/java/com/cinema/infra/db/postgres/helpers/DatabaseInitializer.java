@@ -176,7 +176,7 @@ public class DatabaseInitializer {
 
     session.createNativeQuery(
         "INSERT INTO inventory (id, quantity, product_id) VALUES ('dbbc1925-4c27-466c-bc9f-705c718976c4', 100, '6d7dff0a-a9e6-4002-9e53-5f97be86eb43') ON CONFLICT (id) DO NOTHING",
-        PgInventory.class);
+        PgInventory.class).executeUpdate();
 
     session.createNativeQuery(
         "INSERT INTO inventory (id, quantity, product_id) VALUES ('1f614bd5-a4c3-453f-9e75-346c37348928', 100, 'e58d3000-c05f-435a-8571-d7637e0e1437') ON CONFLICT (id) DO NOTHING",
