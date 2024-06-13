@@ -17,6 +17,7 @@ import com.cinema.domain.entities.sale.Cart;
 import com.cinema.domain.entities.sale.ProductCart;
 import com.cinema.domain.entities.sale.TicketCart;
 import com.cinema.main.factories.sales.CompleteSaleFactory;
+import com.cinema.domain.errors.sale.CartNotFoundError;
 import com.cinema.main.factories.sales.ListPersonCartFactory;
 import com.cinema.main.factories.sales.RemoveProductFromCartFactory;
 import com.cinema.main.factories.sales.RemoveTicketFromCartFactory;
@@ -72,11 +73,18 @@ public class ListCartView {
 
   @FXML
   void initialize() {
-    UUID personID = UUID.fromString(Session.getCPF());
+    UUID personID = Session.getPersonId();
+
     ListCartDTO listCartDTO = new ListCartDTO(personID);
     Response<?> response = ListPersonCartFactory.make().handle(listCartDTO);
 
     Object data = response.getData();
+
+    if (data instanceof CartNotFoundError){
+      new AlertError("Carrinho vazio!");
+
+      return;
+    }
 
     if (data != null) {
       Cart cart = (Cart) data;
@@ -210,7 +218,7 @@ public class ListCartView {
     List<ProductsCartDTO> productsCart = productsTable.getItems();
     List<TicketsCartDTO> ticketsCart = ticketsTable.getItems();
 
-    UUID personID = UUID.fromString(Session.getCPF());
+    UUID personID = Session.getPersonId();
 
     CompleteSaleDTO completeSaleDTO = new CompleteSaleDTO(productsCart, ticketsCart, personID);
 

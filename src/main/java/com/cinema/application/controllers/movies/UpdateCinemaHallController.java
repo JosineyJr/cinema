@@ -11,6 +11,7 @@ import com.cinema.application.validation.Field;
 import com.cinema.application.validation.IValidator;
 import com.cinema.application.validation.ValidationBuilder;
 import com.cinema.domain.entities.movies.CinemaHall;
+import com.cinema.domain.errors.movies.CinemaHallNotFoundError;
 import com.cinema.domain.usecases.movies.UpdateCinemaHallUseCase;
 
 public class UpdateCinemaHallController extends Controller<UpdateCinemaHallDTO> {
@@ -28,6 +29,8 @@ public class UpdateCinemaHallController extends Controller<UpdateCinemaHallDTO> 
       this.updateCinemaHallUseCase.execute(cinemaHall);
 
       return ResponseFactory.noContent();
+    } catch (CinemaHallNotFoundError e) {
+      return ResponseFactory.badRequest(e);
     } catch (Exception e) {
       return ResponseFactory.serverError(e);
     }

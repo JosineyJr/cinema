@@ -110,7 +110,7 @@ public class CreateClientView {
 
       Stage stage = (Stage) createClientButton.getScene().getWindow();
 
-      ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/clientMoviesMenu.fxml");
+      ChangeWindow.changeScene(stage, "/com/cinema/main/views/auth/login.fxml");
 
     } else {
       new AlertError(response.getData().toString());
@@ -127,6 +127,6 @@ public class CreateClientView {
   void backLogin(MouseEvent event) throws Exception {
     Stage stage = (Stage) createClientButton.getScene().getWindow();
 
-    ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/login.fxml");
+    ChangeWindow.changeScene(stage, "/com/cinema/main/views/auth/login.fxml");
   }
 }

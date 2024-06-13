@@ -44,7 +44,6 @@
    xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
    fx:controller="com.cinema.main.views.users.CreateClientView">
    <children>
-      <fx:include source="../menu.fxml" />
       <Label layoutX="314.0" layoutY="106.0" text="Nome">
          <font>
             <Font name="Fira Code Regular" size="14.0" />
