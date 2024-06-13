@@ -31,6 +31,8 @@ public class PgConnection implements DbTransaction {
     DatabaseInitializer.initUsers(getSession());
     DatabaseInitializer.initMovie(getSession());
     DatabaseInitializer.initCinemaHall(getSession());
+    DatabaseInitializer.initProduct(getSession());
+    DatabaseInitializer.initInventory(getSession());
   }
 
   private SessionFactory buildSessionFactory() {

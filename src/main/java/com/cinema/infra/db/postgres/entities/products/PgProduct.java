@@ -16,7 +16,7 @@ public class PgProduct {
   @GeneratedValue
   private UUID ID;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String name;
 
   @Column(nullable = false)
