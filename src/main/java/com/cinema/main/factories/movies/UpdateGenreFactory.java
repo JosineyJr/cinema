@@ -10,6 +10,11 @@ import com.cinema.infra.db.postgres.repositores.movies.PgGenreRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class UpdateGenreFactory {
+  /**
+   * Creates a Controller instance for updating a genre.
+   *
+   * @return The created Controller instance.
+   */
   public static Controller<UpdateGenreDTO> make() {
     PgGenreRepository pgGenreRepository = new PgGenreRepository();
 

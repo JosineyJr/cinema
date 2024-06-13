@@ -31,6 +31,15 @@ public class EditCinemaHallView {
     capacity.setText(String.valueOf(cinemaHall.getCapacity()));
   }
 
+  /**
+   * Handles the action event when the "Edit Cinema Hall" button is clicked.
+   * Updates the cinema hall with the new name and capacity provided by the user.
+   * Displays a success message if the cinema hall is successfully edited,
+   * otherwise displays an error message with the response data.
+   *
+   * @param event the action event triggered by clicking the "Edit Cinema Hall" button
+   * @throws Exception if an error occurs during the cinema hall update process
+   */
   @FXML
   void editCinemaHall(ActionEvent event) throws Exception{
     UpdateCinemaHallDTO updateCinemaHallDTO = new UpdateCinemaHallDTO(cinemaHall.getID(), name.getText(),
