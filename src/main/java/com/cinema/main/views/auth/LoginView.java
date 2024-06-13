@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -37,10 +38,7 @@ public class LoginView {
   private Button loginButton;
 
   @FXML
-  private Label noRegistrationLabel;
-
-  @FXML
-  private TextField password;
+  private PasswordField password;
 
   /**
    * Handles the event when the user clicks on the "Create Client" button.
@@ -83,23 +81,9 @@ public class LoginView {
 
       Stage stage = (Stage) loginButton.getScene().getWindow();
 
-      ChangeWindow.changeScene(stage, "/com/cinema/main/views/products/listTickets.fxml");
+      ChangeWindow.changeScene(stage, "/com/cinema/main/views/sales/listMoviesToSale.fxml");
     } else {
       new AlertError(response.getData().toString());
     }
-  }
-
-  /**
-   * Handles the event when the user chooses not to register.
-   * This method changes the scene to the client movies menu view.
-   *
-   * @param event The mouse event that triggered the method.
-   * @throws Exception If an error occurs while changing the scene.
-   */
-  @FXML
-  void noRegistration(MouseEvent event) throws Exception {
-    Stage stage = (Stage) loginButton.getScene().getWindow();
-
-    ChangeWindow.changeScene(stage, "/com/cinema/main/views/users/clientMoviesMenu.fxml");
   }
 }

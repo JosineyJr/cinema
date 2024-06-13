@@ -60,10 +60,12 @@ public class ListProductsToSaleView {
     this.price.setStyle("-fx-alignment: CENTER;");
 
     action.setCellFactory(column -> new ButtonTableCell<>("Add carrinho", this::addToCart));
+
+    System.out.println(Session.getPersonId());
   }
 
   private void addToCart(ProductDTO product) {
-    AddProductToCartDTO addProductToCartDTO = new AddProductToCartDTO(product.getID().toString(), Session.getCPF());
+    AddProductToCartDTO addProductToCartDTO = new AddProductToCartDTO(product.getID().toString(), Session.getPersonId().toString());
 
     Response<?> response = AddProductToCartFactory.make().handle(addProductToCartDTO);
 

@@ -106,7 +106,7 @@ public class ListMoviesToSaleView {
 
     System.out.println("CPF: " + Session.getCPF());
 
-    AddTicketToCartDTO addTicketToCartDTO = new AddTicketToCartDTO(ticket.getID().toString(), Session.getCPF());
+    AddTicketToCartDTO addTicketToCartDTO = new AddTicketToCartDTO(ticket.getID().toString(), Session.getPersonId().toString());
 
     Response<?> response = AddTicketToCartFactory.make().handle(addTicketToCartDTO);
 

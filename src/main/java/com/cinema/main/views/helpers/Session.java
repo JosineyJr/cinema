@@ -1,12 +1,15 @@
 package com.cinema.main.views.helpers;
 
+import java.util.UUID;
+
 /**
  * The Session class represents a user session in the cinema application.
  * It stores the user's CPF (Cadastro de Pessoa Física) and role.
  */
 public class Session {
-  private static String CPF = "087c256a-0f16-4c49-aa15-825d151badf4";
-  private static String role = null;
+  private static String CPF;
+  private static UUID PERSON_ID;
+  private static String role;
 
   /**
    * Retrieves the CPF (Cadastro de Pessoa Física) of the user.
@@ -42,5 +45,23 @@ public class Session {
    */
   public static void setRole(String role) {
     Session.role = role;
+  }
+
+  /**
+   * Retrieves the ID of the person.
+   *
+   * @return The ID of the person.
+   */
+  public static UUID getPersonId() {
+    return PERSON_ID;
+  }
+
+  /**
+   * Sets the ID of the person.
+   *
+   * @param personId The ID of the person to set.
+   */
+  public static void setPersonId(UUID personId) {
+    PERSON_ID = personId;
   }
 }

@@ -8,6 +8,7 @@ import com.cinema.domain.entities.users.Client;
 import com.cinema.domain.entities.users.Person;
 import com.cinema.domain.enums.auth.Role;
 import com.cinema.domain.errors.auth.LoginError;
+import com.cinema.main.views.helpers.Session;
 
 public class LoginUseCase {
   private IFindClientByCPFRepository findClientByCPFRepository;
@@ -24,8 +25,8 @@ public class LoginUseCase {
   /**
    * Executes the login use case to authenticate a user.
    *
-   * @param CPF The CPF (Cadastro de Pessoas Físicas) of the user.
-   * @param password The password of the user.
+   * @param CPF        The CPF (Cadastro de Pessoas Físicas) of the user.
+   * @param password   The password of the user.
    * @param isEmployee Indicates whether the user is an employee or not.
    * @return The role of the authenticated user (CLIENT, ADMIN, or EMPLOYEE).
    * @throws LoginError If the login credentials are invalid.
@@ -37,6 +38,10 @@ public class LoginUseCase {
     if (person == null || !hasherComparer.compare(password, person.getPassword())) {
       throw new LoginError();
     }
+
+    Session.setPersonId(person.getID());
+
+    System.out.println(Session.getPersonId());
 
     if (person instanceof Client) {
       return Role.CLIENT.toString();
