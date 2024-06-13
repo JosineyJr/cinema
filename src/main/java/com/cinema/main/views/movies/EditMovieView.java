@@ -23,9 +23,12 @@ import javafx.stage.Stage;
 
 /**
  * The EditMovieView class represents the view for editing movie details.
- * It provides fields for editing the movie's title, director, duration, minimum age, synopsis, and genre.
- * The view is responsible for populating the genre dropdown with available genres,
- * setting the initial values for the movie's details, and handling the action event when the "Edit Movie" button is clicked.
+ * It provides fields for editing the movie's title, director, duration, minimum
+ * age, synopsis, and genre.
+ * The view is responsible for populating the genre dropdown with available
+ * genres,
+ * setting the initial values for the movie's details, and handling the action
+ * event when the "Edit Movie" button is clicked.
  */
 public class EditMovieView {
   @FXML
@@ -38,7 +41,7 @@ public class EditMovieView {
   private ChoiceBox<Item> genre;
 
   @FXML
-  private TextField minimunAge;
+  private TextField minimumAge;
 
   @FXML
   private TextField title;
@@ -52,7 +55,8 @@ public class EditMovieView {
    * Initializes the EditMovieView.
    * This method is automatically called when the view is loaded.
    * It populates the genre dropdown with available genres,
-   * and sets the initial values for the movie's title, director, duration, minimum age, and synopsis.
+   * and sets the initial values for the movie's title, director, duration,
+   * minimum age, and synopsis.
    * It also selects the genre that matches the movie's genre.
    */
   @FXML
@@ -74,17 +78,21 @@ public class EditMovieView {
     title.setText(movie.getTitle());
     director.setText(movie.getDirector());
     duration.setText(String.valueOf(movie.getDuration()));
-    minimunAge.setText(String.valueOf(movie.getMinimumAge()));
+    minimumAge.setText(String.valueOf(movie.getMinimumAge()));
     synopsis.setText(movie.getSynopsis());
 
-    Item genreItem = this.genre.getItems().stream().filter(item -> item.getID().toString() == movie.getGenre())
+    Item genreItem = this.genre.getItems().stream().filter(item -> item.getID() == movie.getGenreID())
         .findFirst().orElse(null);
+    
+    System.out.println(genreItem);
+
     this.genre.setValue(genreItem);
   }
 
   /**
    * Handles the action event when the "Edit Movie" button is clicked.
-   * Updates the movie details based on the user input and displays a success message if the movie is edited successfully.
+   * Updates the movie details based on the user input and displays a success
+   * message if the movie is edited successfully.
    * Otherwise, displays an error message with the response data.
    *
    * @param event the action event triggered by clicking the "Edit Movie" button
@@ -92,10 +100,16 @@ public class EditMovieView {
    */
   @FXML
   void editMovie(ActionEvent event) throws Exception {
+    if (this.genre.getSelectionModel() == null || this.genre.getSelectionModel().getSelectedItem() == null) {
+      new AlertError("Gênero é obrigatório");
+
+      return;
+    }
+
     String genreID = this.genre.getSelectionModel().getSelectedItem().getID().toString();
 
     UpdateMovieDTO updateMovieDTO = new UpdateMovieDTO(movie.getID().toString(), title.getText(), director.getText(),
-        synopsis.getText(), genreID, Integer.parseInt(duration.getText()), Integer.parseInt(minimunAge.getText()));
+        synopsis.getText(), genreID, Integer.parseInt(duration.getText()), Integer.parseInt(minimumAge.getText()));
 
     Response<?> response = UpdateMovieFactory.make().handle(updateMovieDTO);
 

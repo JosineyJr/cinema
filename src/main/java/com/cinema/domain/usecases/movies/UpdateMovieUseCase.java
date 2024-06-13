@@ -22,30 +22,31 @@ public class UpdateMovieUseCase {
    * Constructs a new UpdateMovieUseCase with the given repositories.
    *
    * @param findMovieByIDRepository The repository for finding a movie by ID.
-   * @param updateMovieRepository The repository for updating a movie.
+   * @param updateMovieRepository   The repository for updating a movie.
    */
   public UpdateMovieUseCase(IFindMovieByIDRepository findMovieByIDRepository,
-      IUpdateMovieRepository updateMovieRepository) {
+      IUpdateMovieRepository updateMovieRepository, IFindGenreByIDRepository findGenreByIDRepository) {
     this.findMovieByIDRepository = findMovieByIDRepository;
     this.updateMovieRepository = updateMovieRepository;
+    this.findGenreByIDRepository = findGenreByIDRepository;
   }
 
   /**
    * Executes the use case to update a movie.
    *
-   * @param ID The ID of the movie to update.
-   * @param title The new title of the movie.
-   * @param synopsis The new synopsis of the movie.
-   * @param director The new director of the movie.
-   * @param genreID The ID of the new genre of the movie.
-   * @param duration The new duration of the movie.
+   * @param ID         The ID of the movie to update.
+   * @param title      The new title of the movie.
+   * @param synopsis   The new synopsis of the movie.
+   * @param director   The new director of the movie.
+   * @param genreID    The ID of the new genre of the movie.
+   * @param duration   The new duration of the movie.
    * @param minimumAge The new minimum age requirement for the movie.
    * @throws MovieNotFoundError If the movie with the given ID is not found.
    * @throws GenreNotFoundError If the genre with the given ID is not found.
    */
   public void execute(UUID ID, String title, String synopsis, String director, UUID genreID, int duration,
       int minimumAge) throws MovieNotFoundError, GenreNotFoundError {
-    Genre genre = findGenreByIDRepository.findGenreByID(genreID);
+    Genre genre = this.findGenreByIDRepository.findGenreByID(genreID);
 
     if (genre == null) {
       throw new GenreNotFoundError();

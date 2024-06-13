@@ -55,6 +55,7 @@ public class UpdateMovieController extends Controller<UpdateMovieDTO> {
     } catch (GenreNotFoundError e) {
       return ResponseFactory.badRequest(e);
     } catch (Exception e) {
+      System.out.println(e.getMessage());
       return ResponseFactory.serverError(e);
     }
   }
