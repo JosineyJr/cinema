@@ -47,6 +47,16 @@ public class MenuView {
    */
   @FXML
   public void initialize() {
+    if (Session.getPersonId() == null) {
+      management.setVisible(false);
+      movies.setVisible(false);
+      products.setVisible(false);
+      profile.setVisible(false);
+      cart.setVisible(false);
+      
+      return;
+    }
+
     switch (Session.getRole()) {
       case "employee":
         sales.setVisible(false);

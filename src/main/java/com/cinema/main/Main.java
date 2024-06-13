@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 /**
  * The main class of the cinema application.
@@ -46,7 +47,8 @@ public class Main extends Application {
                 getClass().getResource("/com/cinema/main/views/sales/listAvailablesSalesCounter.fxml"));
 
         Parent root = fxmlLoader.load();
-
+        Image appIcon = new Image(getClass().getResource("/cinemaLogo.png").toString());
+        primaryStage.getIcons().add(appIcon);
         primaryStage.setTitle("Sistema de Cinema");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
