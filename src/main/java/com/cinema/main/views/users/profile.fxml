@@ -6,12 +6,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
+  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.users.ProfileView">
   <children>
     <fx:include source="../menu.fxml" />
-    <Circle fill="DODGERBLUE" layoutX="400.0" layoutY="142.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-    <TextField fx:id="name" layoutX="82.0" layoutY="287.0" />
-    <TextField fx:id="cpf" layoutX="82.0" layoutY="365.0" />
+    <Circle fill="DODGERBLUE" layoutX="400.0" layoutY="142.0" radius="100.0" stroke="BLACK"
+      strokeType="INSIDE" />
+    <TextField fx:id="name" layoutX="82.0" layoutY="287.0" disable="true" />
+    <TextField fx:id="cpf" disable="true" layoutX="82.0" layoutY="365.0" />
     <Label layoutX="82.0" layoutY="270.0" text="Nome">
       <font>
         <Font name="Fira Code Regular" size="13.0" />
