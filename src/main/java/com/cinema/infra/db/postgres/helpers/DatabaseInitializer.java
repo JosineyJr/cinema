@@ -1,5 +1,7 @@
 package com.cinema.infra.db.postgres.helpers;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
@@ -52,14 +54,18 @@ public class DatabaseInitializer {
   public static void initUsers(Session session) {
     session.beginTransaction();
 
-    session.createNativeQuery("ALTER TABLE admin ADD CONSTRAINT unique_cpf_admin UNIQUE (cpf)", PgAdmin.class)
-        .executeUpdate();
+    boolean constraints = checkConstraints(session);
+    if (constraints) {
+      session.createNativeQuery("ALTER TABLE admin ADD CONSTRAINT unique_cpf_admin UNIQUE (cpf)", PgAdmin.class)
+          .executeUpdate();
 
-    session.createNativeQuery("ALTER TABLE employee ADD CONSTRAINT unique_cpf_employee UNIQUE (cpf)", PgEmployee.class)
-        .executeUpdate();
+      session
+          .createNativeQuery("ALTER TABLE employee ADD CONSTRAINT unique_cpf_employee UNIQUE (cpf)", PgEmployee.class)
+          .executeUpdate();
 
-    session.createNativeQuery("ALTER TABLE client ADD CONSTRAINT unique_cpf_client UNIQUE (cpf)", PgClient.class)
-        .executeUpdate();
+      session.createNativeQuery("ALTER TABLE client ADD CONSTRAINT unique_cpf_client UNIQUE (cpf)", PgClient.class)
+          .executeUpdate();
+    }
 
     session.createNativeQuery(
         "INSERT INTO admin (id, cpf, first_name, last_name, password) VALUES ('70e4dd2f-ce7c-4f3c-afee-00d64f87dbde', '12461414009', 'Master', 'User', '$2a$12$UWXHGddEHi6tLhutfDdUf.jbhg9iLXUYbNUf0lrxUHYa702IRiVLa') ON CONFLICT (cpf) DO NOTHING",
@@ -78,5 +84,12 @@ public class DatabaseInitializer {
         .executeUpdate();
 
     session.getTransaction().commit();
+  }
+
+  private static boolean checkConstraints(Session session) {
+    String checkConstraintSql = "SELECT conname FROM pg_constraint WHERE conname = 'unique_cpf_admin'";
+    List<?> constraints = session.createNativeQuery(checkConstraintSql, Object.class).list();
+
+    return constraints.isEmpty();
   }
 }
