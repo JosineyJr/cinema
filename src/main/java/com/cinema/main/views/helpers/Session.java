@@ -83,4 +83,14 @@ public class Session {
   public static void setName(String name) {
     Session.name = name;
   }
+
+  /**
+   * Signs out the current user by resetting the session data.
+   */
+  public static void  signOut() {
+    CPF = null;
+    PERSON_ID = null;
+    role = null;
+    name = null;
+  }
 }
