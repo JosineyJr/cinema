@@ -20,7 +20,7 @@ public class SalesCounterConverter implements IEntityConverter<PgSalesCounter, S
     }
 
     source.getSales().stream().forEach(pgSale -> {
-      Sale sale = new SaleConverter().convert(pgSale);
+      Sale sale = new Sale(source.getID());
 
       sales.add(sale);
     });
@@ -37,7 +37,9 @@ public class SalesCounterConverter implements IEntityConverter<PgSalesCounter, S
     }
 
     target.getSales().stream().forEach(sale -> {
-      pgSales.add(new SaleConverter().pgConverter(sale));
+      PgSale pgSale = new PgSale(target.getID());
+
+      pgSales.add(pgSale);
     });
 
     return new PgSalesCounter(target.getID(), target.getType(), target.isAvailable(), pgSales);
