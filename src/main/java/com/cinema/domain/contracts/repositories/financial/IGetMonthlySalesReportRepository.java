@@ -5,5 +5,5 @@ import java.util.List;
 import com.cinema.domain.entities.financial.MonthlySalesReport;
 
 public interface IGetMonthlySalesReportRepository {
-  List<MonthlySalesReport> getDailySalesReport();
+  List<MonthlySalesReport> getMonthlySalesReport();
 }
