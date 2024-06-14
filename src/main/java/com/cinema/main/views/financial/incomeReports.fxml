@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <fx:include source="../menu.fxml" />
+      <BarChart fx:id="salesCountarDailySales" layoutX="156.0" layoutY="118.0" prefHeight="192.0" prefWidth="487.0">
+        <xAxis>
+          <CategoryAxis label="Balcão" side="BOTTOM">
+               <tickLabelFont>
+                  <Font name="Fira Code Regular" size="9.0" />
+               </tickLabelFont>
+            </CategoryAxis>
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Vendas no dia" minorTickCount="0" minorTickLength="2.0" side="LEFT" tickLabelRotation="-25.0" tickLength="2.0" tickUnit="2.0">
+               <tickLabelFont>
+                  <Font name="Fira Code Regular" size="9.0" />
+               </tickLabelFont>
+            </NumberAxis>
+        </yAxis>
+      </BarChart>
+      <Label layoutX="312.0" layoutY="101.0" text="Vendas X Balcão no dia">
+         <font>
+            <Font name="Fira Code Regular" size="13.0" />
+         </font>
+      </Label>
+      <BarChart fx:id="salesCountarDailySales" layoutX="157.0" layoutY="352.0" prefHeight="192.0" prefWidth="487.0">
+         <xAxis>
+            <CategoryAxis label="Balcão" side="BOTTOM">
+               <tickLabelFont>
+                  <Font name="Fira Code Regular" size="9.0" />
+               </tickLabelFont>
+            </CategoryAxis>
+         </xAxis>
+         <yAxis>
+            <NumberAxis label="Vendas no mês" minorTickCount="0" minorTickLength="2.0" side="LEFT" tickLabelRotation="-25.0" tickLength="2.0" tickUnit="2.0">
+               <tickLabelFont>
+                  <Font name="Fira Code Regular" size="9.0" />
+               </tickLabelFont>
+            </NumberAxis>
+         </yAxis>
+      </BarChart>
+      <Label layoutX="313.0" layoutY="335.0" text="Vendas X Balcão no mês">
+         <font>
+            <Font name="Fira Code Regular" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="349.0" layoutY="56.0" text="Receita">
+         <font>
+            <Font name="Fira Code Regular" size="24.0" />
+         </font>
+      </Label>
+  </children>
+</AnchorPane>

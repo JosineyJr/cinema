@@ -70,7 +70,7 @@ public class MenuView {
         break;
       case "client":
         management.setVisible(false);
-        
+
         break;
       default:
         break;
@@ -246,20 +246,6 @@ public class MenuView {
   }
 
   /**
-   * Handles the action when the user selects the "List Sales Counter" option from
-   * the menu.
-   * It changes the scene to the listSalesCounter.fxml view.
-   *
-   * @param event The action event triggered by the user.
-   * @throws Exception If an error occurs while changing the scene.
-   */
-  @FXML
-  void listSalesCounter(ActionEvent event) throws Exception {
-    Stage primaryStage = StageManager.getPrimaryStage();
-    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sales/listSalesCounter.fxml");
-  }
-
-  /**
    * Handles the action when the user selects the "Register Employee" option from
    * the menu.
    * It changes the scene to the createEmployee.fxml view.
@@ -355,5 +341,23 @@ public class MenuView {
   void listEmployees(ActionEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/users/listEmployees.fxml");
+  }
+
+  /**
+   * Handles the action event for generating income reports.
+   *
+   * @param event The action event triggered by the user.
+   * @throws Exception If an error occurs while generating the income reports.
+   */
+  @FXML
+  void incomeReports(ActionEvent event) throws Exception {
+    Stage primaryStage = StageManager.getPrimaryStage();
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/financial/incomeReports.fxml");
+  }
+
+  @FXML
+  void expenseReports(ActionEvent event) throws Exception {
+    Stage primaryStage = StageManager.getPrimaryStage();
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/financial/expenseReports.fxml");
   }
 }
