@@ -44,7 +44,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/com/cinema/main/views/financial/incomeReports.fxml"));
+                getClass().getResource("/com/cinema/main/views/sales/listAvailablesSalesCounter.fxml"));
 
         Parent root = fxmlLoader.load();
         Image appIcon = new Image(getClass().getResource("/cinemaLogo.png").toString());
