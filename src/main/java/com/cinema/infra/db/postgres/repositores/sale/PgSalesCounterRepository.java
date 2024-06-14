@@ -8,6 +8,7 @@ import com.cinema.domain.contracts.repositories.sale.IFindSalesCounterByIDReposi
 import com.cinema.domain.contracts.repositories.sale.IListSalesCounterRepository;
 import com.cinema.domain.contracts.repositories.sale.IUpdateSalesCounterRepository;
 import com.cinema.domain.entities.sale.SalesCounter;
+import com.cinema.infra.db.postgres.entities.sale.PgSale;
 import com.cinema.infra.db.postgres.entities.sale.PgSalesCounter;
 import com.cinema.infra.db.postgres.helpers.ConvertEntities;
 import com.cinema.infra.db.postgres.repositores.PgRepository;
@@ -46,6 +47,13 @@ public class PgSalesCounterRepository extends PgRepository
   @Override
   public void update(SalesCounter salesCounter) {
     PgSalesCounter pgSalesCounter = ConvertEntities.pgConvertSalesCounter(salesCounter);
+
+    List<PgSale> updatedSales = pgSalesCounter.getSales();
+    pgSalesCounter.getSales().clear();
+    for (PgSale sale : updatedSales) {
+      sale.setSalesCounter(pgSalesCounter);
+      pgSalesCounter.getSales().add(sale);
+    }
 
     this.session.merge(pgSalesCounter);
   }

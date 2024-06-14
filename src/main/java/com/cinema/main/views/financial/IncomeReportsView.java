@@ -17,7 +17,6 @@ public class IncomeReportsView {
 
   @FXML
   public void initialize() {
-    // Populate the daily sales chart
     XYChart.Series<String, Number> dailySeries = new XYChart.Series<>();
     dailySeries.setName("Vendas Diárias");
     dailySeries.getData().add(new XYChart.Data<>("Counter 1", 1));
@@ -28,7 +27,6 @@ public class IncomeReportsView {
     salesCounterDailySales.getData().add(dailySeries);
     addDataLabelsAndColors(salesCounterDailySales);
 
-    // Populate the monthly sales chart
     XYChart.Series<String, Number> monthlySeries = new XYChart.Series<>();
     monthlySeries.setName("Vendas Mensais");
     monthlySeries.getData().add(new XYChart.Data<>("Counter 1", 4));
@@ -55,7 +53,6 @@ public class IncomeReportsView {
                 StackPane stackPane = (StackPane) node;
                 stackPane.getChildren().add(dataLabel);
                 
-                // Position the label at the top of the bar
                 dataLabel.setTranslateX(node.getBoundsInParent().getWidth() / 2 - dataLabel.getBoundsInParent().getWidth() / 2);
                 dataLabel.setTranslateY(-node.getBoundsInParent().getHeight());
 
