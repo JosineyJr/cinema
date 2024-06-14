@@ -68,7 +68,7 @@
         </Menu>
             <Menu fx:id="financial" mnemonicParsing="false" text="Financeiro">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Relatórios" />
               </items>
             </Menu>
         <Menu fx:id="balcony" mnemonicParsing="false" text="Balcao">
