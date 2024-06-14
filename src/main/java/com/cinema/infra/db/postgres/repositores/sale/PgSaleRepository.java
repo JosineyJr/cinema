@@ -27,6 +27,8 @@ public class PgSaleRepository
   @Override
   public UUID createSale(Sale sale) {
     PgSale pgSale = ConvertEntities.pgConvertSale(sale);
+    
+    System.out.println("VENDA REALIZADA");
 
     this.session.persist(pgSale);
 
