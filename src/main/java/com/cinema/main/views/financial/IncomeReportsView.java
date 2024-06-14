@@ -82,14 +82,14 @@ public class IncomeReportsView {
         node.setStyle("-fx-bar-fill: " + toRgbString(colors[colorIndex % colors.length]) + ";");
 
         Text dataLabel = new Text(data.getYValue().toString());
-        dataLabel.setStyle("-fx-font-size: 10px; -fx-font-weight: bold; -fx-fill: white;");
+        dataLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-fill: white;");
 
         StackPane stackPane = (StackPane) node;
         stackPane.getChildren().add(dataLabel);
 
         Platform.runLater(() -> {
           dataLabel
-              .setTranslateX(dataLabel.getBoundsInParent().getWidth() / 2);
+              .setTranslateX(dataLabel.getBoundsInParent().getWidth() / 2 - 13);
           dataLabel.setTranslateY(-dataLabel.getBoundsInParent().getHeight());
         });
 
