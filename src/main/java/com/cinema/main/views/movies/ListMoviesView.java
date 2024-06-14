@@ -96,7 +96,7 @@ public class ListMoviesView {
     minimumAge.setCellValueFactory(new PropertyValueFactory<>("minimumAge"));
     minimumAge.setStyle("-fx-alignment: CENTER;");
 
-    action.setCellFactory(new ActionCellFactory<>(this::editMovie, this::deleteMovie));
+    action.setCellFactory(new ActionCellFactory<>(this::editMovie, this::deleteMovie, "Editar", "Deletar"));
   }
 
   /**

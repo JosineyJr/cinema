@@ -52,7 +52,7 @@ public class ListEmployeesView {
     this.CPF.setCellValueFactory(CellValueFactoryUtil.createCellValueFactory(EmployeeDTO::getCPF));
     this.CPF.setStyle("-fx-alignment: CENTER;");
 
-    this.action.setCellFactory(new ActionCellFactory<>(this::editEmployee, this::deleteEmployee));
+    this.action.setCellFactory(new ActionCellFactory<>(this::editEmployee, this::deleteEmployee, "Editar", "Deletar"));
   }
 
   private void editEmployee(EmployeeDTO employee) {

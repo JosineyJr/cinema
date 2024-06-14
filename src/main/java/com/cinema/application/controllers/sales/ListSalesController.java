@@ -1,5 +1,6 @@
 package com.cinema.application.controllers.sales;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,8 @@ public class ListSalesController extends Controller<Object> {
 
         List<SaleItemDTO> items = List.of(productItems, ticketItems).stream().flatMap(List::stream).toList();
 
-        return new SaleDTO(sale.getID(), items, sale.getSaleDate().toString(), sale.getPerson().getCPF(),
+        return new SaleDTO(sale.getID(), items,
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(sale.getSaleDate()), sale.getPerson().getCPF(),
             sale.getTotalPrice(), sale.getSalesCounter().getType().toString());
       }).toList();
 

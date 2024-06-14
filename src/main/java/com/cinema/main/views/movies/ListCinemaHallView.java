@@ -76,7 +76,7 @@ public class ListCinemaHallView {
     capacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
     capacity.setStyle("-fx-alignment: CENTER;");
 
-    action.setCellFactory(new ActionCellFactory<>(this::editCinemaHall, this::deleteCinemaHall));
+    action.setCellFactory(new ActionCellFactory<>(this::editCinemaHall, this::deleteCinemaHall, "Editar", "Deletar"));
 
   }
 

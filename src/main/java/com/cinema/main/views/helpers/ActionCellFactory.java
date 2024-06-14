@@ -8,29 +8,35 @@ import javafx.util.Callback;
 
 public class ActionCellFactory<T> implements Callback<TableColumn<T, Void>, TableCell<T, Void>> {
 
-  private final ExceptionThrowingActionHandler<T> editHandler;
   private final ActionHandler<T> deleteHandler;
+  private final ExceptionThrowingActionHandler<T> editHandler;
+  private final String deleteButtonText;
+  private final String editButtonText;
 
-  public ActionCellFactory(ExceptionThrowingActionHandler<T> editHandler, ActionHandler<T> deleteHandler) {
+  public ActionCellFactory(ExceptionThrowingActionHandler<T> editHandler, ActionHandler<T> deleteHandler,
+      String editButtonText, String deleteButtonText) {
     this.deleteHandler = deleteHandler;
     this.editHandler = editHandler;
+    this.deleteButtonText = deleteButtonText;
+    this.editButtonText = editButtonText;
   }
 
   @Override
   public TableCell<T, Void> call(TableColumn<T, Void> param) {
     return new TableCell<>() {
-      private final Button editButton = new Button("Editar");
-      private final Button deleteButton = new Button("Excluir");
+      private final Button deleteButton = new Button(deleteButtonText);
+      private final Button editButton = new Button(editButtonText);
 
       {
+        deleteButton.setOnAction(event -> deleteHandler.handle(getTableView().getItems().get(getIndex())));
         editButton.setOnAction(event -> {
           try {
             editHandler.handle(getTableView().getItems().get(getIndex()));
           } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Log the exception
+            // You might also want to show an alert to the user
           }
         });
-        deleteButton.setOnAction(event -> deleteHandler.handle(getTableView().getItems().get(getIndex())));
       }
 
       @Override

@@ -56,7 +56,7 @@ public class ListClientsView {
     this.CPF.setCellValueFactory(CellValueFactoryUtil.createCellValueFactory(ClientDTO::getCPF));
     this.CPF.setStyle("-fx-alignment: CENTER;");
 
-    this.action.setCellFactory(new ActionCellFactory<>(this::editClient, this::deleteClient));
+    this.action.setCellFactory(new ActionCellFactory<>(this::editClient, this::deleteClient, "Editar", "Deletar"));
   }
 
   private void deleteClient(ClientDTO client) {

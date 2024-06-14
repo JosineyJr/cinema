@@ -72,7 +72,7 @@ public class ListGenresView {
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     nameColumn.setStyle("-fx-alignment: CENTER;");
 
-    actionColumn.setCellFactory(new ActionCellFactory<>(this::editProduct, this::deleteGenre));
+    actionColumn.setCellFactory(new ActionCellFactory<>(this::editProduct, this::deleteGenre, "Editar", "Deletar"));
 
   }
 
