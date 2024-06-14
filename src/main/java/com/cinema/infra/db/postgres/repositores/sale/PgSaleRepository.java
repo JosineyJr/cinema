@@ -2,6 +2,7 @@ package com.cinema.infra.db.postgres.repositores.sale;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,10 +50,19 @@ public class PgSaleRepository
   }
 
   public List<DailySalesReport> getDailySalesReport() {
-    List<Object> report = this.session.createQuery(
-        "SELECT      DATE(saleDate) AS sale_day,     salesCounter,     COUNT(id) AS total_sales,     SUM(totalPrice) AS total_price FROM      sale GROUP BY      DATE(saleDate),     salesCounter ORDER BY      sale_day,     salesCounter",
-        Object.class).list();
+    LocalDate today = LocalDate.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    String hql = "SELECT DATE(saleDate) AS saleDay, salesCounter, COUNT(id) AS totalSales, SUM(totalPrice) AS totalPrice "
+        +
+        "FROM sale " +
+        "WHERE TO_CHAR(saleDate, 'yyyy-MM-dd') = :today " +
+        "GROUP BY DATE(saleDate), salesCounter " +
+        "ORDER BY DATE(saleDate), salesCounter";
+
+    List<Object[]> report = this.session.createQuery(hql, Object[].class)
+        .setParameter("today", today.format(formatter))
+        .list();
     List<DailySalesReport> dailySalesReport = report.stream().map(this::convertToDailySalesReport).toList();
     return dailySalesReport;
   }
@@ -69,7 +79,6 @@ public class PgSaleRepository
         saleDay,
         salesCounter,
         ((Number) row[2]).longValue(),
-        ((Number) row[3]).doubleValue()
-    );
+        ((Number) row[3]).doubleValue());
   }
 }
