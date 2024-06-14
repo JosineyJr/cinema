@@ -354,10 +354,4 @@ public class MenuView {
     Stage primaryStage = StageManager.getPrimaryStage();
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/financial/incomeReports.fxml");
   }
-
-  @FXML
-  void expenseReports(ActionEvent event) throws Exception {
-    Stage primaryStage = StageManager.getPrimaryStage();
-    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/financial/expenseReports.fxml");
-  }
 }
