@@ -94,19 +94,19 @@ public class DatabaseInitializer {
     session.beginTransaction();
 
     session.createNativeQuery(
-        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('21098561-b26e-45e8-9572-65afb4f08b2d', 'Gru', 90, 0, 'BANANA', 'Minions', 'de31fabc-7628-4e31-a3ab-fd6eb360db21') ON CONFLICT (title) DO NOTHING",
+        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('21098561-b26e-45e8-9572-65afb4f08b2d', 'Gru', 90, 0, 'BANANA', 'Minions', 'de31fabc-7628-4e31-a3ab-fd6eb360db21') ON CONFLICT (id) DO NOTHING",
         PgMovie.class).executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('7fbe34ba-73ed-4bbb-bbba-c7927f936516', 'Nolan', 120, 14, 'Ação', 'Inception', 'fbc4db0c-1386-4d7c-88b3-6e1aa8de2d29') ON CONFLICT (title) DO NOTHING",
+        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('7fbe34ba-73ed-4bbb-bbba-c7927f936516', 'Nolan', 120, 14, 'Ação', 'Inception', 'fbc4db0c-1386-4d7c-88b3-6e1aa8de2d29') ON CONFLICT (id) DO NOTHING",
         PgMovie.class).executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('686d8adf-5267-4bcb-b268-c238b8abe70b', 'Wan', 120, 16, 'Terror', 'Invocação do Mal', 'f4d40505-2aea-43e9-8001-a2cc0784c7ba') ON CONFLICT (title) DO NOTHING",
+        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('686d8adf-5267-4bcb-b268-c238b8abe70b', 'Wan', 120, 16, 'Terror', 'Invocação do Mal', 'f4d40505-2aea-43e9-8001-a2cc0784c7ba') ON CONFLICT (id) DO NOTHING",
         PgMovie.class).executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('7018100a-dac9-4984-843f-f76cbc38f6c8', 'George Lucas', 120, 16, 'WAGRRRRWWGAHHHHWWWRRGGAWWWWWWRR', 'Star Wars: The Empire Strikes Back', 'f6290685-0972-4cb9-8ccc-3542f288483d') ON CONFLICT (title) DO NOTHING",
+        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('7018100a-dac9-4984-843f-f76cbc38f6c8', 'George Lucas', 120, 16, 'WAGRRRRWWGAHHHHWWWRRGGAWWWWWWRR', 'Star Wars: The Empire Strikes Back', 'f6290685-0972-4cb9-8ccc-3542f288483d') ON CONFLICT (id) DO NOTHING",
         PgMovie.class).executeUpdate();
 
     session.getTransaction().commit();
