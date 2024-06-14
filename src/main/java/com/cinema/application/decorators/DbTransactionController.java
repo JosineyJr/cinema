@@ -43,12 +43,18 @@ public class DbTransactionController<T> extends Controller<T> {
     this.dbTransaction.openTransaction();
 
     try {
-      Response<?> response = this.decoratee.perform(object);
+      Response<?> response = this.decoratee.handle(object);
+
+      if (response.getStatusCode() >= 400) {
+        this.dbTransaction.rollback();
+
+        return response;
+      }
 
       this.dbTransaction.commit();
 
       return response;
-    } catch (Exception e) {
+    } catch (Throwable e) {
       this.dbTransaction.rollback();
 
       throw e;

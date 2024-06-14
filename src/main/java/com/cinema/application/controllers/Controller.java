@@ -25,7 +25,8 @@ public abstract class Controller<T> {
   public abstract ArrayList<IValidator> buildValidators(T object);
 
   /**
-   * Handles the given object by validating it and performing the necessary actions.
+   * Handles the given object by validating it and performing the necessary
+   * actions.
    *
    * @param object The object to be handled.
    * @return A Response object representing the result of the handling process.
@@ -39,7 +40,7 @@ public abstract class Controller<T> {
 
     try {
       return this.perform(object);
-    } catch (Exception e) {
+    } catch (Throwable e) {
       System.out.println(e);
       return ResponseFactory.serverError(e);
     }

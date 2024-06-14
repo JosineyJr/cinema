@@ -19,7 +19,7 @@ public class ResponseFactory {
         return new Response<>(401, error);
     }
 
-    public static Response<ServerError> serverError(Exception error) {
+    public static Response<ServerError> serverError(Throwable error) {
         return new Response<>(500, new ServerError(error));
     }
 }
