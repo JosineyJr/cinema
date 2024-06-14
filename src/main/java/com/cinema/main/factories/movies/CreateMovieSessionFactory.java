@@ -27,8 +27,9 @@ public class CreateMovieSessionFactory {
 
     PgTicketRepository pgTicketRepository = new PgTicketRepository();
 
-    CreateMovieSessionUseCase createMovieSessionUseCase = new CreateMovieSessionUseCase(pgMovieRepository,
-        pgCinemaHallRepository, pgMovieSessionRepository, pgMovieSessionRepository, pgTicketRepository);
+    CreateMovieSessionUseCase createMovieSessionUseCase = new CreateMovieSessionUseCase(pgCinemaHallRepository,
+        pgMovieSessionRepository, pgMovieSessionRepository, pgTicketRepository,
+        pgMovieRepository);
 
     CreateMovieSessionController createMovieSessionController = new CreateMovieSessionController(
         createMovieSessionUseCase);

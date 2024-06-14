@@ -1,5 +1,6 @@
 package com.cinema.main.views.movies;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.cinema.application.dtos.movies.DeleteMovieDTO;
@@ -13,6 +14,7 @@ import com.cinema.main.views.helpers.ActionCellFactory;
 import com.cinema.main.views.helpers.AlertError;
 import com.cinema.main.views.helpers.AlertSuccess;
 import com.cinema.main.views.helpers.ChangeWindow;
+import com.cinema.main.views.movies.comparators.MovieStringComparator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,9 +74,12 @@ public class ListMoviesView {
     if (data instanceof List) {
       ObservableList<MovieDTO> movies = FXCollections.observableArrayList();
 
-      for (Object movie : (List<?>) data) {
-        if (movie instanceof MovieDTO) {
-          movies.add((MovieDTO) movie);
+      Iterator<?> iterator = ((List<?>) data).iterator();
+
+      while (iterator.hasNext()) {
+        if (iterator.next() instanceof MovieDTO) {
+          MovieDTO movie = (MovieDTO) iterator.next();
+          movies.add(movie);
         }
       }
 
@@ -97,6 +102,9 @@ public class ListMoviesView {
     minimumAge.setStyle("-fx-alignment: CENTER;");
 
     action.setCellFactory(new ActionCellFactory<>(this::editMovie, this::deleteMovie, "Editar", "Deletar"));
+
+    title.setComparator(new MovieStringComparator());
+    duration.setComparator(new MovieStringComparator());
   }
 
   /**
@@ -157,4 +165,5 @@ public class ListMoviesView {
 
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/movies/editMovie.fxml");
   }
+
 }

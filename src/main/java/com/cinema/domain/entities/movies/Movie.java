@@ -30,6 +30,9 @@ public class Movie {
     this.minimumAge = minimumAge;
   }
 
+  public Movie(UUID ID) {
+    this.ID = ID;
+  }
 
   public UUID getID() {
     return this.ID;
@@ -86,4 +89,5 @@ public class Movie {
   public void setMinimumAge(int minimumAge) {
     this.minimumAge = minimumAge;
   }
+
 }

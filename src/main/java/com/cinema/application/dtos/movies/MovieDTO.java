@@ -17,14 +17,15 @@ public class MovieDTO {
   private int minimumAge;
 
   /**
-   * Constructs a new MovieDTO object with the specified ID, title, synopsis, director, genre, duration, and minimum age.
+   * Constructs a new MovieDTO object with the specified ID, title, synopsis,
+   * director, genre, duration, and minimum age.
    * 
-   * @param ID The ID of the movie.
-   * @param title The title of the movie.
-   * @param synopsis The synopsis of the movie.
-   * @param director The director of the movie.
-   * @param genre The genre of the movie.
-   * @param duration The duration of the movie in minutes.
+   * @param ID         The ID of the movie.
+   * @param title      The title of the movie.
+   * @param synopsis   The synopsis of the movie.
+   * @param director   The director of the movie.
+   * @param genre      The genre of the movie.
+   * @param duration   The duration of the movie in minutes.
    * @param minimumAge The minimum age required to watch the movie.
    */
   public MovieDTO(UUID ID, String title, String synopsis, String director, Genre genre, int duration, int minimumAge) {
@@ -38,13 +39,14 @@ public class MovieDTO {
   }
 
   /**
-   * Constructs a new MovieDTO object with the specified title, synopsis, director, genre, duration, and minimum age.
+   * Constructs a new MovieDTO object with the specified title, synopsis,
+   * director, genre, duration, and minimum age.
    * 
-   * @param title The title of the movie.
-   * @param synopsis The synopsis of the movie.
-   * @param director The director of the movie.
-   * @param genre The genre of the movie.
-   * @param duration The duration of the movie in minutes.
+   * @param title      The title of the movie.
+   * @param synopsis   The synopsis of the movie.
+   * @param director   The director of the movie.
+   * @param genre      The genre of the movie.
+   * @param duration   The duration of the movie in minutes.
    * @param minimumAge The minimum age required to watch the movie.
    */
   public MovieDTO(String title, String synopsis, String director, Genre genre, int duration, int minimumAge) {
