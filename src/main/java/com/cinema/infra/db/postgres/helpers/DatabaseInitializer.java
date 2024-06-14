@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.cinema.infra.db.postgres.entities.movies.PgCinemaHall;
 import com.cinema.infra.db.postgres.entities.movies.PgGenre;
+import com.cinema.infra.db.postgres.entities.movies.PgMovie;
+import com.cinema.infra.db.postgres.entities.products.PgInventory;
+import com.cinema.infra.db.postgres.entities.products.PgProduct;
 import com.cinema.infra.db.postgres.entities.users.PgAdmin;
 import com.cinema.infra.db.postgres.entities.users.PgClient;
 import com.cinema.infra.db.postgres.entities.users.PgEmployee;
@@ -82,6 +86,113 @@ public class DatabaseInitializer {
         "INSERT INTO client (id, cpf, first_name, last_name, password) VALUES ('1f533520-06b7-4a08-ab7e-9d9adce97517', '79101926063', 'Cliente', '1', '$2a$12$CXXlqRCEZ5dar2QfgWi/qugmdu7glmVIJerxaKZLAhl5H1gRmetGi') ON CONFLICT (cpf) DO NOTHING",
         PgClient.class)
         .executeUpdate();
+
+    session.getTransaction().commit();
+  }
+
+  public static void initMovie(Session session) {
+    session.beginTransaction();
+
+    session.createNativeQuery(
+        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('21098561-b26e-45e8-9572-65afb4f08b2d', 'Gru', 90, 0, 'BANANA', 'Minions', 'de31fabc-7628-4e31-a3ab-fd6eb360db21') ON CONFLICT (title) DO NOTHING",
+        PgMovie.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('7fbe34ba-73ed-4bbb-bbba-c7927f936516', 'Nolan', 120, 14, 'Ação', 'Inception', 'fbc4db0c-1386-4d7c-88b3-6e1aa8de2d29') ON CONFLICT (title) DO NOTHING",
+        PgMovie.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('686d8adf-5267-4bcb-b268-c238b8abe70b', 'Wan', 120, 16, 'Terror', 'Invocação do Mal', 'f4d40505-2aea-43e9-8001-a2cc0784c7ba') ON CONFLICT (title) DO NOTHING",
+        PgMovie.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO movie (id, director, duration, minimum_age, synopsis, title, genre_id) VALUES ('7018100a-dac9-4984-843f-f76cbc38f6c8', 'George Lucas', 120, 16, 'WAGRRRRWWGAHHHHWWWRRGGAWWWWWWRR', 'Star Wars: The Empire Strikes Back', 'f6290685-0972-4cb9-8ccc-3542f288483d') ON CONFLICT (title) DO NOTHING",
+        PgMovie.class).executeUpdate();
+
+    session.getTransaction().commit();
+  }
+
+  public static void initCinemaHall(Session session) {
+    session.beginTransaction();
+
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('b7507766-d1c8-47cf-8870-8d73b4dcf0f6', 'Sala 1', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('76405e8b-98cf-4d7a-b654-f7bd59ce3b26', 'Sala 2', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('579cad6a-373f-468c-ba91-fb83daeb8ad7', 'Sala 3', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('4480d232-64a8-4b1b-bc0d-c0cc019d80ca', 'Sala 4', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO cinema_hall (id, name, capacity) VALUES ('b99ef0c4-7cf4-4195-bd96-058413519fe0', 'Sala 5', 100) ON CONFLICT (name) DO NOTHING",
+        PgCinemaHall.class)
+        .executeUpdate();
+
+    session.getTransaction().commit();
+  }
+
+  public static void initProduct(Session session) {
+    session.beginTransaction();
+
+    session
+        .createNativeQuery(
+            "INSERT INTO product (id, name, price) VALUES ('6d7dff0a-a9e6-4002-9e53-5f97be86eb43', 'Pipoca', 10.0) ON CONFLICT (id) DO NOTHING",
+            PgProduct.class)
+        .executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO product (id, name, price) VALUES ('e58d3000-c05f-435a-8571-d7637e0e1437', 'Refrigerante', 5.0) ON CONFLICT (id) DO NOTHING",
+        PgProduct.class)
+        .executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO product (id, name, price) VALUES ('ba2c595c-553a-4acc-9720-084d292acdb9', 'Água', 3.0) ON CONFLICT (id) DO NOTHING",
+        PgProduct.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO product (id, name, price) VALUES ('eb762246-ebe5-4cc0-b5e0-6c01607fed90', 'Combo', 15.0) ON CONFLICT (id) DO NOTHING",
+        PgProduct.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO product (id, name, price) VALUES ('d8948068-ba03-460a-85fd-79a7e6d3a7f5', 'Combo', 20.0) ON CONFLICT (id) DO NOTHING",
+        PgProduct.class).executeUpdate();
+
+    session.getTransaction().commit();
+  }
+
+  public static void initInventory(Session session) {
+    session.beginTransaction();
+
+    session.createNativeQuery(
+        "INSERT INTO inventory (id, quantity, product_id) VALUES ('dbbc1925-4c27-466c-bc9f-705c718976c4', 100, '6d7dff0a-a9e6-4002-9e53-5f97be86eb43') ON CONFLICT (id) DO NOTHING",
+        PgInventory.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO inventory (id, quantity, product_id) VALUES ('1f614bd5-a4c3-453f-9e75-346c37348928', 100, 'e58d3000-c05f-435a-8571-d7637e0e1437') ON CONFLICT (id) DO NOTHING",
+        PgInventory.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO inventory (id, quantity, product_id) VALUES ('492e17ef-1655-4474-b399-4c9efe84079a', 100, 'ba2c595c-553a-4acc-9720-084d292acdb9') ON CONFLICT (id) DO NOTHING",
+        PgInventory.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO inventory (id, quantity, product_id) VALUES ('755e232a-5e87-4a9a-9af2-812557152979', 100, 'eb762246-ebe5-4cc0-b5e0-6c01607fed90') ON CONFLICT (id) DO NOTHING",
+        PgInventory.class).executeUpdate();
+
+    session.createNativeQuery(
+        "INSERT INTO inventory (id, quantity, product_id) VALUES ('36868f19-b837-486b-acdd-667325e29899', 100, 'd8948068-ba03-460a-85fd-79a7e6d3a7f5') ON CONFLICT (id) DO NOTHING",
+        PgInventory.class).executeUpdate();
 
     session.getTransaction().commit();
   }
