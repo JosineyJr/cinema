@@ -5,8 +5,10 @@ import java.util.List;
 import com.cinema.application.dtos.sales.SaleDTO;
 import com.cinema.application.helpers.Response;
 import com.cinema.main.factories.sales.ListSalesFactory;
+import com.cinema.main.views.StageManager;
 import com.cinema.main.views.helpers.ActionCellFactory;
 import com.cinema.main.views.helpers.CellValueFactoryUtil;
+import com.cinema.main.views.helpers.ChangeWindow;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class ListSalesView {
   @FXML
@@ -67,8 +70,12 @@ public class ListSalesView {
     this.action.setCellFactory(new ActionCellFactory<>(this::viewDetails, this::cancelSale, "Detalhes", "Cancelar"));
   }
 
-  private void viewDetails(SaleDTO sale) {
-    System.out.println("View details of sale: " + sale);
+  private void viewDetails(SaleDTO sale) throws Exception {
+    SaleModel.getInstance().setSale(sale);
+
+    Stage primaryStage = StageManager.getPrimaryStage();
+
+    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/sales/viewSalesDetails.fxml");
   }
 
   private void cancelSale(SaleDTO sale) {
