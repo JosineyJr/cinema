@@ -10,22 +10,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.movies.ListGenresView">
-   <children>
-      <fx:include source="../menu.fxml" />
-      <TableView fx:id="genreTable" layoutX="20.0" layoutY="144.0" prefHeight="388.0" prefWidth="772.0">
-        <columns>
-            <TableColumn fx:id="nameColumn1" minWidth="0.0" prefWidth="172.0" text="CPF" />
-          <TableColumn fx:id="nameColumn" minWidth="0.0" prefWidth="122.0" text="Balcão" />
-            <TableColumn prefWidth="185.0" text="Data" />
-            <TableColumn prefWidth="123.0" text="Total" />
-            <TableColumn fx:id="actionColumn" maxWidth="372.0" prefWidth="169.0" text="Ação" />
-        </columns>
-      </TableView>
-      <Label layoutX="239.0" layoutY="66.0" text="Vendas realizadas">
-         <font>
-            <Font name="Fira Code Regular" size="32.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
+  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.movies.ListSalesView">
+  <children>
+    <fx:include source="../menu.fxml" />
+    <TableView fx:id="salesTable" layoutX="20.0" layoutY="144.0" prefHeight="388.0"
+      prefWidth="772.0">
+      <columns>
+        <TableColumn fx:id="cpf" minWidth="0.0" prefWidth="172.0" text="CPF" />
+        <TableColumn fx:id="salesCounter" minWidth="0.0" prefWidth="122.0" text="Balcão" />
+        <TableColumn fx:id="date" prefWidth="185.0" text="Data" />
+        <TableColumn fx:id="total" prefWidth="123.0" text="Total" />
+        <TableColumn fx:id="action" maxWidth="372.0" prefWidth="169.0" text="Ação" />
+      </columns>
+    </TableView>
+    <Label layoutX="239.0" layoutY="66.0" text="Vendas realizadas">
+      <font>
+        <Font name="Fira Code Regular" size="32.0" />
+      </font>
+    </Label>
+  </children>
 </AnchorPane>
