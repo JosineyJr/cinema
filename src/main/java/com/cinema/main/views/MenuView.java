@@ -39,6 +39,9 @@ public class MenuView {
   @FXML
   private Menu employees;
 
+  @FXML
+  private Menu financial;
+
   /**
    * Initializes the MenuView.
    * This method is automatically called by JavaFX after the FXML file has been
@@ -62,10 +65,12 @@ public class MenuView {
         sales.setVisible(false);
         balcony.setVisible(false);
         employees.setVisible(false);
+        financial.setVisible(false);
 
         break;
       case "client":
         management.setVisible(false);
+        
         break;
       default:
         break;
