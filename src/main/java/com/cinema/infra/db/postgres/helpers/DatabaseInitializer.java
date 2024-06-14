@@ -72,18 +72,18 @@ public class DatabaseInitializer {
     }
 
     session.createNativeQuery(
-        "INSERT INTO admin (id, cpf, first_name, last_name, password) VALUES ('70e4dd2f-ce7c-4f3c-afee-00d64f87dbde', '12461414009', 'Master', 'User', '$2a$12$UWXHGddEHi6tLhutfDdUf.jbhg9iLXUYbNUf0lrxUHYa702IRiVLa') ON CONFLICT (cpf) DO NOTHING",
+        "INSERT INTO admin (id, cpf, first_name, last_name, password) VALUES ('70e4dd2f-ce7c-4f3c-afee-00d64f87dbde', '12345678909', 'Master', 'User', '$2a$12$UWXHGddEHi6tLhutfDdUf.jbhg9iLXUYbNUf0lrxUHYa702IRiVLa') ON CONFLICT (id) DO NOTHING",
         PgAdmin.class).executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO employee (id, cpf, first_name, last_name, password) VALUES ('8d83c944-1341-4eb8-8fa0-3e4c7df05a09', '91694536084', 'Func', '1', '$2a$12$BfAuYBB8nmjjLAGxzpyrKOo2NL65O5ngEDt3yYne3AABXNSw5Vedm') ON CONFLICT (cpf) DO NOTHING",
+        "INSERT INTO employee (id, cpf, first_name, last_name, password) VALUES ('8d83c944-1341-4eb8-8fa0-3e4c7df05a09', '91694536084', 'Func', '1', '$2a$12$BfAuYBB8nmjjLAGxzpyrKOo2NL65O5ngEDt3yYne3AABXNSw5Vedm') ON CONFLICT (id) DO NOTHING",
         PgEmployee.class).executeUpdate();
     session.createNativeQuery(
-        "INSERT INTO employee (id, cpf, first_name, last_name, password) VALUES ('848d720d-cf11-4ca9-967f-4adf06be5510', '29838176010', 'Func', '2', '$2a$12$0oQ7D5W1i6bVmoL4VWJmueJWVg64sNeDjiA2cg.eA.P96YoB.i57a') ON CONFLICT (cpf) DO NOTHING",
+        "INSERT INTO employee (id, cpf, first_name, last_name, password) VALUES ('848d720d-cf11-4ca9-967f-4adf06be5510', '29838176010', 'Func', '2', '$2a$12$0oQ7D5W1i6bVmoL4VWJmueJWVg64sNeDjiA2cg.eA.P96YoB.i57a') ON CONFLICT (id) DO NOTHING",
         PgEmployee.class).executeUpdate();
 
     session.createNativeQuery(
-        "INSERT INTO client (id, cpf, first_name, last_name, password) VALUES ('1f533520-06b7-4a08-ab7e-9d9adce97517', '79101926063', 'Cliente', '1', '$2a$12$CXXlqRCEZ5dar2QfgWi/qugmdu7glmVIJerxaKZLAhl5H1gRmetGi') ON CONFLICT (cpf) DO NOTHING",
+        "INSERT INTO client (id, cpf, first_name, last_name, password) VALUES ('1f533520-06b7-4a08-ab7e-9d9adce97517', '79101926063', 'Cliente', '1', '$2a$12$CXXlqRCEZ5dar2QfgWi/qugmdu7glmVIJerxaKZLAhl5H1gRmetGi') ON CONFLICT (id) DO NOTHING",
         PgClient.class)
         .executeUpdate();
 

@@ -34,9 +34,6 @@ public class MenuView {
   private Menu sales;
 
   @FXML
-  private Menu balcony;
-
-  @FXML
   private Menu employees;
 
   @FXML
@@ -56,14 +53,13 @@ public class MenuView {
       products.setVisible(false);
       profile.setVisible(false);
       cart.setVisible(false);
-      
+
       return;
     }
 
     switch (Session.getRole()) {
       case "employee":
         sales.setVisible(false);
-        balcony.setVisible(false);
         employees.setVisible(false);
         financial.setVisible(false);
 
@@ -353,11 +349,5 @@ public class MenuView {
   void incomeReports(ActionEvent event) throws Exception {
     Stage primaryStage = StageManager.getPrimaryStage();
     ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/financial/incomeReports.fxml");
-  }
-
-  @FXML
-  void expenseReports(ActionEvent event) throws Exception {
-    Stage primaryStage = StageManager.getPrimaryStage();
-    ChangeWindow.changeScene(primaryStage, "/com/cinema/main/views/financial/expenseReports.fxml");
   }
 }

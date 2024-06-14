@@ -1,5 +1,6 @@
 package com.cinema.main.views.financial;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
@@ -8,7 +9,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.Node;
 import javafx.scene.text.Text;
 
+import java.util.List;
+
+import com.cinema.application.helpers.Response;
+import com.cinema.domain.entities.financial.DailySalesReport;
+import com.cinema.domain.entities.financial.MonthlySalesReport;
+import com.cinema.main.factories.financial.GetDailySalesFactory;
+import com.cinema.main.factories.financial.GetMonthlySalesFactory;
+
 public class IncomeReportsView {
+
   @FXML
   private BarChart<String, Number> salesCounterDailySales;
 
@@ -17,54 +27,79 @@ public class IncomeReportsView {
 
   @FXML
   public void initialize() {
-    // Populate the daily sales chart
+    Response<?> dailySalesResponse = GetDailySalesFactory.make().handle(null);
+    Object data = dailySalesResponse.getData();
+    if (data instanceof List) {
+      List<DailySalesReport> dailySales = (List<DailySalesReport>) data;
+      loadDailySalesData(dailySales);
+    }
+
+    Response<?> monthlySalesResponse = GetMonthlySalesFactory.make().handle(null);
+    data = monthlySalesResponse.getData();
+    if (data instanceof List) {
+      List<MonthlySalesReport> monthlySales = (List<MonthlySalesReport>) data;
+      loadMonthlySalesData(monthlySales);
+    }
+  }
+
+  private void loadDailySalesData(List<DailySalesReport> dailySalesReport) {
     XYChart.Series<String, Number> dailySeries = new XYChart.Series<>();
     dailySeries.setName("Vendas Diárias");
-    dailySeries.getData().add(new XYChart.Data<>("Counter 1", 1));
-    dailySeries.getData().add(new XYChart.Data<>("Counter 2", 2));
-    dailySeries.getData().add(new XYChart.Data<>("Counter 3", 4));
-    dailySeries.getData().add(new XYChart.Data<>("Counter 4", 0));
-    dailySeries.getData().add(new XYChart.Data<>("Counter 5", 7));
+
+    for (DailySalesReport dailySales : dailySalesReport) {
+      String counterId = dailySales.getSalesCounter().getID().toString().split("-")[0];
+      Number totalPrice = dailySales.getTotalPrice();
+
+      dailySeries.getData().add(new XYChart.Data<>(counterId, totalPrice));
+    }
+
     salesCounterDailySales.getData().add(dailySeries);
     addDataLabelsAndColors(salesCounterDailySales);
+  }
 
-    // Populate the monthly sales chart
+  private void loadMonthlySalesData(List<MonthlySalesReport> monthlySalesReport) {
     XYChart.Series<String, Number> monthlySeries = new XYChart.Series<>();
     monthlySeries.setName("Vendas Mensais");
-    monthlySeries.getData().add(new XYChart.Data<>("Counter 1", 4));
-    monthlySeries.getData().add(new XYChart.Data<>("Counter 2", 2));
-    monthlySeries.getData().add(new XYChart.Data<>("Counter 3", 3));
-    monthlySeries.getData().add(new XYChart.Data<>("Counter 4", 10));
-    monthlySeries.getData().add(new XYChart.Data<>("Counter 4", 6));
+
+    for (MonthlySalesReport monthlySales : monthlySalesReport) {
+      String counterId = monthlySales.getSalesCounter().getID().toString().split("-")[0];
+      Number totalPrice = monthlySales.getTotalPrice();
+
+      monthlySeries.getData().add(new XYChart.Data<>(counterId, totalPrice));
+    }
+
     salesCounterMonthlySales.getData().add(monthlySeries);
     addDataLabelsAndColors(salesCounterMonthlySales);
   }
 
-    private void addDataLabelsAndColors(BarChart<String, Number> barChart) {
-        Color[] colors = { Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.PURPLE };
-        int colorIndex = 0;
+  private void addDataLabelsAndColors(BarChart<String, Number> barChart) {
+    Color[] colors = { Color.GREEN, Color.BLUE, Color.ORANGE, Color.PURPLE };
+    int colorIndex = 0;
 
-        for (XYChart.Series<String, Number> series : barChart.getData()) {
-            for (XYChart.Data<String, Number> data : series.getData()) {
-                Node node = data.getNode();
-                node.setStyle("-fx-bar-fill: " + toRgbString(colors[colorIndex % colors.length]) + ";");
+    for (XYChart.Series<String, Number> series : barChart.getData()) {
+      for (XYChart.Data<String, Number> data : series.getData()) {
+        Node node = data.getNode();
+        node.setStyle("-fx-bar-fill: " + toRgbString(colors[colorIndex % colors.length]) + ";");
 
-                Text dataLabel = new Text(data.getYValue().toString());
-                dataLabel.setStyle("-fx-font-size: 10px; -fx-font-weight: bold;");
+        Text dataLabel = new Text(data.getYValue().toString());
+        dataLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-fill: white;");
 
-                StackPane stackPane = (StackPane) node;
-                stackPane.getChildren().add(dataLabel);
-                
-                // Position the label at the top of the bar
-                dataLabel.setTranslateX(node.getBoundsInParent().getWidth() / 2 - dataLabel.getBoundsInParent().getWidth() / 2);
-                dataLabel.setTranslateY(-node.getBoundsInParent().getHeight());
+        StackPane stackPane = (StackPane) node;
+        stackPane.getChildren().add(dataLabel);
 
-                colorIndex++;
-            }
-        }
+        Platform.runLater(() -> {
+          dataLabel
+              .setTranslateX(dataLabel.getBoundsInParent().getWidth() / 2 - 13);
+          dataLabel.setTranslateY(-dataLabel.getBoundsInParent().getHeight());
+        });
+
+        colorIndex++;
+      }
     }
+  }
 
-    private String toRgbString(Color color) {
-        return "rgb(" + (int)(color.getRed() * 255) + "," + (int)(color.getGreen() * 255) + "," + (int)(color.getBlue() * 255) + ")";
-    }
+  private String toRgbString(Color color) {
+    return "rgb(" + (int) (color.getRed() * 255) + "," + (int) (color.getGreen() * 255) + ","
+        + (int) (color.getBlue() * 255) + ")";
+  }
 }

@@ -29,7 +29,6 @@
     <Menu fx:id="profile" mnemonicParsing="false" text="Perfil">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#showProfile" text="Visualizar perfil" />
-        <!-- <MenuItem mnemonicParsing="false" onAction="#logout" text="Sair" /> -->
       </items>
     </Menu>
     <Menu fx:id="management" mnemonicParsing="false" text="Gerenciamento">
@@ -76,8 +75,6 @@
         <Menu fx:id="financial" mnemonicParsing="false" text="Financeiro">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#incomeReports" text="Relatórios de receita" />
-            <MenuItem mnemonicParsing="false" onAction="#expenseReports"
-              text="Relatórios de despesas" />
           </items>
         </Menu>
         <Menu fx:id="employees" mnemonicParsing="false" text="Funcionários">
