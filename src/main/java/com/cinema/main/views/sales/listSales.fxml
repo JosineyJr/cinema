@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
+  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cinema.main.views.sales.ListSalesView">
+  <children>
+    <fx:include source="../menu.fxml" />
+    <TableView fx:id="salesTable" layoutX="9.0" layoutY="109.0" prefHeight="473.0" prefWidth="783.0">
+      <columns>
+        <TableColumn fx:id="cpf" minWidth="0.0" prefWidth="172.0" text="CPF" />
+        <TableColumn fx:id="salesCounter" minWidth="0.0" prefWidth="122.0" text="Balcão" />
+        <TableColumn fx:id="date" prefWidth="185.0" text="Data" />
+        <TableColumn fx:id="total" prefWidth="123.0" text="Total" />
+        <TableColumn fx:id="action" maxWidth="372.0" prefWidth="169.0" text="Ação" />
+      </columns>
+    </TableView>
+    <Label layoutX="239.0" layoutY="66.0" text="Vendas realizadas">
+      <font>
+        <Font name="Fira Code Regular" size="32.0" />
+      </font>
+    </Label>
+  </children>
+</AnchorPane>
