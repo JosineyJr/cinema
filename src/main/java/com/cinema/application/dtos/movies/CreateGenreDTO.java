@@ -15,6 +15,10 @@ public class CreateGenreDTO {
     this.name = name;
   }
 
+  public CreateGenreDTO() {
+    // construtor sem argumentos
+  }
+
   /**
    * Gets the name of the genre.
    *

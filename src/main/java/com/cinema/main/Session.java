@@ -1,4 +1,5 @@
-package com.cinema.main.views.helpers;
+package com.cinema.main;
+
 
 import java.util.UUID;
 

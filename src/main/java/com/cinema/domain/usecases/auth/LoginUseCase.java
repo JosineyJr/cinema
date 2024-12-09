@@ -8,7 +8,7 @@ import com.cinema.domain.entities.users.Client;
 import com.cinema.domain.entities.users.Person;
 import com.cinema.domain.enums.auth.Role;
 import com.cinema.domain.errors.auth.LoginError;
-import com.cinema.main.views.helpers.Session;
+import com.cinema.main.Session;
 
 public class LoginUseCase {
   private IFindClientByCPFRepository findClientByCPFRepository;
