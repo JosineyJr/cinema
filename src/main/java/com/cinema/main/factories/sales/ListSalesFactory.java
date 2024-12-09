@@ -9,7 +9,7 @@ import com.cinema.infra.db.postgres.repositores.sale.PgSaleRepository;
 import com.cinema.main.factories.db.PgConnectionFactory;
 
 public class ListSalesFactory {
-  public static Controller<?> make() {
+  public static Controller<Object> make() {
     PgSaleRepository pgSaleRepository = new PgSaleRepository();
 
     ListSalesUseCase listSalesUseCase = new ListSalesUseCase(pgSaleRepository);
