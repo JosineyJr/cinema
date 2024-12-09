@@ -1,6 +1,5 @@
 package com.cinema.main.routes.users;
 
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +13,6 @@ import com.cinema.main.adapters.SpringAdapter;
 import com.cinema.main.factories.users.CreateClientFactory;
 import com.cinema.main.factories.users.ListClientsFactory;
 import com.cinema.main.factories.users.UpdateClientFactory;
-
 
 @RestController
 public class ClientRoutes {
