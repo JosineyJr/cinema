@@ -40,18 +40,18 @@ public class MovieRoutes {
     return this.listMovieAdapter.adapt(null);
   }
 
-  @PostMapping("/movies")
+  @PostMapping("/movie")
   public ResponseEntity<?> postMovie(@RequestBody CreateMovieDTO movie) {
     return createMovieAdapter.adapt(movie);
   }
 
-  @DeleteMapping("/movies/{id}")
+  @DeleteMapping("/movie/{id}")
   public ResponseEntity<?> deleteMovie(@PathVariable UUID id) {
     DeleteMovieDTO movie = new DeleteMovieDTO(id);
     return deleteMovieAdapter.adapt(movie);
   }
 
-  @PutMapping("/movies")
+  @PutMapping("/movie")
   public ResponseEntity<?> updateMovie(@RequestBody UpdateMovieDTO movie) {
     return updateMovieAdapter.adapt(movie);
   }

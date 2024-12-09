@@ -35,7 +35,7 @@ public class CinemaHallRoutes {
     this.updateCinemaHallAdapter = new SpringAdapter<>(UpdateCinemaHallFactory.make());
   }
 
-  @GetMapping("/cinema-hall")
+  @GetMapping("/cinema-halls")
   public ResponseEntity<?> getCinemaHall() {
     return this.listCinemaHallAdapter.adapt(null);
   }

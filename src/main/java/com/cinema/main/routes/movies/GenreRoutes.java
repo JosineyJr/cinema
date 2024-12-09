@@ -40,18 +40,18 @@ public class GenreRoutes {
     return this.listGenreAdapter.adapt(null);
   }
 
-  @PostMapping("/genres")
+  @PostMapping("/genre")
   public ResponseEntity<?> postGenres(@RequestBody CreateGenreDTO genre) {
     return createGenreAdapter.adapt(genre);
   }
 
-  @DeleteMapping("/genres/{id}")
+  @DeleteMapping("/genre/{id}")
   public ResponseEntity<?> deleteGenre(@PathVariable UUID id) {
     DeleteGenreDTO genre = new DeleteGenreDTO(id);
     return deleteGenreAdapter.adapt(genre);
   }
 
-  @PutMapping("/genres")
+  @PutMapping("/genre")
   public ResponseEntity<?> updateGenre(@RequestBody UpdateGenreDTO genre) {
     return updateGenreAdapter.adapt(genre);
   }

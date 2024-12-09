@@ -30,7 +30,7 @@ public class MovieSessionRoutes {
     this.deleteMovieSessionAdapter = new SpringAdapter<>(DeleteMovieSessionFactory.make());
   }
 
-  @GetMapping("/movie-session")
+  @GetMapping("/movie-sessions")
   public ResponseEntity<?> getMovieSession() {
     return this.listMovieSessionAdapter.adapt(null);
   }
