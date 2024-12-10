@@ -8,3 +8,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: cinema
+  cinema:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: cinema_app
+    ports:
+      - "8080:8080"
+    restart: always

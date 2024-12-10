@@ -76,7 +76,7 @@ public class CreateProductController extends Controller<CreateProductDTO> {
     ArrayList<IValidator> validators = new ArrayList<IValidator>();
 
     validators.addAll(
-        ValidationBuilder.of().required(requiredFields).minValue(quantity, 0).minDoubleValue(price, 0.0).build());
+        ValidationBuilder.of().required(requiredFields).minValue(quantity, 1).minDoubleValue(price, 0.1).build());
 
     return validators;
   }

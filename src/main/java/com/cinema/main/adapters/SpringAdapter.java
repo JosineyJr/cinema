@@ -21,6 +21,9 @@ public class SpringAdapter<T> {
     int statusCode = response.getStatusCode();
     Object data = response.getData();
 
+
+    System.out.println(data);
+    System.out.println(statusCode);
     // Converte o código num HttpStatus
     HttpStatus httpStatus = HttpStatus.valueOf(statusCode);
 
